@@ -9,7 +9,7 @@ El proyecto FunerariaDigital, es un proyecto desarrollado por estudiantes de la 
 - Instalar MySql: https://dev.mysql.com/downloads/workbench/ 
 - https://www.mongodb.com/es/atlas
 
-## Instalación 
+## Instalación 1
 
 1. Clona este repositorio mediante adonis:
     ``` shell
@@ -22,6 +22,27 @@ El proyecto FunerariaDigital, es un proyecto desarrollado por estudiantes de la 
 3. Configura las variables de .env
 
 4. Ejecuta el proyecto:
+    ``` shell
+    npm run dev
+    ```
+
+## Instalación 2
+
+1. Clona este repositorio mediante adonis:
+    ``` shell
+    git clone https://github.com/Molton321/Funeraria-Digital.git
+    ```
+2. Navega hasta el directorio del proyecto Negocio.
+    ```shell
+    cd ./Funeraria-Digital
+    ```
+3. Instale las dependencias del proyecto
+    ```shell
+    npm install
+    ```
+4. Configura las variables de .env
+
+5. Ejecuta el proyecto:
     ``` shell
     npm run dev
     ```
