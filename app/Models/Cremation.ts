@@ -1,12 +1,12 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Burial extends BaseModel {
+export default class Cremation extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public burial_date: DateTime
+  public cremation_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -6,10 +6,13 @@ export default class Move extends BaseModel {
   public id: number
 
   @column()
-  public ubicacion: string
+  public move_location: string
 
   @column()
-  public fecha: DateTime
+  public move_date: DateTime
+
+  @column()
+  public move_type: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

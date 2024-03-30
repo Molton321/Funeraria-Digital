@@ -27,7 +27,7 @@ export default class BurialsController {
     public async update({ params, request }: HttpContextContract) {
         const theBurial: Burial = await Burial.findOrFail(params.id);
         const body = request.body();
-        theBurial.fecha = body.fecha;
+        theBurial.burial_date = body.burial_date;
         return theBurial.save();
     }
 

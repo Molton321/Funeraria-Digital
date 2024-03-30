@@ -27,8 +27,8 @@ export default class SubscriptionsController {
     public async update({ params, request }: HttpContextContract) {
         const theSubscription: Subscription = await Subscription.findOrFail(params.id)
         const body = request.body()
-        theSubscription.start_date = body.start_date
-        theSubscription.end_date = body.end_date
+        theSubscription.subscription_start_date = body.subscription_start_date
+        theSubscription.subscription_end_date = body.subscription_end_date
         return theSubscription.save()
     }
 

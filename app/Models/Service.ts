@@ -6,10 +6,10 @@ export default class Service extends BaseModel {
   public id: number
 
   @column()
-  public fecha: DateTime
+  public service_date: DateTime
 
   @column()
-  public estado: boolean
+  public service_state: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

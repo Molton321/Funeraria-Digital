@@ -27,8 +27,8 @@ export default class PlansController {
     public async update({ params, request }: HttpContextContract) {
         const thePlan: Plan = await Plan.findOrFail(params.id);
         const body = request.body();
-        thePlan.tipo = body.tipo;
-        thePlan.descripcion = body.descripcion;
+        thePlan.plan_type = body.plan_type;
+        thePlan.plan_description = body.plan_description;
         return thePlan.save();
     }
 

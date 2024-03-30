@@ -27,8 +27,8 @@ export default class ServicesController {
     public async update({ params, request }: HttpContextContract) {
         const theService: Service = await Service.findOrFail(params.id)
         const body = request.body()
-        theService.fecha = body.fecha
-        theService.estado = body.estado
+        theService.service_date = body.service_date
+        theService.service_state = body.service_state
         return theService.save()
     }
 

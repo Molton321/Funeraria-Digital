@@ -6,10 +6,10 @@ export default class Subscription extends BaseModel {
   public id: number
 
   @column()
-  public start_date: DateTime
+  public subscription_start_date: DateTime
 
   @column()
-  public end_date: DateTime
+  public subscription_end_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -1,41 +1,40 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Move from 'App/Models/Move';
+import Cremation from 'App/Models/Cremation';
 
-export default class MovesController {
+export default class CremationsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Move.findOrFail(params.id);
+            return Cremation.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Move.query().paginate(page, perPage)
+                return await Cremation.query().paginate(page, perPage)
             } else {
-                return await Move.query()
+                return await Cremation.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theMove: Move = await Move.create(body);
-        return theMove;
+        const theCremation: Cremation = await Cremation.create(body);
+        return theCremation;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theMove: Move = await Move.findOrFail(params.id);
+        const theCremation: Cremation = await Cremation.findOrFail(params.id);
         const body = request.body();
-        theMove.move_location = body.move_location;
-        theMove.move_date = body.move_date;
-        theMove.move_type = body.move_type;
-        return theMove.save();
+        theCremation.cremation_date = body.cremation_date;
+        return theCremation.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theMove: Move = await Move.findOrFail(params.id);
+        const theCremation: Cremation = await Cremation.findOrFail(params.id);
         response.status(204);
-        return theMove.delete();
+        return theCremation.delete();
     }
+
 }
