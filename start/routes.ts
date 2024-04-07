@@ -23,6 +23,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.get('/', async () => {
   return { hello: 'world' }
 })
+//Carlos Routes
 import './routes/services'
 import './routes/burials'
 import './routes/moves'
@@ -30,3 +31,14 @@ import './routes/plans'
 import './routes/subscriptions'
 import './routes/payments'
 import './routes/planServices'
+
+//Milton Routes
+import './routes/users'
+import './routes/clients'
+import './routes/titulars'
+import './routes/beneficiaries'
+import './routes/rolePermissions'
+import './routes/roles'
+import './routes/permissions'
+import './routes/drivers'
+import './routes/administrators'
