@@ -10,4 +10,6 @@ export default class Driver extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  //TODO: Add the relationship with User
 }

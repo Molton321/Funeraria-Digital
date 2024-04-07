@@ -10,4 +10,6 @@ export default class RolePermission extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  //TODO: Add the relationship with Role and Permission
 }

@@ -16,6 +16,7 @@ export default class TitularsController {
       }
     }
   }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body()
     const theTitular: Titular = await Titular.create(body)
@@ -25,9 +26,9 @@ export default class TitularsController {
   public async update({ params, request }: HttpContextContract) {
     const theTitular: Titular = await Titular.findOrFail(params.id)
     const body = request.body()
-    theTitular.name = body.name
-    theTitular.email = body.email
-    theTitular.phone = body.phone
+    //TODO: Add the fields to update
+    //theTitular.Titular_date = body.Titular_date
+    //theTitular.Titular_state = body.Titular_state
     return theTitular.save()
   }
 

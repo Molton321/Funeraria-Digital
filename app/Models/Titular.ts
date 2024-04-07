@@ -6,17 +6,13 @@ export default class Titular extends BaseModel {
   public id: number
 
   @column()
-  public name: string
-
-  @column()
-  public email: string
-
-  @column()
-  public phone: string
+  public is_active: boolean
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  //TODO: Add the relationship with the client and beneficiary
 }
