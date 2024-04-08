@@ -22,6 +22,7 @@ public class SecurityController {
     private EncryptionService theEncryptionService;
     @Autowired
     private JwtService theJwtService;
+    
     private int autenticationNumber = 1;
     private int numberGenerated = 0;
 
