@@ -30,6 +30,7 @@ export default class PaymentsController {
         thePayment.payment_date = body.payment_date;
         thePayment.payment_amount = body.payment_amount;
         thePayment.payment_method = body.payment_method;
+        thePayment.subscription_id = body.subscription_id;
         return thePayment.save();
     }
 

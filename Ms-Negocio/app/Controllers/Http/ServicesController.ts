@@ -34,8 +34,28 @@ export default class ServicesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theService: Service = await Service.findOrFail(params.id)
-        response.status(204)
-        return theService.delete()
+        // response.status(204)
+        // return theService.delete()
+        await theService.load("move")
+        await theService.load("burial")
+        await theService.load("cremation")
+        await theService.load("planServices")
+        if (theService.move) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated move"}
+        } else if (theService.burial) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated burial"}
+        } else if (theService.cremation) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated cremation"}
+        } else if (theService.planServices) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated service plans"}
+        } else {
+            response.status(204);
+            return theService.delete();
+        }
     }
 
 }
