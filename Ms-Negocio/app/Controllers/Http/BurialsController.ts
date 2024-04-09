@@ -31,7 +31,6 @@ export default class BurialsController {
         theBurial.service_id = body.service_id;
         return theBurial.save();
     }
-    }
 
     public async delete({ params, response }: HttpContextContract) {
         const theBurial: Burial = await Burial.findOrFail(params.id);
