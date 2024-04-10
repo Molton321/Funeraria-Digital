@@ -1,6 +1,5 @@
 package com.ucaldas.mssecurity.Models;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -13,9 +12,6 @@ public class Session {
   private String token;
   private String code2fa;
   private Boolean active = false;
-  private LocalDateTime expiration;
-  private LocalDateTime startAt;
-  private LocalDateTime endAt;
   @DBRef private User user;
 
   public Session() {}
@@ -25,13 +21,10 @@ public class Session {
     this.user = user;
   }
 
-  public Session(String code2fa, String token, Boolean active,LocalDateTime expiration,LocalDateTime startAt,LocalDateTime endAt) {
+  public Session(String code2fa, String token, Boolean active) {
     this.code2fa = code2fa;
     this.token = token;
     this.active = active;
-    this.expiration = expiration;
-    this.startAt = startAt;
-    this.endAt = endAt;
   }
 
   public String get_id() {
@@ -62,29 +55,6 @@ public class Session {
     this.active = active;
   }
 
-  public LocalDateTime getExpiration() {
-    return this.expiration;
-  }
-
-  public void setExpiration(LocalDateTime expiration) {
-    this.expiration = expiration;
-  }
-
-  public LocalDateTime getStartAt() {
-    return this.startAt;
-  }
-
-  public void setStartAt(LocalDateTime startAt) {
-    this.startAt = startAt;
-  }
-
-  public LocalDateTime getEndAt() {
-    return this.endAt;
-  }
-
-  public void setEndAt(LocalDateTime endAt) {
-    this.endAt = endAt;
-  }
 
   public User getUser() {
     return this.user;

@@ -6,7 +6,7 @@ app = Flask(__name__)
 @app.route('/send_email', methods=['POST'])
 def send_email():
     info_request = request.get_json()
-    tt = Send_email(info_request['message'], info_request['recipient'], info_request['subject_line'])
+    tt = Send_email(info_request['message'], info_request['recipient'])
     if tt.send_the_email():
         respuesta = {
             "mensaje": "the message has been sent"

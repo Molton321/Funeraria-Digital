@@ -9,9 +9,6 @@ export default class User extends BaseModel {
   public mail: string
 
   @column()
-  public password: string
-
-  @column()
   public name: string
 
   @column()
@@ -23,5 +20,5 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  //TODO: add the relationship with Administrator, Driver, Client and Role
+  //TODO: add the relationship with Administrator, Driver, Client 
 }

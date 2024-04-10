@@ -1,7 +1,10 @@
 package com.ucaldas.mssecurity.Controllers;
 
 import com.ucaldas.mssecurity.Models.User;
+import com.ucaldas.mssecurity.Models.Session;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
+import com.ucaldas.mssecurity.Repositories.SessionRepository;
+import com.ucaldas.mssecurity.Services.NotificationsService;
 import com.ucaldas.mssecurity.Services.EncryptionService;
 import com.ucaldas.mssecurity.Services.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -10,50 +13,71 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
 
-import java.util.Map;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/api/public/security")
 public class SecurityController {
     @Autowired
+    private SessionRepository theSessionRepository;
+    @Autowired
     private UserRepository theUserRepository;
     @Autowired
     private EncryptionService theEncryptionService;
     @Autowired
     private JwtService theJwtService;
+    @Autowired
+    private NotificationsService theNotificationsService;
     
-    private int autenticationNumber = 1;
-    private int numberGenerated = 0;
+
+    //THE USER LOGS SERVER GENERATES A RANDOM NUMBER AND SAVES IN SESSION -> USER POST NUMBER -> SERVER COMPARES -> IF EQUAL, GENERATE TOKEN
 
     @PostMapping("/login")
     public String login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
-        String token = "";
+        
         User theActualUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
         if (theActualUser != null &&
                 theActualUser.getPassword().equals(theEncryptionService.convertSHA256(theNewUser.getPassword()))
         ){
-            if (this.numberGenerated == this.autenticationNumber) {
-                token = theJwtService.generateToken(theActualUser);
-            } else {
-                this.numberGenerated = this.generateRandom();
-                System.out.println(this.numberGenerated);
-            }
+            String number = this.generateRandom();
+            Session theSession = new Session(number, theActualUser);
+            this.theSessionRepository.save(theSession);
+            theNotificationsService.sendCodeByEmail(theActualUser, number);
+            
+            
+            
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
         }
-        return token;
+        response.setStatus(HttpServletResponse.SC_OK);
+        return "message: User loged";
     }
 
-    @PostMapping("/login/secondFactor")
-    public int secondFactor(@RequestBody Map<String, Object> requestBody) {
-        int numero = Integer.parseInt(requestBody.get("number").toString());
-        this.autenticationNumber = numero;
-        return numero;
+    @PostMapping("/login/2FA")
+    public String secondFactor(@RequestBody Session requSession , final HttpServletResponse response)throws IOException{
+        String token = "";
+        String email = requSession.getUser().getEmail();
+        String number = requSession.getCode2fa();
+
+        User theActualUser = this.theUserRepository.getUserByEmail(email);
+        Session theActualSession = this.theSessionRepository.getSession(theActualUser.get_id(), number);
+        //TODO: generar verificacion de que la session no este activa 
+        if (theActualSession != null){
+            token = theJwtService.generateToken(theActualUser);
+            theActualSession.setToken(token);
+            theActualSession.setActive(true);
+
+            this.theSessionRepository.save(theActualSession);
+        }else{
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        }
+        response.setStatus(HttpServletResponse.SC_OK);            
+        return "message: "+ token;
     }
 
-    public int generateRandom() {
+    public String generateRandom() {
         int number = (int)(Math.random()*90000+10000);
-        return number;
+        return String.valueOf(number);
     }
+
 }
