@@ -19,7 +19,9 @@ logs
 .pnp.*
 .yarn-integrity
 */node_modules
-*/.env
-*/application.properties
+**/.env
+ms-security/src/main/resources/application.properties
 */py_cache
 .idea
+**/.venv
+**/__pycache__/*
