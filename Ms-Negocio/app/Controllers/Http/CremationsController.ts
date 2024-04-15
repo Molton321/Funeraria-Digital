@@ -28,6 +28,7 @@ export default class CremationsController {
         const theCremation: Cremation = await Cremation.findOrFail(params.id);
         const body = request.body();
         theCremation.cremation_date = body.cremation_date;
+        theCremation.service_id = body.service_id;
         return theCremation.save();
     }
 
