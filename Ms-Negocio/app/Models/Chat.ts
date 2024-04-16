@@ -1,24 +1,16 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class User extends BaseModel {
+export default class Chat extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public mail: string
-
-  @column()
-  public name: string
-
-  @column()
-  public lastname: string
+  public chat_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
-
-  //TODO: add the relationship with Administrator, Driver, Client 
 }

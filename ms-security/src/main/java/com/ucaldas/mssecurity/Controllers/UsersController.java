@@ -5,6 +5,9 @@ import com.ucaldas.mssecurity.Models.Role;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
 import com.ucaldas.mssecurity.Repositories.RoleRepository;
 import com.ucaldas.mssecurity.Services.EncryptionService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -26,14 +29,17 @@ public class UsersController {
         return this.theUserRepository.findAll();
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @PostMapping
-    public User create(@RequestBody User theNewUser){
-        User theUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
-        if (theUser == null) {
+    @PostMapping("")
+    public User create(@RequestBody User theNewUser,final HttpServletResponse response){
+        User theActualUser = this.theUserRepository
+                .getUserByEmail(theNewUser.getEmail());
+        if (theActualUser != null) {
+            response.setStatus(HttpServletResponse.SC_CONFLICT);
+            return null;
+        }else{
+            response.setStatus(HttpServletResponse.SC_CREATED);
             theNewUser.setPassword(theEncryptionService.convertSHA256(theNewUser.getPassword()));
             return this.theUserRepository.save(theNewUser);
-        } else {
-            return null;
         }
     }
 
