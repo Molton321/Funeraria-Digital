@@ -1,16 +1,15 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Campus extends BaseModel {
+export default class RolePermission extends BaseModel {
   @column({ isPrimary: true })
   public id: number
-
-  @column()
-  public campues_location: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  //TODO: Add the relationship with Role and Permission
 }
