@@ -20,7 +20,7 @@ logs
 .yarn-integrity
 */node_modules
 **/.env
-ms-security/src/main/resources/application.properties
+./ms-security/src/main/resources/application.properties
 */py_cache
 .idea
 **/.venv
