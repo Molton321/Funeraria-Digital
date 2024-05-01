@@ -1,6 +1,7 @@
 package com.ucaldas.mssecurity.Services;
 
 import com.ucaldas.mssecurity.Models.User;
+
 import java.util.HashMap;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
@@ -12,6 +13,10 @@ import org.springframework.web.client.RestTemplate;
 /** This class represents a service for sending notifications. */
 @Service
 public class NotificationsService {
+  @Value("${ms.notifications.url}")
+  private String notificationsUrl;
+  @Value("${ms.security.url}")
+  private String SecurityUrl;
 
   private RestTemplate restTemplate = new RestTemplate();
   private HttpHeaders headers = new HttpHeaders();
@@ -43,12 +48,27 @@ public class NotificationsService {
    * @param code the generated code
    */
   public boolean sendCodeByEmail(User user, String code) {
-    var body = new HashMap<String, String>();
+    HashMap<String, String> body = new HashMap<String, String>();
     body.put("recipient", user.getEmail());
     body.put("username", user.getName());
     body.put("message", code);
 
-    return send("http://127.0.0.1:5000/send_email", body);
+    return send(notificationsUrl+"/send_email", body);
+  }
+  /**
+   * Sends the generated code to the specified user's email.
+   * @param user
+   * @param code
+   * @return
+   */
+  public boolean sendResetLink( User user, String code){
+    HashMap<String, String> body = new HashMap<String, String>();
+    body.put("recipient", user.getEmail());
+    body.put("message", SecurityUrl+"/reset_password/"+user.get_id()+"/"+code);
+
+    return send(notificationsUrl+"/send_reset_link", body);
+
+    
   }
 
   // /**

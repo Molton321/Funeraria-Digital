@@ -13,6 +13,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String resetCode;
     @DBRef
     private Role role;
 
@@ -20,6 +21,9 @@ public class User {
         this.name = name;
         this.email = email;
         this.password = password;
+    }
+    public User(){
+
     }
 
     public Role getRole() {
@@ -34,9 +38,6 @@ public class User {
         this.role = role;
     }
 
-    public User(){
-
-    }
 
     public String get_id() {
         return _id;
@@ -56,6 +57,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getResetcode(){
+        return this.resetCode;
+    }
+
+    public void setResetCode(String code){
+        this.resetCode = code;
     }
 
     public String getPassword() {

@@ -74,6 +74,35 @@ public class SecurityController {
         response.setStatus(HttpServletResponse.SC_OK);            
         return "message: "+ token;
     }
+    @PostMapping("/resetpassword/{userId}")
+    public String resetPassword(@PathVariable String userId, final HttpServletResponse response) throws IOException{
+        User theActualUser = this.theUserRepository.findById(userId).orElse(null);
+            if (theActualUser != null){
+                String number = this.generateRandom();
+                theActualUser.setResetCode(number);
+                this.theUserRepository.save(theActualUser);
+                theNotificationsService.sendResetLink(theActualUser, number);
+            }else{
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return "message: User not found";
+            }
+        return "message: Reset code sent";
+
+    }
+        
+
+    @PostMapping("/resetpassword/{userId}/{code}")
+    public String resetPassword(@PathVariable String userId , @PathVariable String code, @RequestBody String password, final HttpServletResponse response) throws IOException{
+        User theActualUser = this.theUserRepository.findById(userId).orElse(null);
+            if (theActualUser.getResetcode().equals(code)){
+                theActualUser.setPassword(theEncryptionService.convertSHA256(password));
+                theActualUser.setResetCode("");
+                this.theUserRepository.save(theActualUser);
+                return "message: Password reseted";
+            }
+        return "message: algo salio mal";
+        
+    }
 
     public String generateRandom() {
         int number = (int)(Math.random()*90000+10000);
