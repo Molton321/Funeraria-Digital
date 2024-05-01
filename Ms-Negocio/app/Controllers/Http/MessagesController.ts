@@ -1,41 +1,38 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cremation from 'App/Models/Cremation';
+import Message from 'App/Models/Message';
 
-export default class CremationsController {
-
+export default class MessagesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Cremation.findOrFail(params.id);
+            return Message.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Cremation.query().paginate(page, perPage)
+                return await Message.query().paginate(page, perPage)
             } else {
-                return await Cremation.query()
+                return await Message.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theCremation: Cremation = await Cremation.create(body);
-        return theCremation;
+        const theMessage: Message = await Message.create(body);
+        return theMessage;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theMessage: Message = await Message.findOrFail(params.id);
         const body = request.body();
-        theCremation.cremation_date = body.cremation_date;
-        theCremation.service_id = body.service_id;
-        return theCremation.save();
+        theMessage.message_date = body.Message_date;
+        return theMessage.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theMessage: Message = await Message.findOrFail(params.id);
         response.status(204);
-        return theCremation.delete();
+        return theMessage.delete();
     }
-
 }

@@ -28,6 +28,7 @@ export default class BurialsController {
         const theBurial: Burial = await Burial.findOrFail(params.id);
         const body = request.body();
         theBurial.burial_date = body.burial_date;
+        theBurial.service_id = body.service_id;
         return theBurial.save();
     }
 

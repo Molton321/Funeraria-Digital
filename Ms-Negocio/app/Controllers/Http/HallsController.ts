@@ -1,41 +1,39 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cremation from 'App/Models/Cremation';
+import Hall from 'App/Models/Hall';
 
-export default class CremationsController {
-
+export default class HallsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Cremation.findOrFail(params.id);
+            return Hall.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Cremation.query().paginate(page, perPage)
+                return await Hall.query().paginate(page, perPage)
             } else {
-                return await Cremation.query()
+                return await Hall.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theCremation: Cremation = await Cremation.create(body);
-        return theCremation;
+        const theHall: Hall = await Hall.create(body);
+        return theHall;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theHall: Hall = await Hall.findOrFail(params.id);
         const body = request.body();
-        theCremation.cremation_date = body.cremation_date;
-        theCremation.service_id = body.service_id;
-        return theCremation.save();
+        theHall.hall_location = body.Hall_location;
+
+        return theHall.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theHall: Hall = await Hall.findOrFail(params.id);
         response.status(204);
-        return theCremation.delete();
+        return theHall.delete();
     }
-
 }

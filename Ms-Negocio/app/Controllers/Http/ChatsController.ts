@@ -1,41 +1,39 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cremation from 'App/Models/Cremation';
 
-export default class CremationsController {
+import Chat from "App/Models/Chat";
 
+export default class ChatsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Cremation.findOrFail(params.id);
+            return Chat.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Cremation.query().paginate(page, perPage)
+                return await Chat.query().paginate(page, perPage)
             } else {
-                return await Cremation.query()
+                return await Chat.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theCremation: Cremation = await Cremation.create(body);
-        return theCremation;
+        const theChat: Chat = await Chat.create(body);
+        return theChat;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theChat: Chat = await Chat.findOrFail(params.id);
         const body = request.body();
-        theCremation.cremation_date = body.cremation_date;
-        theCremation.service_id = body.service_id;
-        return theCremation.save();
+        theChat.chat_date = body.Chat_date;
+        return theChat.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theChat: Chat = await Chat.findOrFail(params.id);
         response.status(204);
-        return theCremation.delete();
+        return theChat.delete();
     }
-
 }

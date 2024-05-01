@@ -1,41 +1,39 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Cremation from 'App/Models/Cremation';
 
-export default class CremationsController {
+import Campus from "App/Models/Campus";
 
+export default class CampusesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Cremation.findOrFail(params.id);
+            return Campus.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Cremation.query().paginate(page, perPage)
+                return await Campus.query().paginate(page, perPage)
             } else {
-                return await Cremation.query()
+                return await Campus.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theCremation: Cremation = await Cremation.create(body);
-        return theCremation;
+        const theCampus: Campus = await Campus.create(body);
+        return theCampus;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theCampus: Campus = await Campus.findOrFail(params.id);
         const body = request.body();
-        theCremation.cremation_date = body.cremation_date;
-        theCremation.service_id = body.service_id;
-        return theCremation.save();
+        theCampus.campues_location = body.Campus_location;
+        return theCampus.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theCremation: Cremation = await Cremation.findOrFail(params.id);
+        const theCampus: Campus = await Campus.findOrFail(params.id);
         response.status(204);
-        return theCremation.delete();
+        return theCampus.delete();
     }
-
 }
