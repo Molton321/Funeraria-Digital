@@ -4,6 +4,7 @@ import PlanService from './PlanService'
 import Move from './Move'
 import Burial from './Burial'
 import Cremation from './Cremation'
+import ServiceExecution from './ServiceExecution'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -40,4 +41,11 @@ export default class Service extends BaseModel {
     foreignKey: 'service_id'
   })
   public cremation: HasOne<typeof Cremation>
+
+  // Vinculacion con ServiceExecution
+  @hasOne(() => ServiceExecution, {
+    foreignKey: 'service_id'
+  })
+  public serviceExecution: HasOne<typeof ServiceExecution>
+
 }
