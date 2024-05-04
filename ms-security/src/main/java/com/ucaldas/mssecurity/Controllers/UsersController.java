@@ -24,10 +24,12 @@ public class UsersController {
     private EncryptionService theEncryptionService;
     @Autowired
     private RoleRepository theRoleRepository;
+
     @GetMapping("")
     public List<User> findAll(){
         return this.theUserRepository.findAll();
     }
+    
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
     public User create(@RequestBody User theNewUser,final HttpServletResponse response){

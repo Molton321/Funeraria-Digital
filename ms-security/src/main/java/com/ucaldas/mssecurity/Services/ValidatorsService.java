@@ -23,6 +23,7 @@ public class ValidatorsService {
     @Autowired
     private RolePermissionRepository theRolePermissionRepository;
     private static final String BEARER_PREFIX = "Bearer ";
+    
     public boolean validationRolePermission(HttpServletRequest request,String url,String method){
         boolean success=false;
         User theUser=this.getUser(request);
@@ -45,6 +46,7 @@ public class ValidatorsService {
         }
         return success;
     }
+
     public User getUser(final HttpServletRequest request) {
         User theUser=null;
         String authorizationHeader = request.getHeader("Authorization");

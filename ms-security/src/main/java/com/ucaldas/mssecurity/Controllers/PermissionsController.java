@@ -14,15 +14,18 @@ import java.util.List;
 public class PermissionsController {
     @Autowired
     private PermissionRepository thePermissionRepository;
+
     @GetMapping("")
     public List<Permission> findAll(){
         return this.thePermissionRepository.findAll();
     }
+
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping
     public Permission create(@RequestBody Permission theNewPermission){
         return this.thePermissionRepository.save(theNewPermission);
     }
+    
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id) {

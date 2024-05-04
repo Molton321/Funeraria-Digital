@@ -55,7 +55,6 @@ public class Session {
     this.active = active;
   }
 
-
   public User getUser() {
     return this.user;
   }
