@@ -7,6 +7,10 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('city_location')
+      table.boolean('department_id')
+        .unsigned()
+        .references('departments.id')
+        .onDelete('CASCADE')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

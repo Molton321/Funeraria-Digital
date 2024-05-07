@@ -6,7 +6,15 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      //Add reference of Titular
+      table.string('phone')
+      table.string('relationship')
+      table.boolean('is_active')
+      table.integer('titular_id')
+        .unsigned()
+        .references('titulars.id')
+      table.integer('client_id')
+        .unsigned()
+        .references('clients.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

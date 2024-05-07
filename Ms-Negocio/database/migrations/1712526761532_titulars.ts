@@ -7,6 +7,9 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.boolean('is_active')
+      table.integer('client_id')
+        .unsigned()
+        .references('clients.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
