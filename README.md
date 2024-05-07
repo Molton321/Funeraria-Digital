@@ -42,7 +42,7 @@ El proyecto FunerariaDigital, es un proyecto desarrollado por estudiantes de la 
     ```
 3. Configure el JDK 17
 
-4. Configura las variables de .env 
+4. Configura las variables de .env (src/main/resources/application.properties)
     ```
     server.port=8181
     spring.data.mongodb.uri=    mongodb://Link de la base de datos Mongo a almacenar la informacion

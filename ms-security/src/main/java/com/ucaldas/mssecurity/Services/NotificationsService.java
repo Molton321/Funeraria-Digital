@@ -14,6 +14,7 @@ public class NotificationsService {
 
   private RestTemplate restTemplate = new RestTemplate();
   private HttpHeaders headers = new HttpHeaders();
+  private static final String NOTIFICATIONS_SEND_EMAIL = "http://127.0.0.1:5000/send_email";
 
   /**
    * Sends a notification to the specified URL with the given body.
@@ -47,7 +48,7 @@ public class NotificationsService {
     body.put("username", user.getName());
     body.put("message", code);
 
-    return send("http://127.0.0.1:5000/send_email", body);
+    return send(NOTIFICATIONS_SEND_EMAIL, body);
   }
 
   // /**

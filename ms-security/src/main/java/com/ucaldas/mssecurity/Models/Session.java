@@ -21,6 +21,10 @@ public class Session {
     this.user = user;
   }
 
+  public Session(String code2fa) {
+    this.code2fa = code2fa;
+  }
+
   public Session(String code2fa, String token, Boolean active) {
     this.code2fa = code2fa;
     this.token = token;

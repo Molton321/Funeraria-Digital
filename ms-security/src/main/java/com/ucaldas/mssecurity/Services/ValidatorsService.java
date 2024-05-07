@@ -40,8 +40,6 @@ public class ValidatorsService {
                 if (theRolePermission!=null){
                     success=true;
                 }
-            }else{
-                success=false;
             }
         }
         return success;

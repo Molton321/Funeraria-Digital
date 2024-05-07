@@ -10,9 +10,9 @@ import com.ucaldas.mssecurity.Services.JwtService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import java.io.IOException;
-
 
 @CrossOrigin
 @RestController
@@ -29,50 +29,55 @@ public class SecurityController {
     @Autowired
     private NotificationsService theNotificationsService;
     
-
     //THE USER LOGS SERVER GENERATES A RANDOM NUMBER AND SAVES IN SESSION -> USER POST NUMBER -> SERVER COMPARES -> IF EQUAL, GENERATE TOKEN
 
-    @PostMapping("/login")
-    public String login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
-        
+    @PostMapping("login")
+    public String login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {        
         User theActualUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
         if (theActualUser != null &&
                 theActualUser.getPassword().equals(theEncryptionService.convertSHA256(theNewUser.getPassword()))
         ){
+            System.out.println(theActualUser.get_id());
             String number = this.generateRandom();
             Session theSession = new Session(number, theActualUser);
             this.theSessionRepository.save(theSession);
             theNotificationsService.sendCodeByEmail(theActualUser, number);
-            
-            
-            
+            response.setStatus(HttpServletResponse.SC_OK);
+            return "message: User loged";
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return "message: Error while trying to log the user";
         }
-        response.setStatus(HttpServletResponse.SC_OK);
-        return "message: User loged";
     }
 
-    @PostMapping("/login/2FA")
-    public String secondFactor(@RequestBody Session requSession , final HttpServletResponse response)throws IOException{
-        String token = "";
-        String email = requSession.getUser().getEmail();
-        String number = requSession.getCode2fa();
+    @PostMapping("login/2FA/{idUser}")
+    public String secondFactor(@RequestBody Session theNewSession, @PathVariable String idUser, final HttpServletResponse response) throws IOException {
 
-        User theActualUser = this.theUserRepository.getUserByEmail(email);
-        Session theActualSession = this.theSessionRepository.getSession(theActualUser.get_id(), number);
-        //TODO: generar verificacion de que la session no este activa 
-        if (theActualSession != null){
-            token = theJwtService.generateToken(theActualUser);
-            theActualSession.setToken(token);
-            theActualSession.setActive(true);
+        User theUser = this.theUserRepository.findById(idUser).orElse(null);
+        Session theOldSession = this.theSessionRepository.getSession(theUser.get_id(), theNewSession.getCode2fa());
 
-            this.theSessionRepository.save(theActualSession);
-        }else{
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        if (theUser != null && theOldSession != null) {
+            if (theNewSession.getCode2fa().equals(theOldSession.getCode2fa()) && !theOldSession.isActive()) {
+                String token = theJwtService.generateToken(theUser);
+                theOldSession.setActive(true);  
+                this.theSessionRepository.save(theOldSession);
+                response.setStatus(HttpServletResponse.SC_OK);
+                return "message: "+ token;
+            } else {
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED); 
+            }
         }
-        response.setStatus(HttpServletResponse.SC_OK);            
-        return "message: "+ token;
+
+        return null;
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/singout/session/{idSession}")
+    public void closeSession(@PathVariable String idUser, @PathVariable String idSession, final HttpServletResponse response)throws IOException {
+        Session theSession = this.theSessionRepository.findById(idSession).orElse(null);
+        if (theSession != null) {
+            this.theSessionRepository.delete(theSession);
+        }
     }
 
     public String generateRandom() {

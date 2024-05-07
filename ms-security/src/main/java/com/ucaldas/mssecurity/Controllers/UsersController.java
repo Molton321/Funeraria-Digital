@@ -32,7 +32,7 @@ public class UsersController {
     
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("")
-    public User create(@RequestBody User theNewUser,final HttpServletResponse response){
+    public User create(@RequestBody User theNewUser, final HttpServletResponse response){
         User theActualUser = this.theUserRepository
                 .getUserByEmail(theNewUser.getEmail());
         if (theActualUser != null) {
@@ -54,15 +54,23 @@ public class UsersController {
     }
 
     @PutMapping("{id}")
-    public User update(@PathVariable String id, @RequestBody User theNewUser) {
+    public User update(@PathVariable String id, @RequestBody User theNewUser, final HttpServletResponse response) {
         User theActualUser = this.theUserRepository
                 .findById(id)
                 .orElse(null);
         if (theActualUser != null) {
-            theActualUser.setName(theNewUser.getName());
-            theActualUser.setEmail(theNewUser.getEmail());
-            theActualUser.setPassword(theEncryptionService.convertSHA256(theNewUser.getPassword()));
-            return this.theUserRepository.save(theActualUser);
+            User tryUserByEmail = this.theUserRepository
+                    .getUserByEmail(theNewUser.getEmail());
+            if (tryUserByEmail != null && !tryUserByEmail.get_id().equals(theActualUser.get_id())) {
+                response.setStatus(HttpServletResponse.SC_CONFLICT);
+                return null;
+            }else{
+                response.setStatus(HttpServletResponse.SC_ACCEPTED);
+                theActualUser.setName(theNewUser.getName());
+                theActualUser.setEmail(theNewUser.getEmail());
+                theActualUser.setPassword(theEncryptionService.convertSHA256(theNewUser.getPassword()));
+                return this.theUserRepository.save(theActualUser);
+            }
         } else {
             return null;
         }
