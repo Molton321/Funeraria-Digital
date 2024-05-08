@@ -29,6 +29,7 @@ export default class ServicesController {
         const body = request.body()
         theService.service_date = body.service_date
         theService.service_state = body.service_state
+        
         return theService.save()
     }
 

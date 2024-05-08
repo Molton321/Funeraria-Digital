@@ -33,7 +33,7 @@ public class SecurityController {
     //THE USER LOGS SERVER GENERATES A RANDOM NUMBER AND SAVES IN SESSION -> USER POST NUMBER -> SERVER COMPARES -> IF EQUAL, GENERATE TOKEN
 
     @PostMapping("/login")
-    public String login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
+    public User login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
         
         User theActualUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
         if (theActualUser != null &&
@@ -48,9 +48,11 @@ public class SecurityController {
             
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            
         }
         response.setStatus(HttpServletResponse.SC_OK);
-        return "message: User loged";
+
+        return theActualUser;
     }
 
     @PostMapping("/login/2FA")
