@@ -13,6 +13,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private String resetCode;
     @DBRef
     private Role role;
 
@@ -50,6 +51,14 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getResetcode(){
+        return this.resetCode;
+    }
+
+    public void setResetCode(String code){
+        this.resetCode = code;
     }
 
     public String getPassword() {

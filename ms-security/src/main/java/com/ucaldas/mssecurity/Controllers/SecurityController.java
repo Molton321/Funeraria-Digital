@@ -31,8 +31,9 @@ public class SecurityController {
     
     //THE USER LOGS SERVER GENERATES A RANDOM NUMBER AND SAVES IN SESSION -> USER POST NUMBER -> SERVER COMPARES -> IF EQUAL, GENERATE TOKEN
 
-    @PostMapping("login")
-    public String login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {        
+    @PostMapping("/login")
+    public User login(@RequestBody User theNewUser, final HttpServletResponse response) throws IOException {
+        
         User theActualUser = this.theUserRepository.getUserByEmail(theNewUser.getEmail());
         if (theActualUser != null &&
                 theActualUser.getPassword().equals(theEncryptionService.convertSHA256(theNewUser.getPassword()))
@@ -46,8 +47,11 @@ public class SecurityController {
             return "message: User loged";
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
-            return "message: Error while trying to log the user";
+            
         }
+        response.setStatus(HttpServletResponse.SC_OK);
+
+        return theActualUser;
     }
 
     @PostMapping("login/2FA/{idUser}")
@@ -78,6 +82,35 @@ public class SecurityController {
         if (theSession != null) {
             this.theSessionRepository.delete(theSession);
         }
+    }
+    @PostMapping("/resetpassword/{userId}")
+    public String resetPassword(@PathVariable String userId, final HttpServletResponse response) throws IOException{
+        User theActualUser = this.theUserRepository.findById(userId).orElse(null);
+            if (theActualUser != null){
+                String number = this.generateRandom();
+                theActualUser.setResetCode(number);
+                this.theUserRepository.save(theActualUser);
+                theNotificationsService.sendResetLink(theActualUser, number);
+            }else{
+                response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+                return "message: User not found";
+            }
+        return "message: Reset code sent";
+
+    }
+        
+
+    @PostMapping("/resetpassword/{userId}/{code}")
+    public String resetPassword(@PathVariable String userId , @PathVariable String code, @RequestBody String password, final HttpServletResponse response) throws IOException{
+        User theActualUser = this.theUserRepository.findById(userId).orElse(null);
+            if (theActualUser.getResetcode().equals(code)){
+                theActualUser.setPassword(theEncryptionService.convertSHA256(password));
+                theActualUser.setResetCode("");
+                this.theUserRepository.save(theActualUser);
+                return "message: Password reseted";
+            }
+        return "message: algo salio mal";
+        
     }
 
     public String generateRandom() {

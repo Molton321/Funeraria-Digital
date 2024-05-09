@@ -27,6 +27,8 @@ export default class CommentsController {
     public async update({ params, request }: HttpContextContract) {
         const theComment: Comment = await Comment.findOrFail(params.id);
         const body = request.body();
+        theComment.comment = body.Comment;
+        theComment.calification = body.Calification;
         theComment.comment_date = body.Comment_date;
         return theComment.save();
     }

@@ -1,6 +1,6 @@
 from azure.communication.email import EmailClient
-#from dotenv import load_dotenv
-#import os
+from dotenv import load_dotenv
+import os
 #esta clase en la rama main puede generar errores pues esta configurada con mis credenciales Att:milton
 
 
@@ -13,13 +13,13 @@ class Send_email:
 
     def send_the_email(self):
         response = False
-        #load_dotenv()
+        load_dotenv()
         try:
-            connection_string = "endpoint=https://38790-notifications.unitedstates.communication.azure.com/;accesskey=LU38XaoGqpeNvUO86CnxSoMm54oSC6jVnOM2NXTOyW1DqM7wTVRmGQdYiHXrPUdNLq9kvXkFZVUt0MAz+KxSTA=="
+            connection_string = os.getenv('CONNECTION_STRING')
             client = EmailClient.from_connection_string(connection_string)
 
             message = {
-                "senderAddress": "DoNotReply@9a4142d7-c419-457e-a814-cd274e2e221f.azurecomm.net", 
+                "senderAddress":os.getenv('EMAIL_SENDER'), 
                 "recipients": {
                     # "to": [{"address": recipient} for recipient in self.recipient],
                     "to": [{"address": self.recipient}],
@@ -32,12 +32,36 @@ class Send_email:
             }
 
             poller = client.begin_send(message)
-            result = poller.result()  # noqa: F841
+            result = poller.result()  
             response = True
 
         except Exception as ex:
             print(ex)
 
         return response
+    
+    def send_the_reset_link(self):
+        response = False
+        load_dotenv()
+        try:
+            connection_string = os.getenv('CONNECTION_STRING')
+            client = EmailClient.from_connection_string(connection_string)
+            message = {
+                "senderAddress": os.getenv('EMAIL_SENDER'), 
+                "recipients": {
+                    "to": [{"address": self.recipient}],
+                },
+                "content": {
+                    "subject": self.subject_line,
+                    "html": f"<a href='{self.message}'>{self.message} Click para resetear la contraseña</a>",
+                }
+            }
+            poller = client.begin_send(message)
+            result = poller.result()  
+            response = True
+        except Exception as ex:
+            print(ex)
+        return response
+
 
     
