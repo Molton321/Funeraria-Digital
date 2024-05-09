@@ -10,6 +10,15 @@ export default class Hall extends BaseModel {
   @column()
   public hall_location: string
 
+  @column()
+  public hall_capacity: number
+
+  @column()
+  public hall_is_active: boolean
+
+  @column()
+  public campus_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

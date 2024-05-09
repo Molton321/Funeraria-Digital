@@ -8,7 +8,6 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('plan_type')
       table.string('plan_description')
-      table.integer('plan_duration')
       table.integer('plan_price')
       table.boolean('plan_is_active')
       table.integer('hall_id')

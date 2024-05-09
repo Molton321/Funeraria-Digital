@@ -14,6 +14,15 @@ export default class Plan extends BaseModel {
   @column()
   public plan_description: string
 
+  @column()
+  public plan_price: number
+
+  @column()
+  public plan_is_active: boolean
+
+  @column()
+  public hall_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
