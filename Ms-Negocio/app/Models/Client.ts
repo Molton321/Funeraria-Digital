@@ -1,5 +1,9 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, HasMany, HasOne, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Titular from './Titular'
+import Beneficiary from './Beneficiary'
+import Subscription from './Subscription'
+import ServiceExecution from './ServiceExecution'
 
 export default class Client extends BaseModel {
   @column({ isPrimary: true })
@@ -20,7 +24,23 @@ export default class Client extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  //TODO: Relacionship with Titular and Benefitiary
-  //TODO: Add the relationship with Service and plan
-  // Referencing to -> serviceexecution and -> subscription
+  @hasMany(() => Subscription, {
+    foreignKey: 'client_id'
+  })
+  public subscriptions: HasMany<typeof Subscription>
+
+  @hasMany(() => ServiceExecution, {
+    foreignKey: 'client_id'
+  })
+  public serviceExecutions: HasMany<typeof ServiceExecution>
+
+  @hasOne(() => Titular, {
+    foreignKey: 'client_id'
+  })
+  public titular: HasOne<typeof Titular>
+
+  @hasOne(() => Beneficiary, {
+    foreignKey: 'client_id'
+  })
+  public beneficiary: HasOne<typeof Beneficiary>
 }

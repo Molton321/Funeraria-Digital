@@ -4,6 +4,7 @@ import PlanService from './PlanService'
 import Move from './Move'
 import Burial from './Burial'
 import Cremation from './Cremation'
+import ServiceExecution from './ServiceExecution'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -25,6 +26,11 @@ export default class Service extends BaseModel {
     foreignKey: 'service_id'
   })
   public planServices: HasMany<typeof PlanService>
+
+  @hasMany(() => ServiceExecution, {
+    foreignKey: 'service_id'
+  })
+  public serviceExecutions: HasMany<typeof ServiceExecution>
 
   @hasOne(() => Move, {
     foreignKey: 'service_id'
