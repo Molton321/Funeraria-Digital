@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.integer('service_id')
         .unsigned()
         .references('services.id')
-      
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })
