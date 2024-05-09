@@ -44,9 +44,9 @@ public class SecurityController {
             this.theSessionRepository.save(theSession);
             theNotificationsService.sendCodeByEmail(theActualUser, number);
             response.setStatus(HttpServletResponse.SC_OK);
-            return "message: User loged";
         } else {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+            return null;
             
         }
         response.setStatus(HttpServletResponse.SC_OK);
