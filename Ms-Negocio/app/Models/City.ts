@@ -10,6 +10,9 @@ export default class City extends BaseModel {
   @column()
   public city_location: string
 
+  @column()
+  public department_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

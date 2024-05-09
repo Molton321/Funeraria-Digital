@@ -6,9 +6,9 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('license')
-      table.string('license_category')
-      table.string('license_expiration')
+      table.string('driver_license')
+      table.string('driver_license_category')
+      table.string('driver_license_expiration')
       table.integer('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

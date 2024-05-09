@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('hall_location')
       table.integer('hall_capacity')
-      table.boolean('is_active')
+      table.boolean('hall_is_active')
       table.integer('campus_id')
         .unsigned()
         .references('campuses.id')

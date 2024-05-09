@@ -10,7 +10,7 @@ export default class extends BaseSchema {
       table.string('plan_description')
       table.integer('plan_duration')
       table.integer('plan_price')
-      table.boolean('is_active')
+      table.boolean('plan_is_active')
       table.integer('hall_id')
         .unsigned()
         .references('halls.id')

@@ -6,9 +6,9 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('phone')
-      table.string('relationship')
-      table.boolean('is_active')
+      table.string('beneficiary_phone')
+      table.string('beneficiary_relationship')
+      table.boolean('beneficiary_is_active')
       table.integer('titular_id')
         .unsigned()
         .references('titulars.id')

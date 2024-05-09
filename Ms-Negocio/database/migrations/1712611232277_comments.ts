@@ -7,7 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.dateTime('comment_date')
-      table.string('comment')
+      table.string('comment_text')
       table.integer('service_execution_id')
         .unsigned()
         .references('service_executions.id')

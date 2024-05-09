@@ -10,6 +10,15 @@ export default class Campus extends BaseModel {
   @column()
   public campues_location: string
 
+  @column()
+  public campus_name: string
+
+  @column()
+  public is_active: boolean
+
+  @column()
+  public city_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

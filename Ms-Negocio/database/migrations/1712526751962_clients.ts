@@ -6,10 +6,9 @@ export default class extends BaseSchema {
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('city')
-      table.string('address')
-      table.boolean('is_alive')
-      table.boolean('is_active')
+      table.string('client_address')
+      table.boolean('client_is_alive')
+      table.boolean('client_is_active')
       table.integer('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

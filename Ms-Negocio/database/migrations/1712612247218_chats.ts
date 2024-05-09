@@ -7,6 +7,7 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.dateTime('chat_date')
+      table.integer('chat_is_active')
       table.integer('service_execution_id')
         .unsigned()
         .references('service_executions.id')
