@@ -7,7 +7,10 @@ export default class Titular extends BaseModel {
   public id: number
 
   @column()
-  public is_active: boolean
+  public titular_is_active: boolean
+
+  @column()
+  public client_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

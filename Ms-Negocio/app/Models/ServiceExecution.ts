@@ -10,6 +10,18 @@ export default class ServiceExecution extends BaseModel {
   public id: number
 
   @column()
+  public service_execution_execution_date: DateTime
+
+  @column()
+  public service_execution_status: string
+
+  @column()
+  public service_execution_description: string
+
+  @column()
+  public service_execution_observation: string
+
+  @column()
   public service_id: number
 
   @column()

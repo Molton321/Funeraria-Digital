@@ -17,6 +17,9 @@ export default class Subscription extends BaseModel {
   @column()
   public plan_id: number
 
+  @column()
+  public client_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

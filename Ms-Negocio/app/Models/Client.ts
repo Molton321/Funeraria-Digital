@@ -10,13 +10,16 @@ export default class Client extends BaseModel {
   public id: number
 
   @column()
-  public city: string
+  public client_address: string
 
   @column()
-  public address: string
+  public client_is_alive: boolean
 
   @column()
-  public is_alive: boolean
+  public client_is_active: boolean
+
+  @column()
+  public user_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
