@@ -31,6 +31,7 @@ import './routes/plans'
 import './routes/subscriptions'
 import './routes/payments'
 import './routes/planServices'
+import './routes/cremations'
 
 //Milton Routes
 import './routes/users'
@@ -39,6 +40,7 @@ import './routes/titulars'
 import './routes/beneficiaries'
 import './routes/drivers'
 import './routes/administrators'
+import './routes/serviceExecutions'
 
 //Jacobo Routes
 import './routes/campuses'

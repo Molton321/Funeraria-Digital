@@ -9,7 +9,7 @@ export default class Move extends BaseModel {
   @column()
   public move_location: string
 
-  @column()
+  @column.dateTime()
   public move_date: DateTime
 
   @column()

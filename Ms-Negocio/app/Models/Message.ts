@@ -6,7 +6,7 @@ export default class Message extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public message_date: DateTime
 
   @column()

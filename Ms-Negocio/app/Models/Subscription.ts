@@ -8,10 +8,10 @@ export default class Subscription extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public subscription_start_date: DateTime
 
-  @column()
+  @column.dateTime()
   public subscription_end_date: DateTime
 
   @column()

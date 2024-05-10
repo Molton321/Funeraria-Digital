@@ -11,7 +11,7 @@ export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public service_date: DateTime
 
   @column()

@@ -6,7 +6,7 @@ export default class Comment extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public comment_date: DateTime
 
   @column()

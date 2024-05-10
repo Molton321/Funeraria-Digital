@@ -6,10 +6,10 @@ export default class  Viewing extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public viewing_entry_date: DateTime
 
-  @column()
+  @column.dateTime()
   public viewing_exit_date: DateTime
 
   @column()

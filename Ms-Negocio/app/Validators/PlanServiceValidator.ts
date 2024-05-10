@@ -7,8 +7,8 @@ export default class PlanServiceValidator {
   
   public schema = schema.create({
     id : schema.number([rules.unique({ table: 'plan_services', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
-    service_id: schema.number([rules.unique({ table: 'services', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
-    plan_id: schema.number([rules.unique({ table: 'plans', column: 'id' , where:{id: this.ctx.request.input('id')}})])
+    service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
+    plan_id: schema.number([rules.exists({ table: 'plans', column: 'id' })])
   })
 
  

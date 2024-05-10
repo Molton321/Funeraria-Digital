@@ -11,7 +11,7 @@ export default class Driver extends BaseModel {
   @column()
   public driver_license_category: string
   
-  @column()
+  @column.dateTime()
   public driver_license_expiration: DateTime
   
   @column()

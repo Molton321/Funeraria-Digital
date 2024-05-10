@@ -7,8 +7,8 @@ export default class AdministratorValidator {
 
   public schema = schema.create({
       id : schema.number([rules.unique({ table: 'administrators', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
-      administrators_is_active: schema.boolean([rules.required()]),
-      user_id : schema.string([rules.required()])  
+      administrator_is_active: schema.boolean(),
+      user_id : schema.string() 
   })
 
   

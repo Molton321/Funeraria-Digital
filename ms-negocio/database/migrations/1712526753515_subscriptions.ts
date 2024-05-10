@@ -6,8 +6,8 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.dateTime('subscription_start_date')
-      table.dateTime('subscription_end_date')
+      table.timestamp('subscription_start_date')
+      table.timestamp('subscription_end_date')
       table.integer('subscription_number_of_beneficiaries')
       table.integer('plan_id')
         .unsigned()

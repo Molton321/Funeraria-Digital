@@ -6,10 +6,10 @@ export default class DriverValidator {
 
   public schema = schema.create({
     id : schema.number([rules.unique({ table: 'drivers', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
-    driver_license: schema.string([rules.minLength(0), rules.maxLength(300)]),
-    driver_license_category: schema.string([rules.minLength(0), rules.maxLength(300)]),
-    driver_license_expiration: schema.boolean([rules.after('today')]),
-    user_id: schema.string([rules.required])
+    driver_license: schema.string([rules.minLength(10)]),
+    driver_license_category: schema.string([rules.regex(/[A-C]|[1-2]/)]),
+    driver_license_expiration: schema.date({format:"yyyy-MM-dd"},[rules.after('today')]),
+    user_id: schema.string()
   })
 
   public messages: CustomMessages = {}

@@ -6,7 +6,7 @@ export default class extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.dateTime('cremation_date')
+      table.timestamp('cremation_date')
       table.integer('service_id')
         .unsigned()
         .references('services.id')
