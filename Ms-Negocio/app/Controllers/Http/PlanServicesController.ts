@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PlanService from 'App/Models/PlanService';
+import PlanServiceValidator from 'App/Validators/PlanServiceValidator';
 
 export default class PlanServicesController {
 
@@ -19,14 +20,16 @@ export default class PlanServicesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(PlanServiceValidator)
         const thePlanService: PlanService = await PlanService.create(body);
         return thePlanService;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const thePlanService: PlanService = await PlanService.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(PlanServiceValidator)
         thePlanService.service_id = body.service_id;
         thePlanService.plan_id = body.plan_id;
         return thePlanService.save();

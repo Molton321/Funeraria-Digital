@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Cremation from 'App/Models/Cremation';
+import CremationValidator from 'App/Validators/CremationValidator';
 
 export default class CremationsController {
 
@@ -19,14 +20,16 @@ export default class CremationsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(CremationValidator)
         const theCremation: Cremation = await Cremation.create(body);
         return theCremation;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theCremation: Cremation = await Cremation.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(CremationValidator)
         theCremation.cremation_date = body.cremation_date;
         theCremation.service_id = body.service_id;
         return theCremation.save();

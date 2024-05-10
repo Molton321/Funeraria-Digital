@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Burial from 'App/Models/Burial';
+import BurialValidator from 'App/Validators/BurialValidator';
 
 export default class BurialsController {
 
@@ -19,14 +20,16 @@ export default class BurialsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(BurialValidator)
         const theBurial: Burial = await Burial.create(body);
         return theBurial;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theBurial: Burial = await Burial.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(BurialValidator)
         theBurial.burial_date = body.burial_date;
         theBurial.service_id = body.service_id;
         return theBurial.save();

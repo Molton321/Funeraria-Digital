@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 import Comment from "App/Models/Comment";
+import CommentValidator from 'App/Validators/CommentValidator';
 
 export default class CommentsController {
     public async find({ request, params }: HttpContextContract) {
@@ -19,14 +20,16 @@ export default class CommentsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(CommentValidator)
         const theComment: Comment = await Comment.create(body);
         return theComment;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theComment: Comment = await Comment.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(CommentValidator)
         theComment.comment_date = body.comment_date;
         theComment.comment_text = body.comment_text;
         theComment.comment_calification = body.comment_calification;

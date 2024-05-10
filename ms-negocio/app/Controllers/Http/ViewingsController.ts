@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Viewing from 'App/Models/Viewing'
+import ViewingValidator from 'App/Validators/ViewingValidator'
 
 export default class ViewingsController {
 
@@ -19,14 +20,16 @@ export default class ViewingsController {
       }
     
       public async create({ request }: HttpContextContract) {
-        const body = request.body()
+        // const body = request.body()
+        const body = await request.validate(ViewingValidator)
         const theViewing: Viewing = await Viewing.create(body)
         return theViewing
       }
     
       public async update({ params, request }: HttpContextContract) {
         const theViewing: Viewing = await Viewing.findOrFail(params.id)
-        const body = request.body()
+        // const body = request.body()
+        const body = await request.validate(ViewingValidator)
         theViewing.viewing_entry_date = body.viewing_entry_date
         theViewing.viewing_exit_date = body.viewing_exit_date
         theViewing.service_id = body.service_id
