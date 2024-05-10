@@ -8,7 +8,7 @@ export default class Hall extends BaseModel {
   public id: number
 
   @column()
-  public hall_location: string
+  public hall_name: string
 
   @column()
   public hall_capacity: number

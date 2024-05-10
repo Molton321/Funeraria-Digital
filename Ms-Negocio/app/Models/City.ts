@@ -8,7 +8,7 @@ export default class City extends BaseModel {
   public id: number
 
   @column()
-  public city_location: string
+  public city_name: string
 
   @column()
   public department_id: number

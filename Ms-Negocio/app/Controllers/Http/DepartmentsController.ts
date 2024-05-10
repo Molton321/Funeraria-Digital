@@ -26,7 +26,7 @@ export default class DepartmentsController {
     public async update({ params, request }: HttpContextContract) {
         const theDepartment: Department = await Department.findOrFail(params.id);
         const body = request.body();
-        theDepartment.department_location = body.Department_location;
+        theDepartment.department_name = body.department_name;
         return theDepartment.save();
     }
 

@@ -27,7 +27,7 @@ export default class CampusesController {
     public async update({ params, request }: HttpContextContract) {
         const theCampus: Campus = await Campus.findOrFail(params.id);
         const body = request.body();
-        theCampus.campues_location = body.Campus_location;
+        theCampus.campus_name = body.campus_name;
         return theCampus.save();
     }
 

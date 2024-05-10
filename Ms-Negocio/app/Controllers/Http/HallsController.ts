@@ -26,7 +26,7 @@ export default class HallsController {
     public async update({ params, request }: HttpContextContract) {
         const theHall: Hall = await Hall.findOrFail(params.id);
         const body = request.body();
-        theHall.hall_location = body.Hall_location;
+        theHall.hall_name = body.hall_name;
 
         return theHall.save();
     }
