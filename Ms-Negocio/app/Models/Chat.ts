@@ -2,13 +2,17 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Message from './Message'
 import ServiceExecution from './ServiceExecution'
+import BlokedUser from './BlokedUser'
 
 export default class Chat extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public chat_date: DateTime
+
+  @column()
+  public chat_is_active: boolean
 
   @column()
   public service_execution_id: number
@@ -19,16 +23,18 @@ export default class Chat extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  //Vinculacion con Message
-  @hasMany(() => Message, {
-    foreignKey: 'chat_id'
-  })
-  public messages: HasMany<typeof Message>
-
   @belongsTo(() => ServiceExecution, {
     foreignKey: 'service_execution_id'
   })
   public serviceExecution: BelongsTo<typeof ServiceExecution>
 
-  //TODO: Add relationship with many Users
+  @hasMany(() => Message, {
+    foreignKey: 'chat_id'
+  })
+  public messages: HasMany<typeof Message>
+
+  @hasMany(() => BlokedUser, {
+    foreignKey: 'chat_id'
+  })
+  public blokedUsers: HasMany<typeof BlokedUser>
 }

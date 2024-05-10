@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Administrator from 'App/Models/Administrator'
+import AdministratorValidator from 'App/Validators/AdministratorValidator'
 
 export default class AdministratorsController {
   public async find({ request, params }: HttpContextContract) {
@@ -18,17 +19,18 @@ export default class AdministratorsController {
   }
 
   public async create({ request }: HttpContextContract) {
-    const body = request.body()
+    // const body = request.body()
+    const body = await request.validate(AdministratorValidator)
     const theAdministrator: Administrator = await Administrator.create(body)
     return theAdministrator
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theAdministrator: Administrator = await Administrator.findOrFail(params.id)
-    const body = request.body()
-    //TODO: Add the fields to update
-    //theAdministrator.Administrator_date = body.Administrator_date
-    //theAdministrator.Administrator_state = body.Administrator_state
+    // const body = request.body()
+    const body = await request.validate(AdministratorValidator)
+    theAdministrator.administrator_is_active = body.administrator_is_active
+    theAdministrator.user_id = body.user_id
     return theAdministrator.save()
   }
 

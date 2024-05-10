@@ -1,10 +1,13 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import City from 'App/Models/City';
+import CityValidator from 'App/Validators/CityValidator';
 
 export default class CitiesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return City.findOrFail(params.id);
+            let theCity:City=await City.findOrFail(params.id);
+            await theCity.load("department")
+            return theCity;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -18,21 +21,30 @@ export default class CitiesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(CityValidator)
         const theCity: City = await City.create(body);
         return theCity;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theCity: City = await City.findOrFail(params.id);
-        const body = request.body();
-        theCity.city_location = body.City_location;
+        // const body = request.body();
+        const body = await request.validate(CityValidator)
+        theCity.city_name = body.city_name;
+        theCity.department_id = body.department_id;
         return theCity.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theCity: City = await City.findOrFail(params.id);
-        response.status(204);
-        return theCity.delete();
+        await theCity.load("campuses")
+        if (theCity.campuses) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated campuses"}
+        } else {
+            response.status(204);
+            return theCity.delete();
+        }
     }
 }

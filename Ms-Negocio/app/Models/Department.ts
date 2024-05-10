@@ -7,7 +7,7 @@ export default class Department extends BaseModel {
   public id: number
 
   @column()
-  public department_location: string
+  public department_name: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

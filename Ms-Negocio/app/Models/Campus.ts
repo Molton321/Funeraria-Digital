@@ -8,9 +8,6 @@ export default class Campus extends BaseModel {
   public id: number
 
   @column()
-  public campus_location: string
-
-  @column()
   public campus_name: string
 
   @column()

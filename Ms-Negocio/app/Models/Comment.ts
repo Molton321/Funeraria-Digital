@@ -6,17 +6,17 @@ export default class Comment extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
-  public comment: string
+  @column.dateTime()
+  public comment_date: DateTime
 
   @column()
-  public calification: number
+  public comment_text: string
+
+  @column()
+  public comment_calification: number
 
   @column()
   public service_execution_id: number
-
-  @column()
-  public comment_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

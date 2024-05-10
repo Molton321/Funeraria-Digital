@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
+import ClientValidator from 'App/Validators/ClientValidator'
 
 export default class ClientsController {
   public async find({ request, params }: HttpContextContract) {
@@ -18,23 +19,45 @@ export default class ClientsController {
   }
 
   public async create({ request }: HttpContextContract) {
-    const body = request.body()
+    // const body = request.body()
+    const body = await request.validate(ClientValidator)
     const theClient: Client = await Client.create(body)
     return theClient
   }
 
   public async update({ params, request }: HttpContextContract) {
     const theClient: Client = await Client.findOrFail(params.id)
-    const body = request.body()
-    //TODO: Add the fields to update
-    //theClient.Client_date = body.Client_date
-    //theClient.Client_state = body.Client_state
+    // const body = request.body()
+    const body = await request.validate(ClientValidator)
+    theClient.client_address = body.client_address
+    theClient.client_is_alive = body.client_is_alive
+    theClient.client_is_active = body.client_is_active
+    theClient.user_id = body.user_id
     return theClient.save()
   }
 
   public async delete({ params, response }: HttpContextContract) {
     const theClient: Client = await Client.findOrFail(params.id)
-    response.status(204)
-    return theClient.delete()
+    await theClient.load("subscriptions")
+    await theClient.load("serviceExecutions")
+    await theClient.load("titular")
+    await theClient.load("beneficiary")
+    if (theClient.subscriptions) {
+      response.status(400);
+      return { "message": "Cannot be deleted because it has associated subscriptions"}
+    } else if (theClient.serviceExecutions) {
+        response.status(400);
+        return { "message": "Cannot be deleted because it has associated service executions"}
+    } else if (theClient.titular) {
+        response.status(400);
+        return { "message": "Cannot be deleted because it has associated titular"}
+    } else if (theClient.beneficiary) {
+        response.status(400);
+        return { "message": "Cannot be deleted because it has associated beneficiary"}
+    } else {
+        response.status(204)
+        return theClient.delete()
+    }
   }
+  
 }

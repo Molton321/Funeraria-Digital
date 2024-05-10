@@ -9,11 +9,11 @@ export default class Move extends BaseModel {
   @column()
   public move_location: string
 
-  @column()
+  @column.dateTime()
   public move_date: DateTime
 
   @column()
-  public move_type: DateTime
+  public move_type: string
 
   @column()
   public service_id: number

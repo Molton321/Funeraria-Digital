@@ -6,7 +6,7 @@ export default class Burial extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public burial_date: DateTime
 
   @column()

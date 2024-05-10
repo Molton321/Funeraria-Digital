@@ -1,5 +1,6 @@
 package com.ucaldas.mssecurity.Controllers;
 
+import com.ucaldas.mssecurity.Models.Permission;
 import com.ucaldas.mssecurity.Models.User;
 import com.ucaldas.mssecurity.Models.Session;
 import com.ucaldas.mssecurity.Repositories.UserRepository;
@@ -7,6 +8,8 @@ import com.ucaldas.mssecurity.Repositories.SessionRepository;
 import com.ucaldas.mssecurity.Services.NotificationsService;
 import com.ucaldas.mssecurity.Services.EncryptionService;
 import com.ucaldas.mssecurity.Services.JwtService;
+import com.ucaldas.mssecurity.Services.ValidatorsService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +31,8 @@ public class SecurityController {
     private JwtService theJwtService;
     @Autowired
     private NotificationsService theNotificationsService;
-    
+    private ValidatorsService theValidatorsService;
+
     //THE USER LOGS SERVER GENERATES A RANDOM NUMBER AND SAVES IN SESSION -> USER POST NUMBER -> SERVER COMPARES -> IF EQUAL, GENERATE TOKEN
 
     @PostMapping("/login")
@@ -111,6 +115,12 @@ public class SecurityController {
             }
         return "message: algo salio mal";
         
+    }
+
+    @PostMapping("permissions-validation")
+    public boolean permissionsValidation(final HttpServletRequest request, @RequestBody Permission thePermission){
+        boolean succes = this.theValidatorsService.validationRolePermission(request, thePermission.getUrl(), thePermission.getMethod());
+        return succes;
     }
 
     public String generateRandom() {

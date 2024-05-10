@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.integer('chat_id')
         .unsigned()
         .references('chats.id')
-      table.integer('user_id')
+      table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

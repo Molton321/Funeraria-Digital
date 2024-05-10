@@ -5,12 +5,13 @@ import Move from './Move'
 import Burial from './Burial'
 import Cremation from './Cremation'
 import ServiceExecution from './ServiceExecution'
+import Viewing from './Viewing'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column.dateTime()
   public service_date: DateTime
 
   @column()
@@ -47,10 +48,8 @@ export default class Service extends BaseModel {
   })
   public cremation: HasOne<typeof Cremation>
 
-  // Vinculacion con ServiceExecution
-  @hasOne(() => ServiceExecution, {
+  @hasOne(() => Viewing, {
     foreignKey: 'service_id'
   })
-  public serviceExecution: HasOne<typeof ServiceExecution>
-
+  public viewing: HasOne<typeof Viewing>
 }

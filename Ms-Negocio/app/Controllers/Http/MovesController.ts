@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Move from 'App/Models/Move';
+import MoveValidator from 'App/Validators/MoveValidator';
 
 export default class MovesController {
 
@@ -19,17 +20,20 @@ export default class MovesController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(MoveValidator)
         const theMove: Move = await Move.create(body);
         return theMove;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theMove: Move = await Move.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(MoveValidator)
         theMove.move_location = body.move_location;
         theMove.move_date = body.move_date;
         theMove.move_type = body.move_type;
+        theMove.service_id = body.service_id;
         return theMove.save();
     }
 

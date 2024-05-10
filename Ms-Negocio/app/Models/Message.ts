@@ -6,14 +6,14 @@ export default class Message extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column.dateTime()
+  public message_date: DateTime
+
+  @column()
+  public message_text: string
+
   @column()
   public chat_id: number
-
-  @column()
-  public message: string
-
-  @column()
-  public message_date: DateTime
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
