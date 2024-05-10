@@ -5,4 +5,4 @@ Route.group(() => {
     Route.post("/comment", "CommentController.create");
     Route.put("/comment/:id", "CommentController.update");
     Route.delete("/comment/:id", "CommentController.delete");
-})
+}).middleware(["security"])

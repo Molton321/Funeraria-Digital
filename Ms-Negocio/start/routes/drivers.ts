@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post('/drivers', 'DriversController.create') //Create a driver
   Route.put('/drivers/:id', 'DriversController.update') //Update a driver
   Route.delete('/drivers/:id', 'DriversController.delete') //Delete a driver
-})
+}).middleware(["security"])
