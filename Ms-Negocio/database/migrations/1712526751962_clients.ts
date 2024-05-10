@@ -9,7 +9,7 @@ export default class extends BaseSchema {
       table.string('client_address')
       table.boolean('client_is_alive')
       table.boolean('client_is_active')
-      table.integer('user_id')
+      table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

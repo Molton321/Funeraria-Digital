@@ -5,4 +5,5 @@ Route.group(() => {
     Route.post("/serviceExecution", "ServiceExecutionController.create");
     Route.put("/serviceExecution/:id", "ServiceExecutionController.update");
     Route.delete("/serviceExecution/:id", "ServiceExecutionController.delete");
-}).middleware(["security"])
+})
+// .middleware(["security"])

@@ -15,7 +15,7 @@ export default class Driver extends BaseModel {
   public driver_license_expiration: DateTime
   
   @column()
-  public user_id: number
+  public user_id: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

@@ -5,4 +5,5 @@ Route.group(() => {
     Route.post("/message", "MessageController.create");
     Route.put("/message/:id", "MessageController.update");
     Route.delete("/message/:id", "MessageController.delete");
-}).middleware(["security"])
+})
+// .middleware(["security"])
