@@ -14,7 +14,7 @@ export default class HallValidator {
   public schema = schema.create({
     id : schema.number([rules.exists({table: 'halls', column: 'id'}), rules.range(0,100000)]),
     hall_name : schema.string([rules.minLength(4)]),
-    hall_capacity : schema.number([rules.minLength(10), rules.maxLength(40), rules.range(0,100000)]),
+    hall_capacity : schema.number([rules.minLength(10), rules.maxLength(40)]),
     campus_id : schema.number([rules.exists({table: 'campuses', column:'id'}), rules.range(0,100000)]) 
     })
 
