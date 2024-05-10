@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Department from 'App/Models/Department'
+import DepartmentValidator from 'App/Validators/DepartmentValidator';
 
 export default class DepartmentsController {
     public async find({ request, params }: HttpContextContract) {
@@ -18,14 +19,16 @@ export default class DepartmentsController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(DepartmentValidator)
         const theDepartment: Department = await Department.create(body);
         return theDepartment;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theDepartment: Department = await Department.findOrFail(params.id);
-        const body = request.body();
+        // const body = request.body();
+        const body = await request.validate(DepartmentValidator)
         theDepartment.department_name = body.department_name;
         return theDepartment.save();
     }
