@@ -35,7 +35,13 @@ export default class DepartmentsController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theDepartment: Department = await Department.findOrFail(params.id);
-        response.status(204);
-        return theDepartment.delete();
+        await theDepartment.load("cities");
+        if (theDepartment.cities) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated cities"}
+        } else {
+            response.status(204);
+            return theDepartment.delete();
+        }
     }
 }

@@ -30,6 +30,7 @@ export default class MovesController {
         theMove.move_location = body.move_location;
         theMove.move_date = body.move_date;
         theMove.move_type = body.move_type;
+        theMove.service_id = body.service_id;
         return theMove.save();
     }
 

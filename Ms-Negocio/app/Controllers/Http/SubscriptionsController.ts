@@ -29,14 +29,14 @@ export default class SubscriptionsController {
         const body = request.body()
         theSubscription.subscription_start_date = body.subscription_start_date
         theSubscription.subscription_end_date = body.subscription_end_date
+        theSubscription.subscription_number_of_beneficiaries = body.subscription_number_of_beneficiaries
         theSubscription.plan_id = body.plan_id
+        theSubscription.client_id = body.client_id
         return theSubscription.save()
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theSubscription: Subscription = await Subscription.findOrFail(params.id)
-        // response.status(204)
-        // return theSubscription.delete()
         await theSubscription.load("payments")
         if (theSubscription.payments) {
             response.status(400);

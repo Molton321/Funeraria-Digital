@@ -29,13 +29,14 @@ export default class PlansController {
         const body = request.body();
         thePlan.plan_type = body.plan_type;
         thePlan.plan_description = body.plan_description;
+        thePlan.plan_price = body.plan_price;
+        thePlan.plan_is_active = body.plan_is_active;
+        thePlan.hall_id = body.hall_id;
         return thePlan.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const thePlan: Plan = await Plan.findOrFail(params.id);
-        // response.status(204);
-        // return thePlan.delete();
         await thePlan.load("planServices")
         await thePlan.load("subscriptions")
         if (thePlan.planServices) {

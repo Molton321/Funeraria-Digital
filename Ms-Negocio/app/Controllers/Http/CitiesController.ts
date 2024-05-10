@@ -29,15 +29,21 @@ export default class CitiesController {
 
     public async update({ params, request }: HttpContextContract) {
         const theCity: City = await City.findOrFail(params.id);
-        // const body = request.body();
-        const body = await request.validate(CityValidator)
+        const body = request.body();
         theCity.city_name = body.city_name;
+        theCity.department_id = body.department_id;
         return theCity.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theCity: City = await City.findOrFail(params.id);
-        response.status(204);
-        return theCity.delete();
+        await theCity.load("campuses")
+        if (theCity.campuses) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated campuses"}
+        } else {
+            response.status(204);
+            return theCity.delete();
+        }
     }
 }

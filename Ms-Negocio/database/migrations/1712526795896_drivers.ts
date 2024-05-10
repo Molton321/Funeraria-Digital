@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('driver_license')
       table.string('driver_license_category')
-      table.string('driver_license_expiration')
+      table.dateTime('driver_license_expiration')
       table.integer('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

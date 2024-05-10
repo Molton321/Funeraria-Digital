@@ -15,7 +15,13 @@ export default class Subscription extends BaseModel {
   public subscription_end_date: DateTime
 
   @column()
+  public subscription_number_of_beneficiaries: number
+
+  @column()
   public plan_id: number
+
+  @column()
+  public client_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime

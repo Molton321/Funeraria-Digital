@@ -30,15 +30,22 @@ export default class CampusesController {
 
     public async update({ params, request }: HttpContextContract) {
         const theCampus: Campus = await Campus.findOrFail(params.id);
-        // const body = request.body();
-        const body = await request.validate(CampusValidator)
+        const body = request.body();
         theCampus.campus_name = body.campus_name;
+        theCampus.campus_is_active = body.campus_is_active;
+        theCampus.city_id = body.city_id;
         return theCampus.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theCampus: Campus = await Campus.findOrFail(params.id);
-        response.status(204);
-        return theCampus.delete();
+        await theCampus.load("halls")
+        if (theCampus.halls) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated halls"}
+        } else {
+            response.status(204);
+            return theCampus.delete();
+        }
     }
 }

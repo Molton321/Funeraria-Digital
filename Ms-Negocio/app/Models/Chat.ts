@@ -11,6 +11,9 @@ export default class Chat extends BaseModel {
   public chat_date: DateTime
 
   @column()
+  public chat_is_active: boolean
+
+  @column()
   public service_execution_id: number
 
   @column.dateTime({ autoCreate: true })
@@ -29,6 +32,4 @@ export default class Chat extends BaseModel {
     foreignKey: 'service_execution_id'
   })
   public serviceExecution: BelongsTo<typeof ServiceExecution>
-
-  //TODO: Add relationship with many Users
 }
