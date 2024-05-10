@@ -7,6 +7,7 @@ export default class CampusValidator {
   public schema = schema.create({
     id : schema.number([rules.exists({table: 'campuses', column: 'id'}), rules.range(0,100000)]),
     campus_name : schema.string([rules.minLength(4)]),
+    campus_is_active: schema.boolean([rules.required()]),
     city_id : schema.number([rules.exists({table: 'cities', column:'id'})])
   })
 
