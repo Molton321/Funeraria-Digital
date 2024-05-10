@@ -15,6 +15,12 @@ export default class Subscription extends BaseModel {
   public subscription_end_date: DateTime
 
   @column()
+  public subscription_number_of_beneficiaries: number
+
+  @column()
+  public subscription_price: number
+
+  @column()
   public plan_id: number
 
   @column()
