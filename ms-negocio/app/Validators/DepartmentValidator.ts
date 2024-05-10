@@ -1,12 +1,6 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-const positiveNumberRule = (value: number) => {
-  if (value < 0) {
-    return 'El número debe ser mayor o igual a cero';
-  }
-}
-
 export default class DepartmentValidator {
   constructor(protected ctx: HttpContextContract) {}
 

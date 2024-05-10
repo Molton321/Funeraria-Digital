@@ -7,8 +7,8 @@ export default class SubscriptionValidator {
 
   public schema = schema.create({
     id: schema.number([rules.exists({ table: 'subscriptions', column: 'id' }), rules.range(0, 100000)]),
-    subscription_start_date: schema.number([rules.before('today')]),
-    subscription_end_date: schema.number([rules.after]),
+    subscription_start_date: schema.date({ format: 'yyyy-MM-dd'}, [rules.before("today")]),
+    subscription_end_date: schema.date({ format: 'yyyy-MM-dd'}, [rules.afterField('subscription_start_date')]),
     plan_id: schema.number([rules.exists({ table: 'plans', column: 'id' }), rules.range(0, 100000)]),
 
   })
