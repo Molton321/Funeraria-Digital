@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post('/blokedUser', 'BlokedUserController.create')
   Route.put('/blokedUser/:id', 'BlokedUserController.update')
   Route.delete('/blokedUser/:id', 'BlokedUserController.delete')
-}).middleware(["security"])
+})

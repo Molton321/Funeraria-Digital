@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post('/users', 'UsersController.create') //Create a user
   Route.put('/users/:id', 'UsersController.update') //Update a user
   Route.delete('/users/:id', 'UsersController.delete') //Delete a user
-}).middleware(["security"])
+})

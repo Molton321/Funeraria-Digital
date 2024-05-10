@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post('/beneficiaries', 'BeneficiariesController.create') //Create a beneficiarie
   Route.put('/beneficiaries/:id', 'BeneficiariesController.update') //Update a beneficiarie
   Route.delete('/beneficiaries/:id', 'BeneficiariesController.delete') //Delete a beneficiarie
-}).middleware(["security"])
+})

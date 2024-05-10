@@ -5,4 +5,4 @@ Route.group(() => {
   Route.post('/titulars', 'TitularsController.create') //Create a titular
   Route.put('/titulars/:id', 'TitularsController.update') //Update a titular
   Route.delete('/titulars/:id', 'TitularsController.delete') //Delete a titular
-}).middleware(["security"])
+})
