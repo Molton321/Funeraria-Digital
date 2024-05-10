@@ -21,12 +21,6 @@ export default class Plan extends BaseModel {
   public plan_is_active: boolean
 
   @column()
-  public plan_entrance_hall: DateTime
-
-  @column()
-  public plan_exit_hall: DateTime
-
-  @column()
   public hall_id: number
 
   @column.dateTime({ autoCreate: true })

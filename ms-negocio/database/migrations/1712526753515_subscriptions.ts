@@ -9,7 +9,6 @@ export default class extends BaseSchema {
       table.dateTime('subscription_start_date')
       table.dateTime('subscription_end_date')
       table.integer('subscription_number_of_beneficiaries')
-      table.integer('subscription_price')
       table.integer('plan_id')
         .unsigned()
         .references('plans.id')

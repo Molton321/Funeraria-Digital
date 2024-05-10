@@ -5,6 +5,7 @@ import Move from './Move'
 import Burial from './Burial'
 import Cremation from './Cremation'
 import ServiceExecution from './ServiceExecution'
+import Viewing from './Viewing'
 
 export default class Service extends BaseModel {
   @column({ isPrimary: true })
@@ -46,4 +47,9 @@ export default class Service extends BaseModel {
     foreignKey: 'service_id'
   })
   public cremation: HasOne<typeof Cremation>
+
+  @hasOne(() => Viewing, {
+    foreignKey: 'service_id'
+  })
+  public viewing: HasOne<typeof Viewing>
 }

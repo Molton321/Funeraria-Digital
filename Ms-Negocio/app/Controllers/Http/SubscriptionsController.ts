@@ -30,7 +30,6 @@ export default class SubscriptionsController {
         theSubscription.subscription_start_date = body.subscription_start_date
         theSubscription.subscription_end_date = body.subscription_end_date
         theSubscription.subscription_number_of_beneficiaries = body.subscription_number_of_beneficiaries
-        theSubscription.subscription_price = body.subscription_price
         theSubscription.plan_id = body.plan_id
         theSubscription.client_id = body.client_id
         return theSubscription.save()
