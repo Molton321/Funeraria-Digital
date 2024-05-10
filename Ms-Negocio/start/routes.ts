@@ -31,6 +31,7 @@ import './routes/plans'
 import './routes/subscriptions'
 import './routes/payments'
 import './routes/planServices'
+import './routes/viewings'
 
 //Milton Routes
 import './routes/users'
