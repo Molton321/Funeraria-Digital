@@ -1,7 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import ServiceExecution from 'App/Models/ServiceExecution'
 
-export default class ServiceExecutionExecutionsController {
+export default class ServiceExecutionsController {
+    
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             return ServiceExecution.findOrFail(params.id)

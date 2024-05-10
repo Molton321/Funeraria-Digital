@@ -39,6 +39,7 @@ import './routes/titulars'
 import './routes/beneficiaries'
 import './routes/drivers'
 import './routes/administrators'
+import './routes/serviceExecutions'
 
 //Jacobo Routes
 import './routes/campuses'
