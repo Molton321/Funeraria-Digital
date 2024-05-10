@@ -26,9 +26,10 @@ export default class DriversController {
   public async update({ params, request }: HttpContextContract) {
     const theDriver: Driver = await Driver.findOrFail(params.id)
     const body = request.body()
-    //TODO: Add the fields to update
-    //theDriver.Driver_date = body.Driver_date
-    //theDriver.Driver_state = body.Driver_state
+    theDriver.driver_license = body.driver_license
+    theDriver.driver_license_category = body.driver_license_category
+    theDriver.driver_license_expiration = body.driver_license_expiration
+    theDriver.user_id = body.user_id
     return theDriver.save()
   }
 

@@ -1,7 +1,5 @@
 import { schema, CustomMessages, rules } from '@ioc:Adonis/Core/Validator'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { column } from '@ioc:Adonis/Lucid/Orm'
-
 
 
 export default class PlanValidator {

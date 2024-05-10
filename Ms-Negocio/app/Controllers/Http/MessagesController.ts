@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Message from 'App/Models/Message';
 
 export default class MessagesController {
+
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             return Message.findOrFail(params.id);
@@ -26,7 +27,9 @@ export default class MessagesController {
     public async update({ params, request }: HttpContextContract) {
         const theMessage: Message = await Message.findOrFail(params.id);
         const body = request.body();
-        theMessage.message_date = body.Message_date;
+        theMessage.message_date = body.message_date;
+        theMessage.message_text = body.message_text;
+        theMessage.chat_id = body.chat_id;
         return theMessage.save();
     }
 

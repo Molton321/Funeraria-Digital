@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.dateTime('comment_date')
       table.string('comment_text')
+      table.string('comment_calification')
       table.integer('service_execution_id')
         .unsigned()
         .references('service_executions.id')

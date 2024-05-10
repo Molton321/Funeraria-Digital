@@ -26,9 +26,8 @@ export default class TitularsController {
   public async update({ params, request }: HttpContextContract) {
     const theTitular: Titular = await Titular.findOrFail(params.id)
     const body = request.body()
-    //TODO: Add the fields to update
-    //theTitular.Titular_date = body.Titular_date
-    //theTitular.Titular_state = body.Titular_state
+    theTitular.titular_is_active = body.titular_is_active
+    theTitular.client_id = body.client_id
     return theTitular.save()
   }
 

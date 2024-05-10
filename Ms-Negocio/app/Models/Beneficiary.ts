@@ -7,6 +7,21 @@ export default class Beneficiary extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
+  @column()
+  public beneficiary_phone: string
+
+  @column()
+  public beneficiary_relationship: string
+
+  @column()
+  public beneficiary_is_active: boolean
+
+  @column()
+  public titular_id: number
+
+  @column()
+  public client_id: number
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

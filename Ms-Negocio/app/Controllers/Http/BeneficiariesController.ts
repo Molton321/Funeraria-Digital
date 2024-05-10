@@ -26,9 +26,11 @@ export default class BeneficiariesController {
   public async update({ params, request }: HttpContextContract) {
     const theBeneficiary: Beneficiary = await Beneficiary.findOrFail(params.id)
     const body = request.body()
-    //TODO: Add the fields to update
-    //theBeneficiary.Beneficiary_date = body.Beneficiary_date
-    //theBeneficiary.Beneficiary_state = body.Beneficiary_state
+    theBeneficiary.beneficiary_phone = body.beneficiary_phone
+    theBeneficiary.beneficiary_relationship = body.beneficiary_relationship
+    theBeneficiary.beneficiary_is_active = body.beneficiary_is_active
+    theBeneficiary.titular_id = body.titular_id
+    theBeneficiary.client_id = body.client_id
     return theBeneficiary.save()
   }
 
