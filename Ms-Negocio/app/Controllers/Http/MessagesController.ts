@@ -41,4 +41,5 @@ export default class MessagesController {
         response.status(204);
         return theMessage.delete();
     }
+    
 }
