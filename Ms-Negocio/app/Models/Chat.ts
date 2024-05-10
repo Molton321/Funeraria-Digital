@@ -32,6 +32,4 @@ export default class Chat extends BaseModel {
     foreignKey: 'service_execution_id'
   })
   public serviceExecution: BelongsTo<typeof ServiceExecution>
-
-  //TODO: Add relationship with many Users
 }

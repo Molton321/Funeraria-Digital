@@ -26,9 +26,8 @@ export default class AdministratorsController {
   public async update({ params, request }: HttpContextContract) {
     const theAdministrator: Administrator = await Administrator.findOrFail(params.id)
     const body = request.body()
-    //TODO: Add the fields to update
-    //theAdministrator.Administrator_date = body.Administrator_date
-    //theAdministrator.Administrator_state = body.Administrator_state
+    theAdministrator.administrator_is_active = body.administrator_is_active
+    theAdministrator.user_id = body.user_id
     return theAdministrator.save()
   }
 

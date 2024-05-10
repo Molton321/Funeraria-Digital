@@ -27,13 +27,21 @@ export default class ChatsController {
     public async update({ params, request }: HttpContextContract) {
         const theChat: Chat = await Chat.findOrFail(params.id);
         const body = request.body();
-        theChat.chat_date = body.Chat_date;
+        theChat.chat_date = body.chat_date;
+        theChat.chat_is_active = body.chat_is_active;
+        theChat.service_execution_id = body.service_execution_id;
         return theChat.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theChat: Chat = await Chat.findOrFail(params.id);
-        response.status(204);
-        return theChat.delete();
+        await theChat.load("messages")
+        if (theChat.messages) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated messages"}
+        } else {
+            response.status(204);
+            return theChat.delete();
+        }
     }
 }

@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Hall from 'App/Models/Hall';
 
 export default class HallsController {
+
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             return Hall.findOrFail(params.id);
@@ -26,14 +27,23 @@ export default class HallsController {
     public async update({ params, request }: HttpContextContract) {
         const theHall: Hall = await Hall.findOrFail(params.id);
         const body = request.body();
-        theHall.hall_location = body.Hall_location;
-
+        theHall.hall_location = body.hall_location;
+        theHall.hall_capacity = body.hall_capacity;
+        theHall.hall_is_active = body.hall_is_active;
+        theHall.campus_id = body.campus_id;
         return theHall.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theHall: Hall = await Hall.findOrFail(params.id);
-        response.status(204);
-        return theHall.delete();
+        await theHall.load("plans")
+        if (theHall.plans) {
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated plans"}
+        } else {
+            response.status(204);
+            return theHall.delete();
+        }
     }
+
 }
