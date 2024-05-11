@@ -1,12 +1,12 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'bloked_users'
+  protected tableName = 'blocked_users'
 
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
-      table.string('bloked_user_cause')
+      table.string('blocked_user_cause')
       table.integer('chat_id')
         .unsigned()
         .references('chats.id')

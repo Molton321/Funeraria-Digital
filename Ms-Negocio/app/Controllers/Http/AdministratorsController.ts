@@ -22,6 +22,10 @@ export default class AdministratorsController {
     }
   }
 
+  public async findByUser({ params }: HttpContextContract) {
+    return await Administrator.query().where("user_id", params.user_id)
+  }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body()
     const theAdministrator: Administrator = await Administrator.create(body)

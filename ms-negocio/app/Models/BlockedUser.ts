@@ -2,12 +2,12 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import Chat from './Chat'
 
-export default class BlokedUser extends BaseModel {
+export default class BlockedUser extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public bloked_user_cause: string
+  public blocked_user_cause: string
 
   @column()
   public chat_id: number

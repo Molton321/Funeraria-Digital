@@ -22,6 +22,10 @@ export default class DriversController {
     }
   }
 
+  public async findByUser({ params }: HttpContextContract) {
+    return await Driver.query().where("user_id", params.user_id)
+  }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body()
     const theDriver: Driver = await Driver.create(body)

@@ -20,6 +20,18 @@ export default class MessagesController {
         }
     }
 
+    public async findByChat({ params }: HttpContextContract) {
+        return await Message.query().where('chat_id', params.chat_id)
+    }
+
+    public async findByUser({ params }: HttpContextContract) {
+        return await Message.query().where('user_id', params.user_id)
+    }
+
+    public async findByChatAndUser({ params }: HttpContextContract) {
+        return await Message.query().where('chat_id', params.chat_id).where('user_id', params.user_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theMessage: Message = await Message.create(body);

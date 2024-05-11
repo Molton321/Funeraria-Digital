@@ -17,6 +17,14 @@ export default class ServiceExecutionExecutionsController {
         }
     }
 
+    public async findByService({ params }: HttpContextContract) {
+        return await ServiceExecution.query().where('service_id', params.service_id)
+    }
+
+    public async findByClient({ params }: HttpContextContract) {
+        return await ServiceExecution.query().where('client_id', params.client_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body()
         const theServiceExecution: ServiceExecution = await ServiceExecution.create(body)

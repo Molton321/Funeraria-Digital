@@ -21,6 +21,10 @@ export default class HallsController {
         }
     }
 
+    public async findByCampus({ params }: HttpContextContract) {
+        return await Hall.query().where("campus_id", params.campus_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(HallValidator)
@@ -40,14 +44,8 @@ export default class HallsController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theHall: Hall = await Hall.findOrFail(params.id);
-        await theHall.load("plans")
-        if (theHall.plans) {
-            response.status(400);
-            return { "message": "Cannot be deleted because it has associated plans"}
-        } else {
-            response.status(204);
-            return theHall.delete();
-        }
+        response.status(204);
+        return theHall.delete();
     }
 
 }

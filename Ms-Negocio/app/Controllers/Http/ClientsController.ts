@@ -22,6 +22,10 @@ export default class ClientsController {
     }
   }
 
+  public async findByUser({ params }: HttpContextContract) {
+    return await Client.query().where("user_id", params.user_id)
+  }
+
   public async create({ request }: HttpContextContract) {
     const body = request.body()
     const theClient: Client = await Client.create(body)

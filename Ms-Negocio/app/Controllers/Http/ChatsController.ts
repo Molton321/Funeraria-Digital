@@ -18,6 +18,10 @@ export default class ChatsController {
         }
     }
 
+    public async findByServiceExecution({ params }: HttpContextContract) {
+        return await Chat.query().where("service_execution_id", params.service_execution_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const theChat: Chat = await Chat.create(body);

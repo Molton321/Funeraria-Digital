@@ -18,6 +18,10 @@ export default class PaymentsController {
         }
     }
 
+    public async findBySubscription({ params }: HttpContextContract) {
+        return await Payment.query().where("subscription_id", params.subscription_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const thePayment: Payment = await Payment.create(body);
