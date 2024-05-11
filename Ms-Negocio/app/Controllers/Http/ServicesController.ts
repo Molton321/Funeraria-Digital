@@ -6,15 +6,23 @@ export default class ServicesController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Service.findOrFail(params.id)
+            let theService = await Service.find(params.id);
+            await theService?.load('move')
+            await theService?.load('burial')
+            await theService?.load('cremation')
+            await theService?.load('serviceExecutions')
+
+
+            return theService
+
         } else {
             const data = request.all()
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await Service.query().paginate(page, perPage)
+                return await Service.query().preload('move').preload('burial').preload('cremation').preload('serviceExecutions').paginate(page, perPage)
             } else {
-                return await Service.query()
+                return await Service.query().preload('move').preload('burial').preload('cremation').preload('serviceExecutions')
             }
         }
     }
@@ -31,7 +39,7 @@ export default class ServicesController {
         // const body = request.body()
         const body = await request.validate(ServiceValidator)
         theService.service_date = body.service_date
-        theService.service_state = body.service_state        
+        theService.service_state = body.service_state
         return theService.save()
     }
 
@@ -44,19 +52,19 @@ export default class ServicesController {
         await theService.load("planServices")
         if (theService.move) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated move"}
+            return { "message": "Cannot be deleted because it has associated move" }
         } else if (theService.burial) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated burial"}
+            return { "message": "Cannot be deleted because it has associated burial" }
         } else if (theService.cremation) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated cremation"}
+            return { "message": "Cannot be deleted because it has associated cremation" }
         } else if (theService.serviceExecutions) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated sevice executions"}
+            return { "message": "Cannot be deleted because it has associated sevice executions" }
         } else if (theService.planServices) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated service plans"}
+            return { "message": "Cannot be deleted because it has associated service plans" }
         } else {
             response.status(204);
             return theService.delete();

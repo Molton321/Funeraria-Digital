@@ -1,42 +1,42 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import BlokedUser from 'App/Models/BlokedUser';
+import BlockedUser from 'App/Models/BlockedUser';
 
 export default class BlockedUsersController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return BlokedUser.findOrFail(params.id);
+            return BlockedUser.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await BlokedUser.query().paginate(page, perPage)
+                return await BlockedUser.query().paginate(page, perPage)
             } else {
-                return await BlokedUser.query()
+                return await BlockedUser.query()
             }
         }
     }
 
     public async create({ request }: HttpContextContract) {
         const body = request.body();
-        const theBlokedUser: BlokedUser = await BlokedUser.create(body);
-        return theBlokedUser;
+        const theBlockedUser: BlockedUser = await BlockedUser.create(body);
+        return theBlockedUser;
     }
 
     public async update({ params, request }: HttpContextContract) {
-        const theBlokedUser: BlokedUser = await BlokedUser.findOrFail(params.id);
+        const theBlockedUser: BlockedUser = await BlockedUser.findOrFail(params.id);
         const body = request.body();
-        theBlokedUser.bloked_user_cause = body.bloked_user_cause;
-        theBlokedUser.chat_id = body.chat_id;
-        theBlokedUser.user_id = body.user_id;
-        return theBlokedUser.save();
+        theBlockedUser.blocked_user_cause = body.bloked_user_cause;
+        theBlockedUser.chat_id = body.chat_id;
+        theBlockedUser.user_id = body.user_id;
+        return theBlockedUser.save();
     }
 
     public async delete({ params, response }: HttpContextContract) {
-        const theBlokedUser: BlokedUser = await BlokedUser.findOrFail(params.id);
+        const theBlockedUser: BlockedUser = await BlockedUser.findOrFail(params.id);
         response.status(204);
-        return theBlokedUser.delete();
+        return theBlockedUser.delete();
     }
 
 }

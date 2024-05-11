@@ -5,15 +5,19 @@ import BeneficiaryValidator from 'App/Validators/BeneficiaryValidator'
 export default class BeneficiariesController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return Beneficiary.findOrFail(params.id)
+      let theBeneficiary = await Beneficiary.find(params.id)
+      await theBeneficiary?.load('titular')
+      await theBeneficiary?.load('client')
+      return theBeneficiary 
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Beneficiary.query().paginate(page, perPage)
+        let theBeneficiary = await Beneficiary.query().preload('titular').preload('client').paginate(page, perPage)
+        return theBeneficiary
       } else {
-        return await Beneficiary.query()
+        return await Beneficiary.query().preload('titular').preload('client')
       }
     }
   }

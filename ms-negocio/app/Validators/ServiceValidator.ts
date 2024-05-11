@@ -12,5 +12,11 @@ export default class ServiceValidator {
   })
 
 
-  public messages: CustomMessages = {}
+  public messages: CustomMessages = {
+    'service_date.required': 'Service date es obligatorio',
+    'service_date.date': 'Service date debe ser una fecha válida',
+    'service_date.afterOrEqual': 'Service date debe ser igual o posterior a la fecha actual',
+    'service_state.required': 'Service state es obligatorio',
+    'id.unique': 'Service id ya existe en la tabla services',
+  }
 }

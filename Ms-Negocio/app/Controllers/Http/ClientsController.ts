@@ -5,15 +5,18 @@ import ClientValidator from 'App/Validators/ClientValidator'
 export default class ClientsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
+      let theClient = await Client.find(params.id)
+      await theClient?.load('titular')
+      await theClient?.load('beneficiary')
       return Client.findOrFail(params.id)
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Client.query().paginate(page, perPage)
+        return await Client.query().preload('titular').preload("beneficiary").preload("subscriptions").paginate(page, perPage)
       } else {
-        return await Client.query()
+        return await Client.query().preload("titular").preload("beneficiary").preload('subscriptions')
       }
     }
   }
