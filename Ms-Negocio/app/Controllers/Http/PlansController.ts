@@ -31,7 +31,6 @@ export default class PlansController {
         thePlan.plan_description = body.plan_description;
         thePlan.plan_price = body.plan_price;
         thePlan.plan_is_active = body.plan_is_active;
-        thePlan.hall_id = body.hall_id;
         return thePlan.save();
     }
 

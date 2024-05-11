@@ -30,6 +30,7 @@ export default class ViewingsController {
         theViewing.viewing_entry_date = body.viewing_entry_date
         theViewing.viewing_exit_date = body.viewing_exit_date
         theViewing.service_id = body.service_id
+        theViewing.hall_id = body.hall_id
         return theViewing.save()
       }
     
