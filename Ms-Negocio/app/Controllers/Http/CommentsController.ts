@@ -19,6 +19,10 @@ export default class CommentsController {
         }
     }
 
+    public async findByServiceExecution({ params }: HttpContextContract) {
+        return await Comment.query().where("service_execution_id", params.service_execution_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(CommentValidator)

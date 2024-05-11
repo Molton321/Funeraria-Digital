@@ -1,21 +1,29 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Client from 'App/Models/Client'
-import ClientValidator from 'App/Validators/ClientValidator'
+import axios from 'axios'
+import env from '@ioc:Adonis/Core/Env'
 
 export default class ClientsController {
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return Client.findOrFail(params.id)
+      // return Client.findOrFail(params.id)
+      return await this.fetchClientDataUser(Client.findOrFail(params.id))
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Client.query().paginate(page, perPage)
+        // return await Client.query().paginate(page, perPage)
+        return await this.fetchClientDataUsers(Client.query().paginate(page, perPage))
       } else {
-        return await Client.query()
+        // return await Client.query()
+        return await this.fetchClientDataUsers(Client.query())
       }
     }
+  }
+
+  public async findByUser({ params }: HttpContextContract) {
+    return await Client.query().where("user_id", params.user_id)
   }
 
   public async create({ request }: HttpContextContract) {
@@ -58,6 +66,40 @@ export default class ClientsController {
         response.status(204)
         return theClient.delete()
     }
+  }
+
+  public async fetchClientDataUsers(clientQuery: Promise<Client[]>): Promise<any[]> {
+    let auxClients: any[] = [];
+    let originalClients: Client[] = await clientQuery;
+
+    for (let client of originalClients) {
+        let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${client.user_id}`);
+        let data = {
+            "id": client.id,
+            "client_address": client.client_address,
+            "client_is_alive": client.client_is_alive,
+            "client_is_active": client.client_is_active,
+            "user_id": client.user_id,
+            "user": api_response.data.name
+        };
+        auxClients.push(data);
+    }
+
+    return auxClients;
+  }
+
+  public async fetchClientDataUser(clientQuery: Promise<Client>): Promise<any> {
+    let originalClient: Client = await clientQuery
+    let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${originalClient.user_id}`)
+    let data = {
+      "id": originalClient.id,
+      "client_address": originalClient.client_address,
+      "client_is_alive": originalClient.client_is_alive,
+      "client_is_active": originalClient.client_is_active,
+      "user_id": originalClient.user_id,
+      "user": api_response.data.name
+    }
+    return data
   }
   
 }

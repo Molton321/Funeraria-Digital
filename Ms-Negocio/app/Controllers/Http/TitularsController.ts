@@ -18,6 +18,10 @@ export default class TitularsController {
     }
   }
 
+  public async findByClient({ params }: HttpContextContract) {
+    return await Titular.query().where("client_id", params.client_id)
+  }
+
   public async create({ request }: HttpContextContract) {
     // const body = request.body()
     const body = await request.validate(TitularValidator)

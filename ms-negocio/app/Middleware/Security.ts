@@ -5,7 +5,6 @@ import env from '@ioc:Adonis/Core/Env'
 export default class Security {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
     let theRequest = request.toJSON()
-    console.log(theRequest);
     let token = theRequest.headers.authorization.replace("Bearer ", "")
     let thePermission: object = {
       url: theRequest.url,

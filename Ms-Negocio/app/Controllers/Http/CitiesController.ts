@@ -20,6 +20,10 @@ export default class CitiesController {
         }
     }
 
+    public async findByDepartment({ params }: HttpContextContract) {
+        return await City.query().where("department_id", params.department_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(CityValidator)

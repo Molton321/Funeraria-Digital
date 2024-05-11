@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import Message from './Message'
 import ServiceExecution from './ServiceExecution'
-import BlokedUser from './BlokedUser'
+import BlokedUser from './BlockedUser'
 
 export default class Chat extends BaseModel {
   @column({ isPrimary: true })

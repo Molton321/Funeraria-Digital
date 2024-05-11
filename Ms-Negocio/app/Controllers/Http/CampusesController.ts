@@ -21,6 +21,10 @@ export default class CampusesController {
         }
     }
 
+    public async findByCity({ params }: HttpContextContract) {
+        return await Campus.query().where("city_id", params.city_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(CampusValidator)

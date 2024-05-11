@@ -19,6 +19,10 @@ export default class BurialsController {
         }
     }
 
+    public async findByService({ params }: HttpContextContract) {
+        return await Burial.query().where("service_id", params.service_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(BurialValidator)

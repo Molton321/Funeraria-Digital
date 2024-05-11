@@ -18,6 +18,14 @@ export default class BeneficiariesController {
     }
   }
 
+  public async findByClient({ params }: HttpContextContract) {
+    return await Beneficiary.query().where("client_id", params.client_id)
+  }
+
+  public async findByTitular({ params }: HttpContextContract) {
+    return await Beneficiary.query().where("titular_id", params.titular_id)
+  }
+
   public async create({ request }: HttpContextContract) {
     // const body = request.body()
     const body = await request.validate(BeneficiaryValidator)

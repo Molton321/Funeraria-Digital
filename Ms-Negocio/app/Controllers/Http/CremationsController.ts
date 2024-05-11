@@ -19,6 +19,10 @@ export default class CremationsController {
         }
     }
 
+    public async findByService({ params }: HttpContextContract) {
+        return await Cremation.query().where("service_id", params.service_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(CremationValidator)
