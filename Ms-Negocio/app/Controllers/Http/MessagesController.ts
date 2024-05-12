@@ -55,7 +55,6 @@ export default class MessagesController {
         return theMessage.delete();
     }
 
-
     public async fetchMessageDataUsers(messageQuery: Promise<Message[]>): Promise<any[]> {
         let auxMessages: any[] = [];
         let originalMessages: Message[] = await messageQuery;

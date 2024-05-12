@@ -1,11 +1,11 @@
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
-    Route.get("/serviceExecution", "ServiceExecutionController.find");
-    Route.get("/serviceExecution/:id", "ServiceExecutionController.find");
-    Route.get("/serviceExecution/service/:service_id", "ServiceExecutionController.findByService");
-    Route.get("/serviceExecution/client/:client_id", "ServiceExecutionController.findByClient");
-    Route.post("/serviceExecution", "ServiceExecutionController.create");
-    Route.put("/serviceExecution/:id", "ServiceExecutionController.update");
-    Route.delete("/serviceExecution/:id", "ServiceExecutionController.delete");
+    Route.get("/serviceExecutions", "ServiceExecutionsController.find");
+    Route.get("/serviceExecutions/:id", "ServiceExecutionsController.find");
+    Route.get("/serviceExecutions/service/:service_id", "ServiceExecutionsController.findByService");
+    Route.get("/serviceExecutions/client/:client_id", "ServiceExecutionsController.findByClient");
+    Route.post("/serviceExecutions", "ServiceExecutionsController.create");
+    Route.put("/serviceExecutions/:id", "ServiceExecutionsController.update");
+    Route.delete("/serviceExecutions/:id", "ServiceExecutionsController.delete");
 })
 // .middleware(["security"])

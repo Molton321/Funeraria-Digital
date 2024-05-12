@@ -27,6 +27,10 @@ export default class SubscriptionsController {
         return await Subscription.query().where("plan_id", params.plan_id)
     }
 
+    public async findByClientAndPlan({ params }: HttpContextContract) {
+        return await Subscription.query().where("client_id", params.client_id).where("plan_id", params.plan_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body()
         const body = await request.validate(SubscriptionValidator)

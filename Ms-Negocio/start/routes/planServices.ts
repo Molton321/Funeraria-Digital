@@ -4,6 +4,7 @@ Route.group(() => {
     Route.get("/planServices/:id", "PlanServicesController.find");
     Route.get("/planServices/plan/:plan_id", "PlanServicesController.findByPlan");
     Route.get("/planServices/service/:service_id", "PlanServicesController.findByService");
+    Route.get("/planServices/plan/:plan_id/service/:service_id", "PlanServicesController.findByPlanService");
     Route.post("/planServices", "PlanServicesController.create");
     Route.put("/planServices/:id", "PlanServicesController.update");
     Route.delete("/planServices/:id", "PlanServicesController.delete");
