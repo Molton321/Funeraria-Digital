@@ -21,7 +21,7 @@ export default class CitiesController {
     }
 
     public async findByDepartment({ params }: HttpContextContract) {
-        return await City.query().where("department_id", params.department_id)
+        return await City.query().where("department_id", params.id)
     }
 
     public async create({ request }: HttpContextContract) {
@@ -45,7 +45,7 @@ export default class CitiesController {
         await theCity.load("campuses")
         if (theCity.campuses) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated campuses"}
+            return { "message": "La ciudad tiene sedes asociadas. No se puede eliminar."}
         } else {
             response.status(204);
             return theCity.delete();

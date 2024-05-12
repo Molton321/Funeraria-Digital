@@ -5,15 +5,17 @@ import DepartmentValidator from 'App/Validators/DepartmentValidator';
 export default class DepartmentsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Department.findOrFail(params.id);
+            let theDepartment = await Department.find(params.id);
+            await theDepartment?.load('cities');
+            return theDepartment;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Department.query().paginate(page, perPage)
+                return await Department.query().preload("cities").paginate(page, perPage)
             } else {
-                return await Department.query()
+                return await Department.query().preload("cities")
             }
         }
     }
@@ -36,9 +38,9 @@ export default class DepartmentsController {
     public async delete({ params, response }: HttpContextContract) {
         const theDepartment: Department = await Department.findOrFail(params.id);
         await theDepartment.load("cities");
-        if (theDepartment.cities) {
+        if (theDepartment.cities.length > 0) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated cities"}
+            return { "message": "No se puede eliminar porque tiene ciudades asociadass"}
         } else {
             response.status(204);
             return theDepartment.delete();

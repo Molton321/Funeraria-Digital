@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Message from 'App/Models/Message';
 import axios from 'axios'
 import env from '@ioc:Adonis/Core/Env'
+import MessageValidator from 'App/Validators/MessageValidator';
 
 export default class MessagesController {
 

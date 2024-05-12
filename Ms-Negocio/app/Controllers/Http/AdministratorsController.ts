@@ -2,6 +2,7 @@ import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Administrator from 'App/Models/Administrator'
 import axios from 'axios'
 import env from '@ioc:Adonis/Core/Env'
+import AdministratorValidator from 'App/Validators/AdministratorValidator'
 
 export default class AdministratorsController {
   public async find({ request, params }: HttpContextContract) {

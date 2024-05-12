@@ -1,6 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Viewing from 'App/Models/Viewing'
-import ViewingValidator from 'App/Validators/ViewingValidator'
 
 export default class ViewingsController {
 
