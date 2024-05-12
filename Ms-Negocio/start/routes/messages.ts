@@ -1,12 +1,12 @@
 import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
-    Route.get("/message", "MessageController.find");
-    Route.get("/message/:id", "MessageController.find");
-    Route.get("/message/chat/:chat_id", "MessageController.findByChat");
-    Route.get("/message/user/:user_id", "MessageController.findByUser");
-    Route.get("/message/user/:user_id/chat/:chat_id", "MessageController.findByUserAndChat");
-    Route.post("/message", "MessageController.create");
-    Route.put("/message/:id", "MessageController.update");
-    Route.delete("/message/:id", "MessageController.delete");
+    Route.get("/messages", "MessagesController.find");
+    Route.get("/messages/:id", "MessagesController.find");
+    Route.get("/messages/chat/:chat_id", "MessagesController.findByChat");
+    Route.get("/messages/user/:user_id", "MessagesController.findByUser");
+    Route.get("/messages/user/:user_id/chat/:chat_id", "MessagesController.findByUserAndChat");
+    Route.post("/messages", "MessagesController.create");
+    Route.put("/messages/:id", "MessagesController.update");
+    Route.delete("/messages/:id", "MessagesController.delete");
 })
 // .middleware(["security"])
