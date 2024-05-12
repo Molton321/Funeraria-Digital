@@ -26,6 +26,10 @@ export default class PlanServicesController {
         return await PlanService.query().where("plan_id", params.plan_id)
     }
 
+    public async findByServiceAndPlan({ params }: HttpContextContract) {
+        return await PlanService.query().where("service_id", params.service_id).where("plan_id", params.plan_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         const body = request.body();
         const thePlanService: PlanService = await PlanService.create(body);
