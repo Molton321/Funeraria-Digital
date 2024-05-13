@@ -6,7 +6,7 @@ export default class BeneficiaryValidator {
 
 
   public schema = schema.create({
-    id : schema.number([rules.unique({ table: 'beneficiaries', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
+    id : schema.number.optional([rules.unique({ table: 'beneficiaries', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
     beneficiary_phone : schema.string([rules.minLength(10),rules.maxLength(10)]),
     beneficiary_relationship: schema.string([rules.minLength(4), rules.maxLength(20)]),
     beneficiary_is_active: schema.boolean(),

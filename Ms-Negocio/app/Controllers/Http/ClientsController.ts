@@ -15,16 +15,16 @@ export default class ClientsController {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
         // return await Client.query().paginate(page, perPage)
-        return await this.fetchClientDataUsers(Client.query().paginate(page, perPage))
+        return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('subscriptions').paginate(page, perPage))
       } else {
         // return await Client.query()
-        return await this.fetchClientDataUsers(Client.query())
+        return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('titular').preload('beneficiary').preload('subscriptions'))
       }
     }
   }
 
   public async findByUser({ params }: HttpContextContract) {
-    return await Client.query().where("user_id", params.user_id)
+    return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('titular').preload('beneficiary').where("user_id", params.user_id)
   }
 
   public async create({ request }: HttpContextContract) {
@@ -74,14 +74,19 @@ export default class ClientsController {
     let originalClients: Client[] = await clientQuery;
 
     for (let client of originalClients) {
-        let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${client.user_id}`);
+        let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${client.user_id}`);
         let data = {
             "id": client.id,
             "client_address": client.client_address,
             "client_is_alive": client.client_is_alive,
             "client_is_active": client.client_is_active,
+            "serviceExecutions": client.serviceExecutions,
+            "subscriptions": client.subscriptions,
             "user_id": client.user_id,
-            "user": api_response.data.name
+            "user": api_response.data.name,
+            "is_titular": client.titular? true: false,
+            "is_beneficiary": client.beneficiary? true: false
+
         };
         auxClients.push(data);
     }
@@ -91,14 +96,24 @@ export default class ClientsController {
 
   public async fetchClientDataUser(clientQuery: Promise<Client>): Promise<any> {
     let originalClient: Client = await clientQuery
-    let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${originalClient.user_id}`)
+    originalClient.load('serviceExecutions')
+    originalClient.load('subscriptions')
+    originalClient.load('titular')
+    originalClient.load('beneficiary')
+    let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${originalClient.user_id}`)
     let data = {
       "id": originalClient.id,
       "client_address": originalClient.client_address,
       "client_is_alive": originalClient.client_is_alive,
       "client_is_active": originalClient.client_is_active,
+      "serviceExecutions": originalClient.serviceExecutions,
+      "subscriptions": originalClient.subscriptions,
       "user_id": originalClient.user_id,
-      "user": api_response.data.name
+      "user": api_response.data.name,
+      "is_titular": originalClient.titular? true: false,
+      "is_beneficiary": originalClient.beneficiary? true: false
+
+
     }
     return data
   }
