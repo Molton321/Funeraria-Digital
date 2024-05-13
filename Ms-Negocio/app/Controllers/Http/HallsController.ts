@@ -44,8 +44,16 @@ export default class HallsController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theHall: Hall = await Hall.findOrFail(params.id);
+        theHall.load('viewings')
+        if(theHall.viewings.length>0){
+            response.status(400)
+            return {message:"Cannot delete hall with viewings"}
+        }else{
         response.status(204);
         return theHall.delete();
+        }
     }
 
 }
+
+

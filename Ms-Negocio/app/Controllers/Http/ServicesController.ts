@@ -6,15 +6,20 @@ export default class ServicesController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Service.findOrFail(params.id)
+            let service = await Service.findOrFail(params.id)
+            service.load("move")
+            service.load("burial")
+            service.load("cremation")
+
+            return service
         } else {
             const data = request.all()
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await Service.query().paginate(page, perPage)
+                return await Service.query().preload('move').preload('cremation').preload('viewing').preload('burial').paginate(page, perPage)
             } else {
-                return await Service.query()
+                return await Service.query().preload('move').preload('cremation').preload('viewing').preload('burial')
             }
         }
     }
@@ -30,7 +35,7 @@ export default class ServicesController {
         const theService: Service = await Service.findOrFail(params.id)
         // const body = request.body()
         const body = await request.validate(ServiceValidator)
-        theService.service_date = body.service_date
+        //theService.service_date = body.service_date
         theService.service_state = body.service_state        
         return theService.save()
     }
@@ -42,6 +47,7 @@ export default class ServicesController {
         await theService.load("cremation")
         await theService.load("serviceExecutions")
         await theService.load("planServices")
+        await theService.load("viewing")
         if (theService.move) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated move"}
@@ -57,6 +63,9 @@ export default class ServicesController {
         } else if (theService.planServices) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated service plans"}
+        } else if(theService.viewing){
+            response.status(400);
+            return { "message": "Cannot be deleted because it has associated viewing"}
         } else {
             response.status(204);
             return theService.delete();

@@ -5,15 +5,18 @@ export default class ViewingsController {
 
   public async find({ request, params }: HttpContextContract) {
     if (params.id) {
-      return Viewing.findOrFail(params.id)
+      let viewing = await Viewing.findOrFail(params.id)
+      viewing.load("service")
+      viewing.load("hall")
+      return viewing
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Viewing.query().paginate(page, perPage)
+        return await Viewing.query().preload('service').preload('hall').paginate(page, perPage)
       } else {
-        return await Viewing.query()
+        return await Viewing.query().preload('service').preload('hall')
       }
     }
   }

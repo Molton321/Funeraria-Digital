@@ -6,15 +6,17 @@ export default class CremationsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Cremation.findOrFail(params.id);
+            let cremation = await Cremation.findOrFail(params.id);
+            cremation.load("service");
+            return cremation;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Cremation.query().paginate(page, perPage)
+                return await Cremation.query().preload('service').paginate(page, perPage)
             } else {
-                return await Cremation.query()
+                return await Cremation.query().preload('service')
             }
         }
     }

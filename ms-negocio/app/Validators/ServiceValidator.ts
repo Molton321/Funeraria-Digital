@@ -6,8 +6,8 @@ export default class ServiceValidator {
 
 
   public schema = schema.create({
-    id: schema.number([rules.unique({ table: 'services', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
-    service_date: schema.date({ format: 'yyyy-MM-dd'},[rules.afterOrEqual('today')]),
+    id: schema.number.optional([rules.unique({ table: 'services', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
+    //service_date: schema.date({ format: 'yyyy-MM-dd'},[rules.afterOrEqual('today')]),
     service_state: schema.boolean([rules.required()])
   })
 

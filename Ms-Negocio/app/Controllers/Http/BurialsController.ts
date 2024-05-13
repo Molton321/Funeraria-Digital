@@ -6,15 +6,17 @@ export default class BurialsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Burial.findOrFail(params.id);
+            let burial = await Burial.findOrFail(params.id);
+            burial.load("service");
+            return burial;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Burial.query().paginate(page, perPage)
+                return await Burial.query().preload('service').paginate(page, perPage)
             } else {
-                return await Burial.query()
+                return await Burial.query().preload('service')
             }
         }
     }

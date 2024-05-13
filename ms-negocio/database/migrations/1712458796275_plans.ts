@@ -10,7 +10,6 @@ export default class extends BaseSchema {
       table.string('plan_description')
       table.integer('plan_price')
       table.boolean('plan_is_active')
-      table.integer('plan_price')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

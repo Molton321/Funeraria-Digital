@@ -6,15 +6,17 @@ export default class MovesController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Move.findOrFail(params.id);
+            let move = await Move.findOrFail(params.id);
+            move.load("service");
+            return move;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Move.query().paginate(page, perPage)
+                return await Move.query().preload('service').paginate(page, perPage)
             } else {
-                return await Move.query()
+                return await Move.query().preload('service')
             }
         }
     }
@@ -43,6 +45,7 @@ export default class MovesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theMove: Move = await Move.findOrFail(params.id);
+        
         response.status(204);
         return theMove.delete();
     }
