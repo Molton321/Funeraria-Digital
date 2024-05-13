@@ -54,12 +54,13 @@ export default class AdministratorsController {
     let originalAdministrators: Administrator[] = await administratorQuery;
 
     for (let Administrator of originalAdministrators) {
-        let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${Administrator.user_id}`);
+        let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${Administrator.user_id}`);
         let data = {
             "id": Administrator.id,
             "administrator_is_active": Administrator.administrator_is_active,
             "user_id": Administrator.user_id,
-            "user": api_response.data.name
+            "user_name": api_response.data.name,
+            
         };
         auxAdministrators.push(data);
     }
@@ -69,12 +70,12 @@ export default class AdministratorsController {
 
   public async fetchAdministratorDataUser(administratorQuery: Promise<Administrator>): Promise<any> {
     let originalAdministrator: Administrator = await administratorQuery
-    let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${originalAdministrator.user_id}`)
+    let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${originalAdministrator.user_id}`)
     let data = {
       "id": originalAdministrator.id,
       "administrator_is_active": originalAdministrator.administrator_is_active,
       "user_id": originalAdministrator.user_id,
-      "user": api_response.data.name
+      "user_name": api_response.data.name
     }
     return data
   }
