@@ -6,7 +6,7 @@ export default class HallValidator {
 
 
   public schema = schema.create({
-    id : schema.number([rules.unique({table: 'halls', column: 'id', where: {id: this.ctx.request.input('id')}}), rules.range(0,100000)]),
+    id : schema.number.optional([rules.unique({table: 'halls', column: 'id', where: {id: this.ctx.request.input('id')}})]),
     hall_name : schema.string([rules.minLength(4)]),
     hall_is_active : schema.boolean([rules.required()]),
     hall_capacity : schema.number([rules.range(10,40)]),

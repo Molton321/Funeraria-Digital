@@ -14,9 +14,9 @@ export default class HallsController {
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Hall.query().paginate(page, perPage)
+                return await Hall.query().preload('campus').paginate(page, perPage)
             } else {
-                return await Hall.query()
+                return await Hall.query().preload('campus')
             }
         }
     }
