@@ -7,16 +7,16 @@ export default class CampusesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let theCampus:Campus=await Campus.findOrFail(params.id);
-            await theCampus.load("city")
+            await theCampus?.load('halls')
             return theCampus;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Campus.query().paginate(page, perPage)
+                return await Campus.query().preload('halls').paginate(page, perPage)
             } else {
-                return await Campus.query()
+                return await Campus.query().preload('halls')
             }
         }
     }
@@ -45,7 +45,7 @@ export default class CampusesController {
     public async delete({ params, response }: HttpContextContract) {
         const theCampus: Campus = await Campus.findOrFail(params.id);
         await theCampus.load("halls")
-        if (theCampus.halls) {
+        if (theCampus.halls.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated halls"}
         } else {
