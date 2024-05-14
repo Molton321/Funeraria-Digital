@@ -41,10 +41,10 @@ export default class PlansController {
         const thePlan: Plan = await Plan.findOrFail(params.id);
         await thePlan.load("planServices")
         await thePlan.load("subscriptions")
-        if (thePlan.planServices) {
+        if (thePlan.planServices.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated service plans"}
-        } else if (thePlan.subscriptions) {
+        } else if (thePlan.subscriptions.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated subscriptions"}
         } else {
