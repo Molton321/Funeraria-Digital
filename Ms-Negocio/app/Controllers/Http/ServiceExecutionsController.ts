@@ -5,15 +5,19 @@ import ServiceExecutionValidator from 'App/Validators/ServiceExecutionValidator'
 export default class ServiceExecutionExecutionsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return ServiceExecution.findOrFail(params.id)
+            let serviceExecution = await ServiceExecution.findOrFail(params.id);
+            serviceExecution.load("service");
+            serviceExecution.load("client");
+            serviceExecution.load("comments");
+            return serviceExecution;
         } else {
             const data = request.all()
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await ServiceExecution.query().paginate(page, perPage)
+                return await ServiceExecution.query().preload('service').preload('client').preload('comments').paginate(page, perPage)
             } else {
-                return await ServiceExecution.query()
+                return await ServiceExecution.query().preload('service').preload('client').preload('comments')
             }
         }
     }

@@ -36,5 +36,5 @@ export default class Chat extends BaseModel {
   @hasMany(() => BlokedUser, {
     foreignKey: 'chat_id'
   })
-  public blokedUsers: HasMany<typeof BlokedUser>
+  public blockedUsers: HasMany<typeof BlokedUser>
 }

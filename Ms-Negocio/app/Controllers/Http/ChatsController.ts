@@ -6,15 +6,18 @@ import ChatValidator from 'App/Validators/ChatValidator';
 export default class ChatsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Chat.findOrFail(params.id);
+            let chat = await Chat.findOrFail(params.id);
+            chat.load("messages");
+            chat.load('blockedUsers');
+            return chat;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Chat.query().paginate(page, perPage)
+                return await Chat.query().preload('blockedUsers').preload('messages').paginate(page, perPage)
             } else {
-                return await Chat.query()
+                return await Chat.query().preload('blockedUsers').preload('messages')
             }
         }
     }
@@ -43,7 +46,7 @@ export default class ChatsController {
     public async delete({ params, response }: HttpContextContract) {
         const theChat: Chat = await Chat.findOrFail(params.id);
         await theChat.load("messages")
-        if (theChat.messages) {
+        if (theChat.messages.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated messages"}
         } else {

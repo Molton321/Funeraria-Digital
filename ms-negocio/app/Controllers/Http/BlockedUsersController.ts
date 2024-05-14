@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import BlockedUser from 'App/Models/BlockedUser';
+import BlockedUserValidator from 'App/Validators/BlockedUserValidator';
 
 export default class BlockedUsersController {
 
@@ -31,15 +32,16 @@ export default class BlockedUsersController {
     }
 
     public async create({ request }: HttpContextContract) {
-        const body = request.body();
+        //const body = request.body();
+        const body = await request.validate(BlockedUserValidator);
         const theBlockedUser: BlockedUser = await BlockedUser.create(body);
         return theBlockedUser;
     }
 
     public async update({ params, request }: HttpContextContract) {
         const theBlockedUser: BlockedUser = await BlockedUser.findOrFail(params.id);
-        const body = request.body();
-        theBlockedUser.blocked_user_cause = body.bloked_user_cause;
+        const body =await request.validate(BlockedUserValidator);
+        theBlockedUser.blocked_user_cause = body.blocked_user_cause;
         theBlockedUser.chat_id = body.chat_id;
         theBlockedUser.user_id = body.user_id;
         return theBlockedUser.save();
