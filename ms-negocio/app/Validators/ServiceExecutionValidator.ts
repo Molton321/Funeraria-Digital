@@ -12,7 +12,7 @@ export default class ServiceExecutionValidator {
     service_execution_description: schema.string([rules.minLength(10), rules.maxLength(300)]),
     service_execution_observation: schema.string([rules.minLength(10), rules.maxLength(300)]),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
-    client_id: schema.number([rules.exists({ table: 'clients', column: 'id'}), rules.unique({ table: 'titulars', column: 'client_id' , where: {client_id: this.ctx.request.input('client_id')} })]),
+    client_id: schema.number([rules.exists({ table: 'clients', column: 'id'}), rules.exists({ table: 'titulars', column: 'client_id' , where: {client_id: this.ctx.request.input('client_id')} })]),
   })
 
  
