@@ -52,3 +52,7 @@ import './routes/comments'
 import './routes/departments'
 import './routes/halls'
 import './routes/messages'
+
+//Sustentacion
+import './routes/coffins'
+import './routes/displacements'
