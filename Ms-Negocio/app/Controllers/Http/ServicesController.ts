@@ -57,10 +57,10 @@ export default class ServicesController {
         } else if (theService.cremation) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated cremation"}
-        } else if (theService.serviceExecutions) {
+        } else if (theService.serviceExecutions.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated sevice executions"}
-        } else if (theService.planServices) {
+        } else if (theService.planServices.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated service plans"}
         } else if(theService.viewing){
