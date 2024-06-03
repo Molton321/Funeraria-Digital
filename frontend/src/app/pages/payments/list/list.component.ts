@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Plan as PlanModel } from 'src/app/models/plan/plan.model';
-import { PlanService } from 'src/app/services/plan/plan.service';
+import { Payment as PaymentModel } from 'src/app/models/payment/payment.model';
+import { PaymentService } from 'src/app/services/payment/payment.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  ThePlans: PlanModel[];
+  ThePayments: PaymentModel[];
 
-  constructor(private service: PlanService, private router: Router) {
-    this.ThePlans = [];
+  constructor(private service: PaymentService, private router: Router) {
+    this.ThePayments = [];
   }
 
   ngOnInit(): void {
@@ -23,29 +23,29 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.list().subscribe(data => {
-      this.ThePlans = data;
-      // console.log(JSON.stringify(this.ThePlans));
+      this.ThePayments = data;
+      // console.log(JSON.stringify(this.ThePayments));
     })
   }
 
   create() {
     // console.log("create");
-    this.router.navigate(["plans/create"])
+    this.router.navigate(["payments/create"])
   }
 
   view(id: number) {
     // console.log("view", id);
-    this.router.navigate(["plans/view/"+id])
+    this.router.navigate(["payments/view/"+id])
   }
 
   update(id: number) {
     // console.log("update", id);
-    this.router.navigate(["plans/update/"+id])
+    this.router.navigate(["payments/update/"+id])
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Delete Plan',
+      title: 'Delete Payment',
       text: "Are you sure you want to delete the record?",
       icon: 'warning',
       showCancelButton: true,

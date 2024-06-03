@@ -1,0 +1,102 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theSubscription.id" [attr.disabled]="true">
+                            <!-- {{theSubscription.id}} -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Start Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="date" class="form-control" [(ngModel)] = "theSubscription.subscription_start_date" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_start_date">
+                            <!-- {{theSubscription.subscription_start_date}} -->
+                            <div *ngIf="getTheFormGroup?.subscription_start_date?.errors && (getTheFormGroup?.subscription_start_date?.dirty || getTheFormGroup?.subscription_start_date?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.subscription_start_date?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            End Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="date" class="form-control" [(ngModel)] = "theSubscription.subscription_end_date" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_end_date">
+                            <!-- {{theSubscription.subscription_end_date}} -->
+                            <div *ngIf="getTheFormGroup?.subscription_end_date?.errors && (getTheFormGroup?.subscription_end_date?.dirty || getTheFormGroup?.subscription_end_date?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.subscription_end_date?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Number of Beneficiaries:
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" [(ngModel)] = "theSubscription.subscription_number_of_beneficiaries" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_number_of_beneficiaries">
+                            <!-- {{theSubscription.subscription_number_of_beneficiaries}} -->
+                            <div *ngIf="getTheFormGroup?.subscription_number_of_beneficiaries?.errors && (getTheFormGroup?.subscription_number_of_beneficiaries?.dirty || getTheFormGroup?.subscription_number_of_beneficiaries?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.subscription_number_of_beneficiaries?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Plan ID:
+                        </div>
+                        <div class="col-8">
+                            <!-- <input type="number" class="form-control" [(ngModel)] = "theSubscription.plan_id" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_id"> -->
+                            <!-- {{theSubscription.plan_id}} -->
+                            <select class="form-control" class="form-control" [(ngModel)] = "theSubscription.plan_id" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_id">
+                                <option *ngFor="let option of thePlans" [value]="option.id">ID: {{ option.id }} - Type: {{ option.plan_type }} - Price: {{ option.plan_price }} - Active: {{ option.plan_is_active == 1? "Yes" : "No" }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.plan_id?.errors && (getTheFormGroup?.plan_id?.dirty || getTheFormGroup?.plan_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Client ID:
+                        </div>
+                        <div class="col-8">
+                            <!-- <input type="number" class="form-control" [(ngModel)] = "theSubscription.client_id" [attr.disabled]="mode == 1 ? true : null" formControlName="client_id"> -->
+                            <!-- {{theSubscription.client_id}} -->
+                            <select class="form-control" class="form-control" [(ngModel)] = "theSubscription.client_id" [attr.disabled]="mode == 1 ? true : null" formControlName="client_id">
+                                <option *ngFor="let option of theClients" [value]="option.id">ID: {{ option.id }} - Adress: {{ option.client_address }} - Alive {{ option.client_is_alive == 1? "Yes" : "No" }} - Active: {{ option.client_is_active == 1? "Yes" : "No" }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.client_id?.errors && (getTheFormGroup?.client_id?.dirty || getTheFormGroup?.client_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

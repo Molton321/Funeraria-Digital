@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Service } from 'src/app/models/services/service.model';
-import { ServiceService } from 'src/app/services/services/service.service';
+import { Service as ServiceModel } from 'src/app/models/service/service.model';
+import { ServiceService } from 'src/app/services/service/service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,7 +13,7 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   
   mode: number; // 1->view, 2 ->create, 3->update
-  theService: Service;
+  theService: ServiceModel;
   theFormGroup: FormGroup;
   trySend: boolean
 

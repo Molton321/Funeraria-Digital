@@ -1,0 +1,91 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "thePayment.id" [attr.disabled]="true">
+                            <!-- {{theater.id}} -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="datetime-local" class="form-control" [(ngModel)] = "thePayment.payment_date" [attr.disabled]="mode == 1 ? true : null" formControlName="payment_date">
+                            <!-- {{thePayment.payment_date}} -->
+                            <div *ngIf="getTheFormGroup?.payment_date?.errors && (getTheFormGroup?.payment_date?.dirty || getTheFormGroup?.payment_date?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.payment_date?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Price:
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" [(ngModel)] = "thePayment.payment_amount" [attr.disabled]="mode == 1 ? true : null" formControlName="payment_amount">
+                            <!-- {{thePayment.payment_amount}} -->
+                            <div *ngIf="getTheFormGroup?.payment_amount?.errors && (getTheFormGroup?.payment_amount?.dirty || getTheFormGroup?.payment_amount?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.payment_amount?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.payment_amount?.errors?.minlength || getTheFormGroup?.payment_amount?.errors?.maxlength" class="msnError">Invalid</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Payment Method:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" class="form-control" [(ngModel)] = "thePayment.payment_method" [attr.disabled]="mode == 1 ? true : null" formControlName="payment_method">
+                                <option value="tarjeta">Card</option>
+                                <option value="efectivo">Cash</option>
+                                <option value="consignacion">transfers</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.payment_method?.errors && (getTheFormGroup?.payment_method?.dirty || getTheFormGroup?.payment_method?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.payment_method?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Subscription ID:
+                        </div>
+                        <div class="col-8">
+                            <!-- <input type="number" class="form-control" [(ngModel)] = "thePayment.subscription_id" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_id"> -->
+                            <!-- {{thePayment.subscription_id}} -->
+                            <select class="form-control" class="form-control" [(ngModel)] = "thePayment.subscription_id" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_id">
+                                <option *ngFor="let option of theSubscriptions" [value]="option.id">ID: {{ option.id }} - Plan ID: {{ option.plan_id }} - Cliente ID: {{ option.client_id }} - Beneficiaries: {{ option.subscription_number_of_beneficiaries }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.subscription_id?.errors && (getTheFormGroup?.subscription_id?.dirty || getTheFormGroup?.subscription_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.subscription_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

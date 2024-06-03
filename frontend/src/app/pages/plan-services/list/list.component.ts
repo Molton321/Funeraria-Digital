@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Plan as PlanModel } from 'src/app/models/plan/plan.model';
-import { PlanService } from 'src/app/services/plan/plan.service';
+import { PlanService as PlanServiceModel } from 'src/app/models/plan-service/plan-service.model';
+import { PlanServiceService } from 'src/app/services/plan-service/plan-service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,10 +11,10 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  ThePlans: PlanModel[];
+  ThePlanServices: PlanServiceModel[];
 
-  constructor(private service: PlanService, private router: Router) {
-    this.ThePlans = [];
+  constructor(private service: PlanServiceService, private router: Router) {
+    this.ThePlanServices = [];
   }
 
   ngOnInit(): void {
@@ -23,29 +23,29 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.list().subscribe(data => {
-      this.ThePlans = data;
-      // console.log(JSON.stringify(this.ThePlans));
+      this.ThePlanServices = data;
+      // console.log(JSON.stringify(this.ThePlanServices));
     })
   }
 
   create() {
     // console.log("create");
-    this.router.navigate(["plans/create"])
+    this.router.navigate(["planServices/create"])
   }
 
   view(id: number) {
     // console.log("view", id);
-    this.router.navigate(["plans/view/"+id])
+    this.router.navigate(["planServices/view/"+id])
   }
 
   update(id: number) {
     // console.log("update", id);
-    this.router.navigate(["plans/update/"+id])
+    this.router.navigate(["planServices/update/"+id])
   }
 
   delete(id: number) {
     Swal.fire({
-      title: 'Delete Plan',
+      title: 'Delete Plan Service',
       text: "Are you sure you want to delete the record?",
       icon: 'warning',
       showCancelButton: true,

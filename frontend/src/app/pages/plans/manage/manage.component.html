@@ -30,9 +30,9 @@
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)] = "thePlan.plan_type" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_type">
                             <!-- {{theater.plan_type}} -->
-                            <div *ngIf="getTheFormGroup.plan_type.errors && (getTheFormGroup.plan_type.dirty || getTheFormGroup.plan_type.touched || trySend)">
-                                <small *ngIf="getTheFormGroup.plan_type.errors.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup.plan_type.errors.minlength" class="msnError">Invalid</small>
+                            <div *ngIf="getTheFormGroup?.plan_type?.errors && (getTheFormGroup?.plan_type?.dirty || getTheFormGroup?.plan_type?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_type?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.plan_type?.errors?.minlength" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>
@@ -43,9 +43,9 @@
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)] = "thePlan.plan_description" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_description">
                             <!-- {{theater.plan_description}} -->
-                            <div *ngIf="getTheFormGroup.plan_description.errors && (getTheFormGroup.plan_description.dirty || getTheFormGroup.plan_description.touched || trySend)">
-                                <small *ngIf="getTheFormGroup.plan_description.errors.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup.plan_description.errors.minlength" class="msnError">Invalid</small>
+                            <div *ngIf="getTheFormGroup?.plan_description?.errors && (getTheFormGroup?.plan_description?.dirty || getTheFormGroup?.plan_description?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_description?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.plan_description?.errors?.minlength" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>
@@ -56,9 +56,9 @@
                         <div class="col-8">
                             <input type="number" class="form-control" [(ngModel)] = "thePlan.plan_price" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_price">
                             <!-- {{theater.plan_price}} -->
-                            <div *ngIf="getTheFormGroup.plan_price.errors && (getTheFormGroup.plan_price.dirty || getTheFormGroup.plan_price.touched || trySend)">
-                                <small *ngIf="getTheFormGroup.plan_price.errors.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup.plan_price.errors.minlength || getTheFormGroup.plan_price.errors.maxlength" class="msnError">Invalid</small>
+                            <div *ngIf="getTheFormGroup?.plan_price?.errors && (getTheFormGroup?.plan_price?.dirty || getTheFormGroup?.plan_price?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_price?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.plan_price?.errors?.minlength || getTheFormGroup?.plan_price?.errors?.maxlength" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>
@@ -75,8 +75,8 @@
                                 <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="thePlan.plan_is_active" [value]="0" name="planIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_is_active">
                                 <label class="form-check-label" for="isNotActive">is not active</label>
                             </div>
-                            <div *ngIf="getTheFormGroup.plan_is_active.errors && (getTheFormGroup.plan_is_active.dirty || getTheFormGroup.plan_is_active.touched || trySend)">
-                                <small *ngIf="getTheFormGroup.plan_is_active.errors.required" class="msnError">Required</small>
+                            <div *ngIf="getTheFormGroup?.plan_is_active?.errors && (getTheFormGroup?.plan_is_active?.dirty || getTheFormGroup?.plan_is_active?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_is_active?.errors?.required" class="msnError">Required</small>
                             </div>
                         </div>
                     </div>

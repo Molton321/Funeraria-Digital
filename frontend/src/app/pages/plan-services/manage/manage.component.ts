@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Plan as PlanModel } from 'src/app/models/plan/plan.model';
+import { PlanService as PlanServiceModel } from 'src/app/models/plan-service/plan-service.model';
 import { PlanService } from 'src/app/services/plan/plan.service';
+import { Plan as PlanModel} from 'src/app/models/plan/plan.model';
+import { Service as ServiceModel } from 'src/app/models/service/service.model';
+import { PlanServiceService } from 'src/app/services/plan-service/plan-service.service';
+import { ServiceService } from 'src/app/services/service/service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,23 +17,33 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
 
   mode: number; // 1->view, 2 ->create, 3->update
-  thePlan: PlanModel;
+  thePlanService: PlanServiceModel;
   theFormGroup: FormGroup;
-  trySend: boolean
+  trySend: boolean;
+  theServices:ServiceModel[];
+  thePlans:PlanModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
-    private service: PlanService, 
+    private service: PlanServiceService, 
+    private serviceService: ServiceService, 
+    private planService: PlanService, 
     private router: Router, 
     private theFormBuilder:FormBuilder
   ) { 
     this.trySend=false
     this.mode = 1;
-    this.thePlan = { id: null, plan_type: '', plan_description: '', plan_price: null, plan_is_active: null };
+    this.theServices = [];
+    this.thePlans = [];
+    this.thePlanService = { id: null, service_id: null, plan_id: null };
   }
 
   ngOnInit(): void {
+    this.theServices = [];
+    this.thePlans = [];
     this.configFormGroup()
+    this.servicesList()
+    this.plansList()
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
@@ -41,19 +55,29 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id){
-      this.thePlan.id = this.activateRoute.snapshot.params.id;
-      this.getPlan(this.thePlan.id);
+      this.thePlanService.id = this.activateRoute.snapshot.params.id;
+      this.getPlanService(this.thePlanService.id);
     }
+  }
+
+  servicesList(){
+    this.serviceService.list().subscribe(data => {
+      this.theServices = data;
+    })
+  }
+
+  plansList(){
+    this.planService.list().subscribe(data => {
+      this.thePlans = data;
+    })
   }
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      plan_type:['',[Validators.required,Validators.minLength(4)]],
-      plan_description:['',[Validators.required,Validators.minLength(15)]],
-      plan_price:[null,[Validators.required,Validators.min(0),Validators.max(100000000)]],
-      plan_is_active:[null,[Validators.required]]
+      service_id:[null,[Validators.required]],
+      plan_id:[null,[Validators.required]]
     })
   }
 
@@ -61,9 +85,9 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
 
-  getPlan(id: number){
+  getPlanService(id: number){
     this.service.view(id).subscribe(data=>{
-      this.thePlan = data;
+      this.thePlanService = data;
     })
   }
 
@@ -72,9 +96,9 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.create(this.thePlan).subscribe(data=>{
+      this.service.create(this.thePlanService).subscribe(data=>{
         Swal.fire("Completado","The registry has been created correctly","success")
-        this.router.navigate(["plans/list"])
+        this.router.navigate(["planServices/list"])
       })
     }
   }
@@ -84,9 +108,9 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.uptate(this.thePlan).subscribe(data=>{
+      this.service.uptate(this.thePlanService).subscribe(data=>{
         Swal.fire("Completado","The registry has been updated correctly","success")
-        this.router.navigate(["plans/list"])
+        this.router.navigate(["planServices/list"])
       })
     }
   }

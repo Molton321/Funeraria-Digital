@@ -36,8 +36,8 @@
                                 <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theService.service_state" [value]="0" name="serviceState" [attr.disabled]="mode == 1 ? true : null" formControlName="service_state">
                                 <label class="form-check-label" for="isNotActive">is not active</label>
                             </div>
-                            <div *ngIf="getTheFormGroup.service_state.errors && (getTheFormGroup.service_state.dirty || getTheFormGroup.service_state.touched || trySend)">
-                                <small *ngIf="getTheFormGroup.service_state.errors.required" class="msnError">Required</small>
+                            <div *ngIf="getTheFormGroup?.service_state?.errors && (getTheFormGroup?.service_state?.dirty || getTheFormGroup?.service_state?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_state?.errors?.required" class="msnError">Required</small>
                             </div>
                         </div>
                     </div>

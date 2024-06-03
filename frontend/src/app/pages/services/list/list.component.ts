@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Service } from 'src/app/models/services/service.model';
-import { ServiceService } from 'src/app/services/services/service.service';
+import { Service as ServiceModel } from 'src/app/models/service/service.model';
+import { ServiceService } from 'src/app/services/service/service.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  TheServices: Service[];
+  TheServices: ServiceModel[];
 
   constructor(private service: ServiceService, private router: Router) {
     this.TheServices = [];

@@ -53,7 +53,7 @@ export default class SubscriptionsController {
     public async delete({ params, response }: HttpContextContract) {
         const theSubscription: Subscription = await Subscription.findOrFail(params.id)
         await theSubscription.load("payments")
-        if (theSubscription.payments) {
+        if (theSubscription.payments.length > 0) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated payments"}
         } else {
