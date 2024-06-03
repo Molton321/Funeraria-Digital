@@ -12,20 +12,21 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
-    { 
-        path: 'plans',        
+    {
+        path: 'plans',
+        //canActivate: [Guard],
         loadChildren: () => import('src/app/pages/plans/plans.module').then(m => m.PlansModule)
     },
-    { 
-        path: 'services',        
+    {
+        path: 'services',
         loadChildren: () => import('src/app/pages/services/services.module').then(m => m.ServicesModule)
     },
-    { 
-        path: 'planServices',        
+    {
+        path: 'planServices',
         loadChildren: () => import('src/app/pages/plan-services/plan-services.module').then(m => m.PlanServicesModule)
     },
-    { 
-        path: 'subscriptions',        
+    {
+        path: 'subscriptions',
         loadChildren: () => import('src/app/pages/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
     }
 ];
