@@ -1,0 +1,47 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Clientes</h3>
+          <button type="button" class="btn btn-success" (click)="create()">Create</button>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col-1">ID</th>
+                    <th scope="col-1">Name</th>
+                    <th scope="col-1">Adress</th>
+                    <th scope="col-1">Alive</th>
+                    <th scope="col-1">active</th>
+                    <th scope="col-1">UserID</th>
+                    <th scope="col-1">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let actual of theClients">
+                    <td>{{ actual.id }}</td>
+                    <td>{{ actual.user }}</td>
+                    <td>{{ actual.client_address }}</td>
+                    <td>{{ actual.client_is_alive ? 'Alive' : 'Dead' }}</td>
+                    <td>{{ actual.client_active ? 'Active' : 'No active' }}</td>
+                    <td>{{ actual.is_titular ? 'Titular' : 'No titular' }}</td>
+                    <td>{{ actual.user_id }}</td>
+                    <td>
+                        <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
+                        <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>
+                        <button type="button" class="btn btn-danger" (click) = "delete(actual.id)" >Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

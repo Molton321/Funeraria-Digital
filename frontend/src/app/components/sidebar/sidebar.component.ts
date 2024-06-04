@@ -21,7 +21,7 @@ export const ROUTES: RouteInfo[] = [
   { path: '/planServices', title: 'Plan Services', icon: 'ni-circle-08 text-blue', class: '', type:'' },
   { path: '/subscription', title: 'Subscripciones', icon: 'ni-paper-diploma text-pink', class: '', type: '' },
   { path: '/register', title: 'Titulares', icon: 'ni-circle-08 text-orange', class: '', type: '' },
-  { path: '/register', title: 'Clientes', icon: 'ni-circle-08 text-orange ', class: '', type: '' },
+  { path: '/clients/list', title: 'Clientes', icon: 'ni-circle-08 text-orange ', class: '', type: '' },
   { path: '/register', title: 'Sedes', icon: 'ni-building text-blue', class: '', type: '' },
   { path: '/register', title: 'Salas', icon: 'ni-app text-blue', class: '', type: '' },
   { path: '/register', title: 'Administradores', icon: 'ni-badge text-orange', class: '', type: '' }

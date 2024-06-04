@@ -28,5 +28,9 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'subscriptions',
         loadChildren: () => import('src/app/pages/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
+    },
+    {
+        path: 'clients',
+        loadChildren: () => import('src/app/pages/clients/clients.module').then(m => m.ClientsModule)
     }
 ];
