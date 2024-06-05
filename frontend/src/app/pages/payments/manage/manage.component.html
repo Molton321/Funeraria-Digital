@@ -44,7 +44,7 @@
                             <!-- {{thePayment.payment_amount}} -->
                             <div *ngIf="getTheFormGroup?.payment_amount?.errors && (getTheFormGroup?.payment_amount?.dirty || getTheFormGroup?.payment_amount?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.payment_amount?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.payment_amount?.errors?.minlength || getTheFormGroup?.payment_amount?.errors?.maxlength" class="msnError">Invalid</small>
+                                <small *ngIf="getTheFormGroup?.payment_amount?.errors?.min || getTheFormGroup?.payment_amount?.errors?.max" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>
