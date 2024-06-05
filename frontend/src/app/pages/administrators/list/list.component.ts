@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { create } from 'domain';
 import { Administrator } from 'src/app/models/administrator/administrator.model';
-import { AdministratorService } from 'src/app/services/administrator.service';
+import { AdministratorService } from 'src/app/services/administrator/administrator.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -65,7 +65,4 @@ export class ListComponent implements OnInit {
       }
     })
   }
-
-
-
 }

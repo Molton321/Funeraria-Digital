@@ -1,1 +1,54 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theService.id" [attr.disabled]="true">
+                            <!-- {{theService.id}} -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            State:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theService.service_state" [value]="1" name="serviceState" [attr.disabled]="mode == 1 ? true : null" formControlName="service_state">
+                                <label class="form-check-label" for="isActive">is active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theService.service_state" [value]="0" name="serviceState" [attr.disabled]="mode == 1 ? true : null" formControlName="service_state">
+                                <label class="form-check-label" for="isNotActive">is not active</label>
+                            </div>
+                            <div *ngIf="getTheFormGroup?.service_state?.errors && (getTheFormGroup?.service_state?.dirty || getTheFormGroup?.service_state?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_state?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
