@@ -24,7 +24,7 @@ export class PlanService {
     thePlan.id = undefined;
     return this.http.put<Plan>(`${environment.url_ms_negocio}/plans/${id}`, thePlan);
   }
-  delete(id:number){
+  delete(id: number){
     return this.http.delete<Plan>(`${environment.url_ms_negocio}/plans/${id}`);
   }
   

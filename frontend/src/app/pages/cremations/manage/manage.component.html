@@ -1,0 +1,50 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Cremation Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="datetime-local" class="form-control" [(ngModel)]="theCremation.cremation_date" [attr.disabled]="mode == 1 ? true : null" formControlName="cremation_date">
+                            <div *ngIf="getTheFormGroup?.cremation_date?.errors && (getTheFormGroup?.cremation_date?.dirty || getTheFormGroup?.cremation_date?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.cremation_date?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Service ID:
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" [(ngModel)]="theCremation.service_id" [attr.disabled]="mode == 1 ? true : null" formControlName="service_id">
+                            <div *ngIf="getTheFormGroup?.service_id?.errors && (getTheFormGroup?.service_id?.dirty || getTheFormGroup?.service_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_id?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.service_id?.errors?.min" class="msnError">Invalid</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

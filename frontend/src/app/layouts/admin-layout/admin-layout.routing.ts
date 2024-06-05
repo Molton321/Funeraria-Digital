@@ -32,5 +32,25 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'payments',
         loadChildren: () => import('src/app/pages/payments/payments.module').then(m => m.PaymentsModule)
+    },
+    {
+        path: 'moves',
+        loadChildren: () => import('src/app/pages/moves/moves.module').then(m => m.MovesModule)
+    },
+    {
+        path: 'burials',
+        loadChildren: () => import('src/app/pages/burials/burials.module').then(m => m.BurialsModule)
+    },
+    {
+        path: 'cremations',
+        loadChildren: () => import('src/app/pages/cremations/cremations.module').then(m => m.CremationsModule)
+    },
+    {
+        path: 'halls',
+        loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
+    },
+    {
+        path: 'campus',
+        loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
     }
 ];
