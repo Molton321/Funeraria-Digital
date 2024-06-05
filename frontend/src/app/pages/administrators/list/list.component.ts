@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Client } from 'src/app/models/client/client.model';
-import { ClientService } from 'src/app/services/client/client.service';
+import { create } from 'domain';
+import { Administrator } from 'src/app/models/administrator/administrator.model';
+import { AdministratorService } from 'src/app/services/administrator.service';
 import Swal from 'sweetalert2';
-
 
 @Component({
   selector: 'app-list',
@@ -12,34 +12,35 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  theClients:Client[]
+  theAdministrators: Administrator[];
 
-  constructor(private service:ClientService, private router:Router) {
-    this.theClients = []
+
+  constructor( private service: AdministratorService, private router: Router ) {
+    this.theAdministrators = [];
    }
 
   ngOnInit(): void {
     this.list();
   }
-
-  list(){
-    this.service.list().subscribe(data => {
-      this.theClients = data
-    })
-  }
-
-  view(id:number){
-    this.router.navigate(["clients/view",id])
-  }
-
-  create(){
-    this.router.navigate(["clients/create"])
-  }
-
-  update(id:number){
-    this.router.navigate(["clients/update",id])
-  }
   
+  list(){
+    this.service.list().subscribe( (data: Administrator[]) => {
+      this.theAdministrators = data;
+    });
+  }
+
+  view(id: number){
+    this.router.navigate(['/administrators/view', id]);
+  } 
+  
+  create(){
+    this.router.navigate(['/administrators/create']);
+  }
+
+  update(id: number){
+    this.router.navigate(['/administrators/update', id]);
+  }
+
   delete(id: number) {
     Swal.fire({
       title: 'Delete Client',
@@ -64,6 +65,7 @@ export class ListComponent implements OnInit {
       }
     })
   }
+
 
 
 }

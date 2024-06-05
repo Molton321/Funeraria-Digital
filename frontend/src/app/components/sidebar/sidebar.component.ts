@@ -16,15 +16,16 @@ export const ROUTES: RouteInfo[] = [
     { path: '/tables', title: 'Tables',  icon:'ni-bullet-list-67 text-red', class: '', type:'' },
     { path: '/login', title: 'Login',  icon:'ni-key-25 text-info', class: '', type:'' },
     { path: '/register', title: 'Register',  icon:'ni-circle-08 text-pink', class: '', type:'' },
-  { path: '/plans', title: 'Plans', icon: 'ni-credit-card text-pink', class: '', type:''},
+    { path: '/plans', title: 'Plans', icon: 'ni-credit-card text-pink', class: '', type:''},
     { path: '/services', title: 'Services', icon: 'ni-circle-08 text-pink', class: '', type:'' },
-  { path: '/planServices', title: 'Plan Services', icon: 'ni-circle-08 text-blue', class: '', type:'' },
-  { path: '/subscription', title: 'Subscripciones', icon: 'ni-paper-diploma text-pink', class: '', type: '' },
-  { path: '/register', title: 'Titulares', icon: 'ni-circle-08 text-orange', class: '', type: '' },
-  { path: '/clients/list', title: 'Clientes', icon: 'ni-circle-08 text-orange ', class: '', type: '' },
-  { path: '/register', title: 'Sedes', icon: 'ni-building text-blue', class: '', type: '' },
-  { path: '/register', title: 'Salas', icon: 'ni-app text-blue', class: '', type: '' },
-  { path: '/register', title: 'Administradores', icon: 'ni-badge text-orange', class: '', type: '' }
+    { path: '/planServices', title: 'Plan Services', icon: 'ni-circle-08 text-blue', class: '', type:'' },
+    { path: '/subscription', title: 'Subscripciones', icon: 'ni-paper-diploma text-pink', class: '', type: '' },
+    { path: '/register', title: 'Titulares', icon: 'ni-circle-08 text-orange', class: '', type: '' },
+    //Molton
+    { path: '/clients/list', title: 'Clientes', icon: 'ni-circle-08 text-orange ', class: '', type: '' },
+    { path: '/titulars/list', title: 'Titulares', icon: 'ni-building text-blue', class: '', type: '' },
+    { path: '/beneficiaries/list', title: 'Beneficiaries', icon: 'ni-app text-blue', class: '', type: '' },
+    { path: '/administrators/list', title: 'Administradores', icon: 'ni-badge text-orange', class: '', type: '' }
 
 ];
 

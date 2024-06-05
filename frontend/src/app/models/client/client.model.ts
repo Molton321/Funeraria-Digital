@@ -6,9 +6,6 @@ export class Client {
     user_id:number;
     user: string;
     is_titular: boolean;
-    
-
-
     // subscriptions?:Subscriptions[];
     // serviceExecutions?:ServiceExecutions[];
     // titular?:Titular;
