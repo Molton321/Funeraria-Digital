@@ -2,7 +2,7 @@
   "extends": "adonis-preset-ts/tsconfig.json",
   "include": [
     "**/*"
-  ],
+, "start/routes/blockedUsers.ts", "start/routes/coffins.ts", "start/routes/displacements.ts", "start/routes/viewings.ts"  ],
   "exclude": [
     "node_modules",
     "build"
