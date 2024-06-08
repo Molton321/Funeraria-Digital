@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Campus as CampusModel } from 'src/app/models/campus/campus.model';
+import { City as CityModel } from 'src/app/models/city/city.model';
 import { CampusService } from 'src/app/services/campus/campus.service';
+import { CityService } from 'src/app/services/city/city.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,19 +18,23 @@ export class ManageComponent implements OnInit {
   theCampus: CampusModel;
   theFormGroup: FormGroup;
   trySend: boolean;
+  theCities:CityModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
     private service: CampusService, 
+    private cityService: CityService, 
     private router: Router, 
     private theFormBuilder: FormBuilder
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.theCampus = { id: null, campus_name: '', campus_is_active: 1, city_id: null };
+    this.theCities = [];
+    this.theCampus = { id: null, campus_name: '', campus_is_active: null, city_id: null };
   }
 
   ngOnInit(): void {
+    this.theCities = [];
     this.configFormGroup();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
@@ -46,10 +52,16 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  citiesList(){ 
+    this.cityService.list().subscribe(data => {
+      this.theCities = data;
+    });
+  }
+
   configFormGroup(){
     this.theFormGroup = this.theFormBuilder.group({
       campus_name: ['', [Validators.required, Validators.minLength(4)]],
-      campus_is_active: [1, [Validators.required]],
+      campus_is_active: [null, [Validators.required]],
       city_id: [null, [Validators.required, Validators.min(1)]]
     });
   }

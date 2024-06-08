@@ -28,13 +28,17 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            Campus is Active:
+                            Is active:
                         </div>
                         <div class="col-8">
-                            <select class="form-control" [(ngModel)]="theCampus.campus_is_active" [attr.disabled]="mode == 1 ? true : null" formControlName="campus_is_active">
-                                <option value="1">Active</option>
-                                <option value="0">Inactive</option>
-                            </select>
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theCampus.campus_is_active" [value]="1" name="campusIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="campus_is_active">
+                                <label class="form-check-label" for="isActive">is active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theCampus.campus_is_active" [value]="0" name="campusIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="campus_is_active">
+                                <label class="form-check-label" for="isNotActive">is not active</label>
+                            </div>
                             <div *ngIf="getTheFormGroup?.campus_is_active?.errors && (getTheFormGroup?.campus_is_active?.dirty || getTheFormGroup?.campus_is_active?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.campus_is_active?.errors?.required" class="msnError">Required</small>
                             </div>
@@ -45,7 +49,9 @@
                             City ID:
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="theCampus.city_id" [attr.disabled]="mode == 1 ? true : null" formControlName="city_id">
+                            <select class="form-control" [(ngModel)] = "theCampus.city_id" [attr.disabled]="mode == 1 ? true : null" formControlName="city_id">
+                                <option *ngFor="let option of theCities" [value]="option.id">ID: {{ option.id }} - Name: {{ option.city_name }} - Department: {{ option.department_id }}</option>
+                            </select>
                             <div *ngIf="getTheFormGroup?.city_id?.errors && (getTheFormGroup?.city_id?.dirty || getTheFormGroup?.city_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.city_id?.errors?.required" class="msnError">Required</small>
                                 <small *ngIf="getTheFormGroup?.city_id?.errors?.min" class="msnError">Invalid</small>

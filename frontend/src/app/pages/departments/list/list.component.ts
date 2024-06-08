@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { City as CityModel } from 'src/app/models/city/city.model';
-import { CityService } from 'src/app/services/city/city.service';
+import { Department as DepartmentModel } from 'src/app/models/department/department.model';
+import { DepartmentService } from 'src/app/services/department/department.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -10,11 +10,11 @@ import Swal from 'sweetalert2';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
-  
-  TheCities: CityModel[];
 
-  constructor(private service: CityService, private router: Router) {
-    this.TheCities = [];
+  TheDepartments: DepartmentModel[];
+
+  constructor(private service: DepartmentService, private router: Router) {
+    this.TheDepartments = [];
   }
 
   ngOnInit(): void {
@@ -23,20 +23,20 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.list().subscribe(data => {
-      this.TheCities = data;
+      this.TheDepartments = data;
     });
   }
 
   create() {
-    this.router.navigate(["cities/create"]);
+    this.router.navigate(["departments/create"]);
   }
 
   view(id: number) {
-    this.router.navigate(["cities/view/" + id]);
+    this.router.navigate(["departments/view/" + id]);
   }
 
   update(id: number) {
-    this.router.navigate(["cities/update/" + id]);
+    this.router.navigate(["departments/update/" + id]);
   }
 
   delete(id: number) {

@@ -40,10 +40,20 @@
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            Hall is Active:
+                            Is active:
                         </div>
                         <div class="col-8">
-                            <input type="checkbox" class="form-control" [(ngModel)]="theHall.hall_is_active" [attr.disabled]="mode == 1 ? true : null" formControlName="hall_is_active">
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theHall.hall_is_active" [value]="1" name="hallIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="hall_is_active">
+                                <label class="form-check-label" for="isActive">is active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theHall.hall_is_active" [value]="0" name="hallIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="hall_is_active">
+                                <label class="form-check-label" for="isNotActive">is not active</label>
+                            </div>
+                            <div *ngIf="getTheFormGroup?.hall_is_active?.errors && (getTheFormGroup?.hall_is_active?.dirty || getTheFormGroup?.hall_is_active?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.hall_is_active?.errors?.required" class="msnError">Required</small>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
@@ -51,7 +61,9 @@
                             Campus ID:
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="theHall.campus_id" [attr.disabled]="mode == 1 ? true : null" formControlName="campus_id">
+                            <select class="form-control" [(ngModel)] = "theHall.campus_id" [attr.disabled]="mode == 1 ? true : null" formControlName="campus_id">
+                                <option *ngFor="let option of theCampuses" [value]="option.id">ID: {{ option.id }} - Name: {{ option.campus_name }} - State: {{ option.campus_is_active == 1? "Active" : "No active" }} - City: {{ option.city_id }}</option>
+                            </select>
                             <div *ngIf="getTheFormGroup?.campus_id?.errors && (getTheFormGroup?.campus_id?.dirty || getTheFormGroup?.campus_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.campus_id?.errors?.required" class="msnError">Required</small>
                                 <small *ngIf="getTheFormGroup?.campus_id?.errors?.min" class="msnError">Invalid</small>

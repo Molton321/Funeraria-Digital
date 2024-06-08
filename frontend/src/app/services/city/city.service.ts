@@ -9,7 +9,6 @@ import { environment } from 'src/environments/environment';
 })
 export class CityService {
 
-  
   constructor(private http: HttpClient) { }
 
   list(): Observable<City[]> {

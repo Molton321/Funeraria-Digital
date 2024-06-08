@@ -1,0 +1,39 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Name:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="theDepartment.department_name" [attr.disabled]="mode == 1 ? true : null" formControlName="department_name">
+                            <div *ngIf="getTheFormGroup?.department_name?.errors && (getTheFormGroup?.department_name?.dirty || getTheFormGroup?.department_name?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.department_name?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.department_name?.errors?.minlength" class="msnError">Minimum length is 4</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

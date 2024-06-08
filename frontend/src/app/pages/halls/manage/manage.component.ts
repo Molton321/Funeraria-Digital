@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Campus as CampusModel } from 'src/app/models/campus/campus.model';
 import { Hall as HallModel } from 'src/app/models/hall/hall.model';
+import { CampusService } from 'src/app/services/campus/campus.service';
 import { HallService } from 'src/app/services/hall/hall.service';
 import Swal from 'sweetalert2';
 
@@ -16,20 +18,25 @@ export class ManageComponent implements OnInit {
   theHall: HallModel;
   theFormGroup: FormGroup;
   trySend: boolean;
+  theCampuses:CampusModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
     private service: HallService, 
+    private campusService: CampusService, 
     private router: Router, 
     private theFormBuilder: FormBuilder
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.theHall = { id: null, hall_name: '', hall_capacity: null, hall_is_active: true, campus_id: null };
+    this.theCampuses = [];
+    this.theHall = { id: null, hall_name: '', hall_capacity: null, hall_is_active: null, campus_id: null };
   }
 
   ngOnInit(): void {
+    this.theCampuses = [];
     this.configFormGroup();
+    this.campusesList();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
@@ -46,11 +53,17 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  campusesList(){
+    this.campusService.list().subscribe(data => {
+      this.theCampuses = data;
+    });
+  }
+
   configFormGroup(){
     this.theFormGroup = this.theFormBuilder.group({
       hall_name: ['', [Validators.required, Validators.minLength(4)]],
       hall_capacity: [null, [Validators.required, Validators.min(10), Validators.max(40)]],
-      hall_is_active: [true, [Validators.required]],
+      hall_is_active: [null, [Validators.required]],
       campus_id: [null, [Validators.required, Validators.min(1)]]
     });
   }

@@ -7,7 +7,7 @@
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-          <h3 class="mb-0">Cities</h3>
+          <h3 class="mb-0">Departments</h3>
           <button type="button" class="btn btn-success" (click)="create()">Create</button>
         </div>
         <div class="card-body">
@@ -16,15 +16,13 @@
                   <tr>
                     <th scope="col-1">ID</th>
                     <th scope="col-2">Name</th>
-                    <th scope="col-2">Department</th>
                     <th scope="col-3">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let actual of TheCities">
+                  <tr *ngFor="let actual of TheDepartments">
                     <td>{{ actual.id }}</td>
-                    <td>{{ actual.city_name }}</td>
-                    <td>{{ actual.department_id }}</td>
+                    <td>{{ actual.department_name }}</td>
                     <td>
                         <button type="button" class="btn btn-primary" (click)="view(actual.id)">View</button>
                         <button type="button" class="btn btn-success" (click)="update(actual.id)">Update</button>

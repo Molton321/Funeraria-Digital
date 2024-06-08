@@ -50,7 +50,15 @@ export const AdminLayoutRoutes: Routes = [
         loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
     },
     {
-        path: 'campus',
+        path: 'campuses',
         loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
+    },
+    {
+        path: 'cities',
+        loadChildren: () => import('src/app/pages/cities/cities.module').then(m => m.CitiesModule)
+    },
+    {
+        path: 'departments',
+        loadChildren: () => import('src/app/pages/departments/departments.module').then(m => m.DepartmentsModule)
     }
 ];
