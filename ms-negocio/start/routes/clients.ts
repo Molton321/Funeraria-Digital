@@ -8,4 +8,3 @@ Route.group(() => {
   Route.delete('/clients/:id', 'ClientsController.delete')
 })
 //.middleware(["security"])
-
