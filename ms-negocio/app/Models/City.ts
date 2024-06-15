@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Campus from './Campus'
+import Campus from './FuneralHome'
 import Department from './Department'
 
 export default class City extends BaseModel {

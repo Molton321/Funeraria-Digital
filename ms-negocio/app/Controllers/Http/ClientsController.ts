@@ -18,13 +18,13 @@ export default class ClientsController {
         return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('subscriptions').paginate(page, perPage))
       } else {
         // return await Client.query()
-        return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('titular').preload('beneficiary').preload('subscriptions'))
+        return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('owner').preload('beneficiary').preload('subscriptions'))
       }
     }
   }
 
   public async findByUser({ params }: HttpContextContract) {
-    return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('titular').preload('beneficiary').where("user_id", params.user_id)
+    return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('owner').preload('beneficiary').where("user_id", params.user_id)
   }
 
   public async create({ request }: HttpContextContract) {
@@ -39,27 +39,27 @@ export default class ClientsController {
     // const body = request.body()
     const body = await request.validate(ClientValidator)
     theClient.client_address = body.client_address
-    theClient.client_is_alive = body.client_is_alive
-    theClient.client_is_active = body.client_is_active
+    theClient.client_phone = body.client_phone
+    theClient.client_state = body.client_state
     theClient.user_id = body.user_id
     return theClient.save()
   }
 
   public async delete({ params, response }: HttpContextContract) {
     const theClient: Client = await Client.findOrFail(params.id)
-    await theClient.load("subscriptions")
-    await theClient.load("serviceExecutions")
-    await theClient.load("titular")
-    await theClient.load("beneficiary")
+    await theClient?.load("subscriptions")
+    await theClient?.load("serviceExecutions")
+    await theClient?.load("owner")
+    await theClient?.load("beneficiary")
     if (theClient.subscriptions) {
       response.status(400);
       return { "message": "Cannot be deleted because it has associated subscriptions"}
     } else if (theClient.serviceExecutions) {
         response.status(400);
         return { "message": "Cannot be deleted because it has associated service executions"}
-    } else if (theClient.titular) {
+    } else if (theClient.owner) {
         response.status(400);
-        return { "message": "Cannot be deleted because it has associated titular"}
+        return { "message": "Cannot be deleted because it has associated owner"}
     } else if (theClient.beneficiary) {
         response.status(400);
         return { "message": "Cannot be deleted because it has associated beneficiary"}
@@ -78,14 +78,16 @@ export default class ClientsController {
         let data = {
             "id": client.id,
             "client_address": client.client_address,
-            "client_is_alive": client.client_is_alive,
-            "client_is_active": client.client_is_active,
+            "client_phone": client.client_phone,
+            "client_state": client.client_state,
             "serviceExecutions": client.serviceExecutions,
             "subscriptions": client.subscriptions,
             "user_id": client.user_id,
             "user": api_response.data.name,
-            "is_titular": client.titular? true: false,
-            "is_beneficiary": client.beneficiary? true: false
+            "email": api_response.data.email,
+            "is_owner": client.owner? true: false,
+            "is_beneficiary": client.beneficiary? true: false,
+            "is_deceased": client.deceased? true: false
 
         };
         auxClients.push(data);
@@ -96,24 +98,24 @@ export default class ClientsController {
 
   public async fetchClientDataUser(clientQuery: Promise<Client>): Promise<any> {
     let originalClient: Client = await clientQuery
-    originalClient.load('serviceExecutions')
-    originalClient.load('subscriptions')
-    originalClient.load('titular')
-    originalClient.load('beneficiary')
+    originalClient?.load('serviceExecutions')
+    originalClient?.load('subscriptions')
+    originalClient?.load('owner')
+    originalClient?.load('beneficiary')
     let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${originalClient.user_id}`)
     let data = {
       "id": originalClient.id,
       "client_address": originalClient.client_address,
-      "client_is_alive": originalClient.client_is_alive,
-      "client_is_active": originalClient.client_is_active,
+      "client_phone": originalClient.client_phone,
+      "client_state": originalClient.client_state,
       "serviceExecutions": originalClient.serviceExecutions,
       "subscriptions": originalClient.subscriptions,
       "user_id": originalClient.user_id,
       "user": api_response.data.name,
-      "is_titular": originalClient.titular? true: false,
-      "is_beneficiary": originalClient.beneficiary? true: false
-
-
+      "email": api_response.data.email,
+      "is_owner": originalClient.owner? true: false,
+      "is_beneficiary": originalClient.beneficiary? true: false,
+      "is_deceased": originalClient.deceased? true: false
     }
     return data
   }

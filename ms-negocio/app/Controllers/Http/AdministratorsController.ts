@@ -38,7 +38,7 @@ export default class AdministratorsController {
     const theAdministrator: Administrator = await Administrator.findOrFail(params.id)
     // const body = request.body()
     const body = await request.validate(AdministratorValidator)
-    theAdministrator.administrator_is_active = body.administrator_is_active
+    theAdministrator.administrator_state = body.administrator_state
     theAdministrator.user_id = body.user_id
     return theAdministrator.save()
   }
@@ -57,10 +57,10 @@ export default class AdministratorsController {
         let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${Administrator.user_id}`);
         let data = {
             "id": Administrator.id,
-            "administrator_is_active": Administrator.administrator_is_active,
+            "administrator_state": Administrator.administrator_state,
             "user_id": Administrator.user_id,
-            "user_name": api_response.data.name,
-            
+            "name": api_response.data.name,
+            "email": api_response.data.email
         };
         auxAdministrators.push(data);
     }
@@ -73,9 +73,10 @@ export default class AdministratorsController {
     let api_response = await axios.get(`${env.get('MS_SECURITY_URL')}/api/users/${originalAdministrator.user_id}`)
     let data = {
       "id": originalAdministrator.id,
-      "administrator_is_active": originalAdministrator.administrator_is_active,
+      "administrator_state": originalAdministrator.administrator_state,
       "user_id": originalAdministrator.user_id,
-      "user_name": api_response.data.name
+      "name": api_response.data.name,
+      "email": api_response.data.email,
     }
     return data
   }

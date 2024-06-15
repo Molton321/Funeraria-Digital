@@ -7,7 +7,8 @@ export default class DepartmentValidator {
 
   public schema = schema.create({
     id : schema.number.optional([rules.unique({table: 'departments', column: 'id',where: {id: this.ctx.request.input('id')}})]),
-    department_name : schema.string([rules.minLength(4)])
+    department_name : schema.string([rules.minLength(4)]),
+    department_country : schema.string([rules.minLength(4)])
   })
 
   public messages: CustomMessages = {}

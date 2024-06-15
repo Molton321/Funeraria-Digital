@@ -37,6 +37,7 @@ export default class CremationsController {
         // const body = request.body();
         const body = await request.validate(CremationValidator)
         theCremation.cremation_date = body.cremation_date;
+        theCremation.cremation_location = body.cremation_location;
         theCremation.service_id = body.service_id;
         return theCremation.save();
     }

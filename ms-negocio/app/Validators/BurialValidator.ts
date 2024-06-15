@@ -7,6 +7,7 @@ export default class BurialValidator {
   public schema = schema.create({
       id : schema.number.optional([rules.unique({ table: 'burials', column: 'id' , where:{id: this.ctx.request.input('id')}})]),
       burial_date: schema.date({format: "yyyy-MM-dd\'T\'HH:mm"},[rules.afterOrEqual('today')]),
+      burial_location : schema.string([rules.minLength(3), rules.maxLength(50)]),
       service_id: schema.number([rules.exists({ table: 'services', column: 'id' }), rules.unique({ table: 'cremations', column: 'service_id' , where: {service_id: this.ctx.request.input('service_id')}}), rules.unique({ table: 'burials', column: 'service_id' , where: {service_id: this.ctx.request.input('service_id')}})]),
   })
 

@@ -4,6 +4,7 @@ Route.group(() => {
     Route.get("/serviceExecutions/:id", "ServiceExecutionsController.find");
     Route.get("/serviceExecutions/service/:service_id", "ServiceExecutionsController.findByService");
     Route.get("/serviceExecutions/client/:client_id", "ServiceExecutionsController.findByClient");
+    Route.get("/serviceExecutions/deceased/:deceased_id", "ServiceExecutionsController.findByDeceased");
     Route.post("/serviceExecutions", "ServiceExecutionsController.create");
     Route.put("/serviceExecutions/:id", "ServiceExecutionsController.update");
     Route.delete("/serviceExecutions/:id", "ServiceExecutionsController.delete");

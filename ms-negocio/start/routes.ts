@@ -26,31 +26,32 @@ Route.get('/', async () => {
 //Carlos Routes
 import './routes/services'
 import './routes/burials'
-import './routes/moves'
+import './routes/transfers'
 import './routes/plans'
 import './routes/subscriptions'
 import './routes/payments'
 import './routes/planServices'
 import './routes/cremations'
 import './routes/viewings'
-import './routes/blockedUsers'
+import './routes/deceaseds'
+import './routes/userChats'
 
 //Milton Routes
 import './routes/users'
 import './routes/clients'
-import './routes/titulars'
+import './routes/owners'
 import './routes/beneficiaries'
 import './routes/drivers'
 import './routes/administrators'
 import './routes/serviceExecutions'
 
 //Jacobo Routes
-import './routes/campuses'
+import './routes/funeralHomes'
 import './routes/chats'
 import './routes/cities'
 import './routes/comments'
 import './routes/departments'
-import './routes/halls'
+import './routes/rooms'
 import './routes/messages'
 
 //Sustentacion

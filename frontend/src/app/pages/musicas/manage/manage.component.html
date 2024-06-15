@@ -1,0 +1,86 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==2">Create</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theMusica.id" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Nombre:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="theMusica.nombre" [attr.disabled]="mode == 1 ? true : null" formControlName="nombre">
+                            <div *ngIf="getTheFormGroup?.nombre?.errors && (getTheFormGroup?.nombre?.dirty || getTheFormGroup?.v?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.nombre?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.nombre?.errors?.minlength" class="msnError">Minimum length is 2</small>
+                                <small *ngIf="getTheFormGroup?.nombre?.errors?.maxlength" class="msnError">Minimum length is 20</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            nombre_grupo:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)]="theMusica.nombre_grupo" [attr.disabled]="mode == 1 ? true : null" formControlName="nombre_grupo">
+                            <div *ngIf="getTheFormGroup?.nombre_grupo?.errors && (getTheFormGroup?.nombre_grupo?.dirty || getTheFormGroup?.nombre_grupo?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.nombre_grupo?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.nombre_grupo?.errors?.minlength" class="msnError">Minimum length is 2</small>
+                                <small *ngIf="getTheFormGroup?.nombre_grupo?.errors?.maxlength" class="msnError">Maximum length is 30</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            valor_hora:
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" [(ngModel)]="theMusica.valor_hora" [attr.disabled]="mode == 1 ? true : null" formControlName="valor_hora">
+                            <div *ngIf="getTheFormGroup?.valor_hora?.errors && (getTheFormGroup?.valor_hora?.dirty || getTheFormGroup?.valor_hora?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.valor_hora?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.valor_hora?.errors?.min" class="msnError">Minimum is 20000</small>
+                                <small *ngIf="getTheFormGroup?.valor_hora?.errors?.max" class="msnError">Maximum is 2000000</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Department ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" [(ngModel)] = "theMusica.tipo_id" [attr.disabled]="mode == 1 ? true : null" formControlName="tipo_id">
+                                <option *ngFor="let option of theTipos" [value]="option.id">ID: {{ option.id }} - Name: {{ option.nombre }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.tipo_id?.errors && (getTheFormGroup?.tipo_id?.dirty || getTheFormGroup?.tipo_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.tipo_id?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.tipo_id?.errors?.min" class="msnError">Invalid</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,9 @@ export default class Cremation extends BaseModel {
   public cremation_date: DateTime
 
   @column()
+  public cremation_location: string
+
+  @column()
   public service_id: number
 
   @column.dateTime({ autoCreate: true })

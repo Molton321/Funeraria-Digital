@@ -6,9 +6,10 @@ export default class ServiceExecutionExecutionsController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let serviceExecution = await ServiceExecution.findOrFail(params.id);
-            serviceExecution.load("service");
-            serviceExecution.load("client");
-            serviceExecution.load("comments");
+            await serviceExecution.load("service");
+            await serviceExecution.load("client");
+            await serviceExecution.load("comments");
+            await serviceExecution.load("chat");
             return serviceExecution;
         } else {
             const data = request.all()
@@ -30,6 +31,10 @@ export default class ServiceExecutionExecutionsController {
         return await ServiceExecution.query().where('client_id', params.client_id)
     }
 
+    public async findByDeceased({ params }: HttpContextContract) {
+        return await ServiceExecution.query().where('deceased_id', params.client_id)
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body()
         const body = await request.validate(ServiceExecutionValidator)
@@ -41,10 +46,7 @@ export default class ServiceExecutionExecutionsController {
         const theServiceExecution: ServiceExecution = await ServiceExecution.findOrFail(params.id)
         // const body = request.body()
         const body = await request.validate(ServiceExecutionValidator)
-        theServiceExecution.service_execution_execution_date = body.service_execution_execution_date;
-        theServiceExecution.service_execution_status = body.service_execution_status;
-        theServiceExecution.service_execution_description = body.service_execution_description;
-        theServiceExecution.service_execution_observation = body.service_execution_observation;
+        theServiceExecution.service_execution_date = body.service_execution_date;
         theServiceExecution.service_id = body.service_id;
         theServiceExecution.client_id = body.client_id;
         return theServiceExecution.save()

@@ -23,6 +23,30 @@ export default class CommentsController {
         return await Comment.query().where("service_execution_id", params.service_execution_id)
     }
 
+    public async findByDeceased({ params }: HttpContextContract) {
+        const comments = await Comment.query()
+          .whereHas('serviceExecution', (query) => {
+            query.where('deceased_id', params.deceased_id);
+          });
+        return comments;
+    }
+
+    public async findByClient({ params }: HttpContextContract) {
+        const comments = await Comment.query()
+          .whereHas('serviceExecution', (query) => {
+            query.where('client_id', params.client_id);
+          });
+        return comments;
+    }
+
+    public async findByService({ params }: HttpContextContract) {
+        const comments = await Comment.query()
+          .whereHas('serviceExecution', (query) => {
+            query.where('service_id', params.service_id);
+          });
+        return comments;
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(CommentValidator)

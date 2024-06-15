@@ -1,9 +1,10 @@
 import { DateTime } from 'luxon'
 import { BaseModel, HasMany, HasOne, column, hasMany, hasOne } from '@ioc:Adonis/Lucid/Orm'
-import Titular from './Titular'
 import Beneficiary from './Beneficiary'
 import Subscription from './Subscription'
 import ServiceExecution from './ServiceExecution'
+import Deceased from './Deceased'
+import Owner from './Owner'
 
 export default class Client extends BaseModel {
   @column({ isPrimary: true })
@@ -13,10 +14,10 @@ export default class Client extends BaseModel {
   public client_address: string
 
   @column()
-  public client_is_alive: boolean
+  public client_phone: string
 
   @column()
-  public client_is_active: boolean
+  public client_state: boolean
 
   @column()
   public user_id: string
@@ -37,13 +38,18 @@ export default class Client extends BaseModel {
   })
   public serviceExecutions: HasMany<typeof ServiceExecution>
 
-  @hasOne(() => Titular, {
+  @hasOne(() => Owner, {
     foreignKey: 'client_id'
   })
-  public titular: HasOne<typeof Titular>
+  public owner: HasOne<typeof Owner>
 
   @hasOne(() => Beneficiary, {
     foreignKey: 'client_id'
   })
   public beneficiary: HasOne<typeof Beneficiary>
+
+  @hasOne(() => Deceased, {
+    foreignKey: 'client_id'
+  })
+  public deceased: HasOne<typeof Deceased>
 }

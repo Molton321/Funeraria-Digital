@@ -13,52 +13,11 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'icons',          component: IconsComponent },
     { path: 'maps',           component: MapsComponent },
     {
-        path: 'plans',
-        //canActivate: [Guard],
-        loadChildren: () => import('src/app/pages/plans/plans.module').then(m => m.PlansModule)
+        path: 'musicas',
+        loadChildren: () => import('src/app/pages/musicas/musicas.module').then(m => m.MusicasModule)
     },
     {
-        path: 'services',
-        loadChildren: () => import('src/app/pages/services/services.module').then(m => m.ServicesModule)
-    },
-    {
-        path: 'planServices',
-        loadChildren: () => import('src/app/pages/plan-services/plan-services.module').then(m => m.PlanServicesModule)
-    },
-    {
-        path: 'subscriptions',
-        loadChildren: () => import('src/app/pages/subscriptions/subscriptions.module').then(m => m.SubscriptionsModule)
-    },
-    {
-        path: 'payments',
-        loadChildren: () => import('src/app/pages/payments/payments.module').then(m => m.PaymentsModule)
-    },
-    {
-        path: 'moves',
-        loadChildren: () => import('src/app/pages/moves/moves.module').then(m => m.MovesModule)
-    },
-    {
-        path: 'burials',
-        loadChildren: () => import('src/app/pages/burials/burials.module').then(m => m.BurialsModule)
-    },
-    {
-        path: 'cremations',
-        loadChildren: () => import('src/app/pages/cremations/cremations.module').then(m => m.CremationsModule)
-    },
-    {
-        path: 'halls',
-        loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
-    },
-    {
-        path: 'campuses',
-        loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
-    },
-    {
-        path: 'cities',
-        loadChildren: () => import('src/app/pages/cities/cities.module').then(m => m.CitiesModule)
-    },
-    {
-        path: 'departments',
-        loadChildren: () => import('src/app/pages/departments/departments.module').then(m => m.DepartmentsModule)
+        path: 'administrators',
+        loadChildren: () => import('src/app/pages/administrators/administrators.module').then(m => m.AdministratorsModule)
     }
 ];

@@ -8,7 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.timestamp('subscription_start_date')
       table.timestamp('subscription_end_date')
-      table.integer('subscription_number_of_beneficiaries')
+      table.integer('subscription_payments_number')
       table.integer('plan_id')
         .unsigned()
         .references('plans.id')

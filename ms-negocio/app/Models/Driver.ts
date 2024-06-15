@@ -25,7 +25,7 @@ export default class Driver extends BaseModel {
   public updatedAt: DateTime
 
   @hasMany(() => Displacement, {
-    foreignKey: 'coffin_id'
+    foreignKey: 'driver_id'
   })
   public displacements: HasMany<typeof Displacement>
 }

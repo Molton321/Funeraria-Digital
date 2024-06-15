@@ -42,7 +42,7 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id){
       this.theDepartment.id = this.activateRoute.snapshot.params.id;
-      this.getHall(this.theDepartment.id);
+      this.getDepartment(this.theDepartment.id);
     }
   }
 
@@ -56,7 +56,7 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
-  getHall(id: number){
+  getDepartment(id: number){
     this.service.view(id).subscribe(data => {
       this.theDepartment = data;
     });

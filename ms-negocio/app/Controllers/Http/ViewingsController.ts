@@ -7,16 +7,16 @@ export default class ViewingsController {
     if (params.id) {
       let viewing = await Viewing.findOrFail(params.id)
       viewing.load("service")
-      viewing.load("hall")
+      viewing.load("room")
       return viewing
     } else {
       const data = request.all()
       if ('page' in data && 'per_page' in data) {
         const page = request.input('page', 1)
         const perPage = request.input('per_page', 20)
-        return await Viewing.query().preload('service').preload('hall').paginate(page, perPage)
+        return await Viewing.query().preload('service').preload('room').paginate(page, perPage)
       } else {
-        return await Viewing.query().preload('service').preload('hall')
+        return await Viewing.query().preload('service').preload('room')
       }
     }
   }
@@ -25,8 +25,8 @@ export default class ViewingsController {
     return await Viewing.query().where('service_id', params.service_id)
   }
 
-  public async findByHall({ params }: HttpContextContract) {
-    return await Viewing.query().where('hall_id', params.hall_id)
+  public async findByRoom({ params }: HttpContextContract) {
+    return await Viewing.query().where('room_id', params.room_id)
   }
 
   public async create({ request }: HttpContextContract) {
@@ -41,7 +41,7 @@ export default class ViewingsController {
     theViewing.viewing_entry_date = body.viewing_entry_date
     theViewing.viewing_exit_date = body.viewing_exit_date
     theViewing.service_id = body.service_id
-    theViewing.hall_id = body.hall_id
+    theViewing.room_id = body.room_id
     return theViewing.save()
   }
 

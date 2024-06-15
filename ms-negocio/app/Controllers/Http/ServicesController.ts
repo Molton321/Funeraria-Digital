@@ -7,21 +7,37 @@ export default class ServicesController {
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
             let service = await Service.findOrFail(params.id)
-            service.load("move")
+            service.load("transfer")
             service.load("burial")
             service.load("cremation")
-
+            service.load("viewing")
             return service
         } else {
             const data = request.all()
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await Service.query().preload('move').preload('cremation').preload('viewing').preload('burial').paginate(page, perPage)
+                return await Service.query().preload('transfer').preload('burial').preload('cremation').preload('viewing').preload('burial').paginate(page, perPage)
             } else {
-                return await Service.query().preload('move').preload('cremation').preload('viewing').preload('burial')
+                return await Service.query().preload('transfer').preload('burial').preload('cremation').preload('viewing').preload('burial')
             }
         }
+    }
+
+    public async findByClient({ params }: HttpContextContract) {
+        const services = await Service.query()
+          .whereHas('serviceExecutions', (query) => {
+            query.where('client_id', params.client_id);
+          });
+        return services;
+    }
+
+    public async findByPlan({ params }: HttpContextContract) {
+        const services = await Service.query()
+          .whereHas('planServices', (query) => {
+            query.where('plan_id', params.plan_id);
+          });
+        return services;
     }
 
     public async create({ request }: HttpContextContract) {
@@ -37,20 +53,22 @@ export default class ServicesController {
         const body = await request.validate(ServiceValidator)
         //theService.service_date = body.service_date
         theService.service_state = body.service_state        
+        theService.service_description = body.service_description        
+        theService.service_observation = body.service_observation        
         return theService.save()
     }
 
     public async delete({ params, response }: HttpContextContract) {
         const theService: Service = await Service.findOrFail(params.id)
-        await theService.load("move")
+        await theService.load("transfer")
         await theService.load("burial")
         await theService.load("cremation")
         await theService.load("serviceExecutions")
         await theService.load("planServices")
         await theService.load("viewing")
-        if (theService.move) {
+        if (theService.transfer) {
             response.status(400);
-            return { "message": "Cannot be deleted because it has associated move"}
+            return { "message": "Cannot be deleted because it has associated transfer"}
         } else if (theService.burial) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated burial"}

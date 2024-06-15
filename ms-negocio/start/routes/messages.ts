@@ -2,6 +2,7 @@ import Route from '@ioc:Adonis/Core/Route'
 Route.group(() => {
     Route.get("/messages", "MessagesController.find");
     Route.get("/messages/:id", "MessagesController.find");
+    Route.get("/messages/userChat/:user_chat_id", "MessagesController.findByUserChat");
     Route.get("/messages/chat/:chat_id", "MessagesController.findByChat");
     Route.get("/messages/user/:user_id", "MessagesController.findByUser");
     Route.get("/messages/user/:user_id/chat/:chat_id", "MessagesController.findByUserAndChat");

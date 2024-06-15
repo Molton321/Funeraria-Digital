@@ -1,14 +1,12 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Message from 'App/Models/Message';
-import axios from 'axios'
-import env from '@ioc:Adonis/Core/Env'
 import MessageValidator from 'App/Validators/MessageValidator';
 
 export default class MessagesController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Message.findOrFail(params.id);
+            return await Message.findOrFail(params.id);
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
@@ -21,16 +19,32 @@ export default class MessagesController {
         }
     }
 
+    public async findByUserChat({ params }: HttpContextContract) {
+        return await Message.query().where("user_chat_id", params.user_chat_id)
+    }
+
     public async findByChat({ params }: HttpContextContract) {
-        return await Message.query().where('chat_id', params.chat_id)
+        const messages = await Message.query()
+          .whereHas('userChat', (query) => {
+            query.where('chat_id', params.chat_id);
+          });
+        return messages;
     }
 
     public async findByUser({ params }: HttpContextContract) {
-        return await Message.query().where('user_id', params.user_id)
+        const messages = await Message.query()
+          .whereHas('userChat', (query) => {
+            query.where('user_id', params.user_id);
+          });
+        return messages;
     }
 
-    public async findByChatAndUser({ params }: HttpContextContract) {
-        return await Message.query().where('chat_id', params.chat_id).where('user_id', params.user_id)
+    public async findByUserAndChat({ params }: HttpContextContract) {
+        const messages = await Message.query()
+          .whereHas('userChat', (query) => {
+            query.where('user_id', params.user_id).where('chat_id', params.chat_id);
+          });
+        return messages;
     }
 
     public async create({ request }: HttpContextContract) {
@@ -42,11 +56,10 @@ export default class MessagesController {
 
     public async update({ params, request }: HttpContextContract) {
         const theMessage: Message = await Message.findOrFail(params.id);
-        // const body = request.body();
-        const body = await request.validate(MessageValidator)
+        const body = request.body();
         theMessage.message_date = body.message_date;
         theMessage.message_text = body.message_text;
-        theMessage.chat_id = body.chat_id;
+        theMessage.user_chat_id = body.user_chat_id;
         return theMessage.save();
     }
 
@@ -56,37 +69,4 @@ export default class MessagesController {
         return theMessage.delete();
     }
 
-    public async fetchMessageDataUsers(messageQuery: Promise<Message[]>): Promise<any[]> {
-        let auxMessages: any[] = [];
-        let originalMessages: Message[] = await messageQuery;
-
-        for (let message of originalMessages) {
-            let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${message.user_id}`);
-            let data = {
-                "id": message.id,
-                "message_date": message.message_date,
-                "message_text": message.message_text,
-                "chat_id": message.chat_id,
-                "user_id": message.user_id,
-                "user": api_response.data.name
-            };
-            auxMessages.push(data);
-        }
-
-        return auxMessages;
-    }
-
-    public async fetchMessageDataUser(messageQuery: Promise<Message>): Promise<any> {
-        let originalMessage: Message = await messageQuery
-        let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${originalMessage.user_id}`)
-        let data = {
-            "id": originalMessage.id,
-            "message_date": originalMessage.message_date,
-            "message_text": originalMessage.message_text,
-            "chat_id": originalMessage.chat_id,
-            "user_id": originalMessage.user_id,
-            "user": api_response.data.name
-        }
-        return data
-    }
 }

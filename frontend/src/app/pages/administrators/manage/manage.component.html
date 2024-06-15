@@ -1,0 +1,59 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            State:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theAdministrator.administrator_state" [value]="1" name="administratorState" [attr.disabled]="mode == 1 ? true : null" formControlName="administrator_state">
+                                <label class="form-check-label" for="isActive">is active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theAdministrator.administrator_state" [value]="0" name="administratorState" [attr.disabled]="mode == 1 ? true : null" formControlName="administrator_state">
+                                <label class="form-check-label" for="isNotActive">is not active</label>
+                            </div>
+                            <div *ngIf="getTheFormGroup?.hall_is_active?.errors && (getTheFormGroup?.hall_is_active?.dirty || getTheFormGroup?.hall_is_active?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.administrator_state?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            User ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" [(ngModel)] = "theAdministrator.user_id" [attr.disabled]="mode == 1 ? true : null" formControlName="user_id">
+                                <option *ngFor="let option of theCampuses" [value]="option.id">ID: {{ option.id }} - Name: {{ option.campus_name }} - State: {{ option.campus_is_active == 1? "Active" : "No active" }} - City: {{ option.city_id }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.user_id?.errors && (getTheFormGroup?.user_id?.dirty || getTheFormGroup?.user_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.user_id?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.user_id?.errors?.minLength" class="msnError">Invalid</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,7 +10,8 @@ export default class PlanValidator {
     plan_type: schema.string([rules.minLength(4)]),
     plan_description: schema.string([rules.minLength(15)]),
     plan_price: schema.number([rules.range(0,100000000)]),
-    plan_is_active: schema.boolean()
+    plan_beneficiaries_number: schema.number([rules.range(1, 100)]),
+    plan_state: schema.boolean([rules.required()])
   })
 
   public messages: CustomMessages = {

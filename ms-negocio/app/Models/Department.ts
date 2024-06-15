@@ -9,6 +9,9 @@ export default class Department extends BaseModel {
   @column()
   public department_name: string
 
+  @column()
+  public department_country: string
+
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

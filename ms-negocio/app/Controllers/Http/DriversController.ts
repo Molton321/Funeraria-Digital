@@ -47,8 +47,14 @@ export default class DriversController {
 
   public async delete({ params, response }: HttpContextContract) {
     const theDriver: Driver = await Driver.findOrFail(params.id)
-    response.status(204)
-    return theDriver.delete()
+    theDriver?.load('displacements')
+    if(theDriver.displacements.length>0){
+      response.status(400)
+      return {message:"Cannot delete driver with displacements"}
+    }else{
+      response.status(204)
+      return theDriver.delete()
+    }
   }
 
   public async fetchDriverDataUsers(driverQuery: Promise<Driver[]>): Promise<any[]> {
@@ -63,7 +69,8 @@ export default class DriversController {
             "driver_license_category": driver.driver_license_category,
             "driver_license_expiration": driver.driver_license_expiration,
             "user_id": driver.user_id,
-            "user": api_response.data.name
+            "user": api_response.data.name,
+            "email": api_response.data.email
         };
         auxDrivers.push(data);
     }
@@ -73,6 +80,7 @@ export default class DriversController {
 
   public async fetchDriverDataUser(driverQuery: Promise<Driver>): Promise<any> {
     let originalDriver: Driver = await driverQuery
+    await originalDriver?.load("displacements")
     let api_response = await axios.get(`${env.get('MS_SECURITY')}/api/users/${originalDriver.user_id}`)
     let data = {
       "id": originalDriver.id,
@@ -80,7 +88,9 @@ export default class DriversController {
       "driver_license_category": originalDriver.driver_license_category,
       "driver_license_expiration": originalDriver.driver_license_expiration,
       "user_id": originalDriver.user_id,
-      "user": api_response.data.name
+      "user": api_response.data.name,
+      "email": api_response.data.email,
+      "displacements": originalDriver.displacements
     }
     return data
   }

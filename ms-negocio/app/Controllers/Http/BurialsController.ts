@@ -37,6 +37,7 @@ export default class BurialsController {
         // const body = request.body();
         const body = await request.validate(BurialValidator)
         theBurial.burial_date = body.burial_date;
+        theBurial.burial_location = body.burial_location;
         theBurial.service_id = body.service_id;
         return theBurial.save();
     }

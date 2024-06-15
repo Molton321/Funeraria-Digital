@@ -10,7 +10,6 @@ export default class PaymentValidator {
     payment_date:  schema.date({format: 'yyyy-MM-dd\'T\'HH:mm'}, [rules.beforeOrEqual('today')]),
     payment_amount: schema.number([rules.range(0, 10000000), rules.exists({ table: 'plans', column: 'plan_price', where: {plan_price: this.ctx.request.input('payment_amount') }})]),
     payment_method: schema.string([rules.regex(/tarjeta|efectivo|consignacion/)]),
-    // subscription_id : schema.number([rules.exists({table: 'subscriptions', column:'id'}),rules.unique({table: 'payments', column: 'subscription_id', where: {subscription_id: this.ctx.request.input('subscription_id')}})]),
     subscription_id : schema.number([rules.exists({table: 'subscriptions', column:'id'})]),
   })
 

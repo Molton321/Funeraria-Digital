@@ -7,8 +7,8 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('client_address')
-      table.boolean('client_is_alive')
-      table.boolean('client_is_active')
+      table.string('client_phone')
+      table.boolean('client_state')
       table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

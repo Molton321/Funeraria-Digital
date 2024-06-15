@@ -1,23 +1,20 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
-import Titular from './Titular'
 import Client from './Client'
+import Owner from './Owner'
 
 export default class Beneficiary extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public beneficiary_phone: string
-
-  @column()
   public beneficiary_relationship: string
 
   @column()
-  public beneficiary_is_active: boolean
+  public beneficiary_state: boolean
 
   @column()
-  public titular_id: number
+  public owner_id: number
 
   @column()
   public client_id: number
@@ -28,10 +25,10 @@ export default class Beneficiary extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => Titular, {
-    foreignKey: 'titular_id'
+  @belongsTo(() => Owner, {
+    foreignKey: 'owner_id'
   })
-  public titular: BelongsTo<typeof Titular>
+  public owner: BelongsTo<typeof Owner>
 
   @belongsTo(() => Client, {
     foreignKey: 'client_id'

@@ -6,15 +6,17 @@ export default class PaymentsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Payment.findOrFail(params.id);
+            let thePayment:Payment = await Payment.findOrFail(params.id);
+            await thePayment?.load("subscription")
+            return thePayment;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Payment.query().paginate(page, perPage)
+                return await Payment.query().preload('subscription').paginate(page, perPage)
             } else {
-                return await Payment.query()
+                return await Payment.query().preload('subscription')
             }
         }
     }

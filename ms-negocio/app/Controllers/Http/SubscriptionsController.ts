@@ -6,15 +6,18 @@ export default class SubscriptionsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return Subscription.findOrFail(params.id)
+            let theSubscription:Subscription = await Subscription.findOrFail(params.id);
+            await theSubscription?.load("payments")
+            await theSubscription?.load("client")
+            return theSubscription;
         } else {
             const data = request.all()
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await Subscription.query().paginate(page, perPage)
+                return await Subscription.query().preload('client').paginate(page, perPage)
             } else {
-                return await Subscription.query()
+                return await Subscription.query().preload('client')
             }
         }
     }
@@ -44,7 +47,7 @@ export default class SubscriptionsController {
         const body = await request.validate(SubscriptionValidator)
         theSubscription.subscription_start_date = body.subscription_start_date
         theSubscription.subscription_end_date = body.subscription_end_date
-        theSubscription.subscription_number_of_beneficiaries = body.subscription_number_of_beneficiaries
+        theSubscription.subscription_payments_number = body.subscription_payments_number
         theSubscription.plan_id = body.plan_id
         theSubscription.client_id = body.client_id
         return theSubscription.save()

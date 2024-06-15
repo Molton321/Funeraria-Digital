@@ -22,8 +22,8 @@ export default class BeneficiariesController {
     return await Beneficiary.query().where("client_id", params.client_id)
   }
 
-  public async findByTitular({ params }: HttpContextContract) {
-    return await Beneficiary.query().where("titular_id", params.titular_id)
+  public async findByOwner({ params }: HttpContextContract) {
+    return await Beneficiary.query().where("owner_id", params.owner_id)
   }
 
   public async findByClientAndTitular({ params }: HttpContextContract) {
@@ -41,10 +41,9 @@ export default class BeneficiariesController {
     const theBeneficiary: Beneficiary = await Beneficiary.findOrFail(params.id)
     // const body = request.body()
     const body = await request.validate(BeneficiaryValidator)
-    theBeneficiary.beneficiary_phone = body.beneficiary_phone
     theBeneficiary.beneficiary_relationship = body.beneficiary_relationship
-    theBeneficiary.beneficiary_is_active = body.beneficiary_is_active
-    theBeneficiary.titular_id = body.titular_id
+    theBeneficiary.beneficiary_state = body.beneficiary_state
+    theBeneficiary.owner_id = body.owner_id
     theBeneficiary.client_id = body.client_id
     return theBeneficiary.save()
   }

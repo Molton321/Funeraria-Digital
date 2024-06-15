@@ -6,7 +6,7 @@ export default class Administrator extends BaseModel {
   public id: number
   
   @column()
-  public administrator_is_active: boolean
+  public administrator_state: boolean
   
   @column()
   public user_id: string

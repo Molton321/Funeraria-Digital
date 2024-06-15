@@ -32,6 +32,7 @@ export default class DepartmentsController {
         // const body = request.body();
         const body = await request.validate(DepartmentValidator)
         theDepartment.department_name = body.department_name;
+        theDepartment.department_country = body.department_country;
         return theDepartment.save();
     }
 

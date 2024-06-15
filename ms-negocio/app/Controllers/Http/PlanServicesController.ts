@@ -6,15 +6,18 @@ export default class PlanServicesController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            return PlanService.findOrFail(params.id);
+            let thePlanService:PlanService = await PlanService.findOrFail(params.id);
+            await thePlanService?.load("service")
+            await thePlanService?.load("plan")
+            return thePlanService;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await PlanService.query().paginate(page, perPage)
+                return await PlanService.query().preload('service').preload('plan').paginate(page, perPage)
             } else {
-                return await PlanService.query()
+                return await PlanService.query().preload('service').preload('plan')
             }
         }
     }
