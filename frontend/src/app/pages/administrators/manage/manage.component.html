@@ -38,7 +38,7 @@
                         </div>
                         <div class="col-8">
                             <select class="form-control" [(ngModel)] = "theAdministrator.user_id" [attr.disabled]="mode == 1 ? true : null" formControlName="user_id">
-                                <option *ngFor="let option of theCampuses" [value]="option.id">ID: {{ option.id }} - Name: {{ option.campus_name }} - State: {{ option.campus_is_active == 1? "Active" : "No active" }} - City: {{ option.city_id }}</option>
+                                <option *ngFor="let option of theUsers" [value]="option.id">ID: {{ option.id }} - name: {{ option.name }} - email: {{ option.email }}</option>
                             </select>
                             <div *ngIf="getTheFormGroup?.user_id?.errors && (getTheFormGroup?.user_id?.dirty || getTheFormGroup?.user_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.user_id?.errors?.required" class="msnError">Required</small>

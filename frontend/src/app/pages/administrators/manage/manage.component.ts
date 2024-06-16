@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Administrator as AdministratorModel } from 'src/app/models/administrator/administrator.model';
+import { User as UserModel } from 'src/app/models/user/user.model';
 import { AdministratorService } from 'src/app/services/administrator/administrator.service';
+import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,20 +18,25 @@ export class ManageComponent implements OnInit {
   theAdministrator: AdministratorModel;
   theFormGroup: FormGroup;
   trySend: boolean;
+  theUsers: UserModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
     private service: AdministratorService, 
+    private usersService: UserService,
     private router: Router, 
     private theFormBuilder: FormBuilder
   ) { 
     this.trySend = false;
     this.mode = 1;
+    this.theUsers = [];
     this.theAdministrator = { id: null, administrator_state: null, user_id: '' };
   }
 
   ngOnInit(): void {
+    this.theUsers = [];
     this.configFormGroup();
+    this.usersList();
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
@@ -44,6 +51,12 @@ export class ManageComponent implements OnInit {
       this.theAdministrator.id = this.activateRoute.snapshot.params.id;
       this.getAdministrator(this.theAdministrator.id);
     }
+  }
+
+  usersList(){
+    this.usersService.list().subscribe(data => {
+      this.theUsers = data;
+    });
   }
 
   configFormGroup(){
