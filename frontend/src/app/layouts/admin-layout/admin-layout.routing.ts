@@ -1,17 +1,14 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from '../../pages/dashboard/dashboard.component';
-import { IconsComponent } from '../../pages/icons/icons.component';
+//import { IconsComponent } from '../../pages/icons/icons.component';
 import { MapsComponent } from '../../pages/maps/maps.component';
 import { UserProfileComponent } from '../../pages/user-profile/user-profile.component';
-import { TablesComponent } from '../../pages/tables/tables.component';
+//import { TablesComponent } from '../../pages/tables/tables.component';
 
 export const AdminLayoutRoutes: Routes = [
     { path: 'dashboard',      component: DashboardComponent },
     { path: 'user-profile',   component: UserProfileComponent },
-    { path: 'tables',         component: TablesComponent },
-    { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent },
     {
         path: 'musicas',
         loadChildren: () => import('src/app/pages/musicas/musicas.module').then(m => m.MusicasModule)
@@ -31,5 +28,74 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'serviceExecutions',
         loadChildren: () => import('src/app/pages/service-executions/service-executions.module').then(m => m.ServiceExecutionsModule)
+    },
+    {
+        path: 'viewings',
+        loadChildren: () => import('src/app/pages/viewings/viewings.module').then(m => m.ViewingsModule)
+    },
+    {
+        path: 'transfers',
+    
+    },
+    {
+        path: 'cremations',
+        loadChildren: () => import('src/app/pages/cremations/cremations.module').then(m => m.CremationsModule)
+    },
+    {
+        path: 'burials',
+        loadChildren: () => import('src/app/pages/burials/burials.module').then(m => m.BurialsModule)
+    },
+    {
+        path: 'campuses',
+        loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
+    },
+    {
+        path: 'rooms',
+        loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
+    },
+    {
+        path: 'comments',
+        
+    },
+    {
+        path: 'chat',
+
+    },
+    {
+        path: 'users',
+
+    },
+    {
+        path: 'roles',
+
+    },
+    {
+        path: 'permissions',
+
+    },
+    {
+        path: 'permissionsRoles',
+
+    },
+    {
+        path: 'sessions',
+
+    },
+    {
+        path: 'clients',
+
+    },
+    {
+        path: 'drivers',
+
+    },
+    {
+        path: 'titulars',
+
+    },
+    {
+        path: 'beneficiaries',
+
     }
+
 ];

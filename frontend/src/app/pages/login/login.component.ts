@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
-
+  
   theUser: User;
 
   constructor(private service: SecurityService, private router: Router) {
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.service.login(this.theUser).subscribe(
       {
         next: (data: any) => {
+          console.log(data);
           this.service.saveSession(data);
           this.router.navigate(['dashboard']);
         },
