@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend=false
     this.mode = 1;
-    this.thePlan = { id: null, plan_type: '', plan_description: '', plan_price: null, plan_is_active: null };
+    this.thePlan = { id: null, plan_type: '', plan_description: '', plan_price: null, plan_beneficiaries_number: null, plan_state: null };
   }
 
   ngOnInit(): void {
@@ -48,12 +48,11 @@ export class ManageComponent implements OnInit {
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({
-      // primer elemento del vector, valor por defecto
-      // lista, serán las reglas
       plan_type:['',[Validators.required,Validators.minLength(4)]],
       plan_description:['',[Validators.required,Validators.minLength(15)]],
       plan_price:[null,[Validators.required,Validators.min(0),Validators.max(100000000)]],
-      plan_is_active:[null,[Validators.required]]
+      plan_beneficiaries_number:[null,[Validators.required,Validators.min(1),Validators.max(100)]],
+      plan_state:[null,[Validators.required]]
     })
   }
 
@@ -77,6 +76,10 @@ export class ManageComponent implements OnInit {
         this.router.navigate(["plans/list"])
       })
     }
+  }
+
+  viewTo(id: number, route: string) {
+    this.router.navigate([route+id])
   }
 
   update(){

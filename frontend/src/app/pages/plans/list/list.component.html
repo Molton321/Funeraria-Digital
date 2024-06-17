@@ -18,7 +18,11 @@
                     <th scope="col-1">Type</th>
                     <th scope="col-1">Description</th>
                     <th scope="col-1">Price</th>
-                    <th scope="col-1">Is active</th>
+                    <th scope="col-1">Beneficiaries Number</th>
+                    <th scope="col-1">State</th>
+                    <th scope="col-1">Services</th>
+                    <th scope="col-1">Plan Services</th>
+                    <th scope="col-1">Subscriptions</th>
                     <th scope="col-1">Actions</th>
                   </tr>
                 </thead>
@@ -28,7 +32,17 @@
                     <td>{{ actual.plan_type }}</td>
                     <td>{{ actual.plan_description }}</td>
                     <td>{{ actual.plan_price }}</td>
-                    <td>{{ actual.plan_is_active ? 'Yes' : 'No' }}</td>
+                    <td>{{ actual.plan_beneficiaries_number }}</td>
+                    <td>{{ actual.plan_state ? 'is active' : 'is not active' }}</td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'services/list/plan/')" >Services</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'planServices/list/plan/')" >Plan Services</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'subscriptions/list/plan/')" >Subscriptions</button>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
                         <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>

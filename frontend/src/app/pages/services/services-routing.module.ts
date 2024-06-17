@@ -9,6 +9,14 @@ const routes: Routes = [
     component: ListComponent
   },
   {
+    path: "list/client/:id",
+    component: ListComponent
+  },
+  {
+    path: "list/plan/:id",
+    component: ListComponent
+  },
+  {
     path: "create",
     component: ManageComponent
   },

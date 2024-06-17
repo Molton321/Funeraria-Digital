@@ -29,12 +29,10 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    // console.log("create");
     this.router.navigate(["services/create"])
   }
 
   view(id: number) {
-    // console.log("view", id);
     this.router.navigate(["services/view/"+id])
   }
 
@@ -43,7 +41,6 @@ export class ListComponent implements OnInit {
   }
 
   update(id: number) {
-    // console.log("update", id);
     this.router.navigate(["services/update/"+id])
   }
 
