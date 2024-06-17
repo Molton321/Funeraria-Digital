@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PlanService as PlanServiceModel } from 'src/app/models/plan-service/plan-service.model';
 import { PlanServiceService } from 'src/app/services/plan-service/plan-service.service';
 import Swal from 'sweetalert2';
@@ -13,18 +13,57 @@ export class ListComponent implements OnInit {
 
   ThePlanServices: PlanServiceModel[];
 
-  constructor(private service: PlanServiceService, private router: Router) {
+  constructor(private activateRoute: ActivatedRoute, private service: PlanServiceService, private router: Router) {
     this.ThePlanServices = [];
   }
 
   ngOnInit(): void {
-    this.list()
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    const currentUrlArray = currentUrl.split("/");
+    
+    if (currentUrlArray.length == 1){
+      this.list()
+    }
+    if (currentUrlArray.length > 1){
+      if (currentUrlArray[1] == 'service'){
+        const id = parseInt(currentUrlArray[2]);
+        this.listByService(id);
+      }
+      if (currentUrlArray[1] == 'plan'){
+        const id = parseInt(currentUrlArray[2]);
+        this.listByPlan(id);
+      }
+    }
+    if (currentUrlArray.length > 3){
+      if (currentUrlArray[1] == 'plan' && currentUrlArray[3] == 'service'){
+        const idPlan = parseInt(currentUrlArray[2]);
+        const idService = parseInt(currentUrlArray[4]);
+        this.listByPlanAndService(idPlan, idService);
+      }
+    }
   }
 
   list() {
     this.service.list().subscribe(data => {
       this.ThePlanServices = data;
-      // console.log(JSON.stringify(this.ThePlanServices));
+    })
+  }
+
+  listByService(id: number) {
+    this.service.listByService(id).subscribe(data => {
+      this.ThePlanServices = data;
+    })
+  }
+
+  listByPlan(id: number) {
+    this.service.listByPlan(id).subscribe(data => {
+      this.ThePlanServices = data;
+    })
+  }
+
+  listByPlanAndService(idPlan: number, idService: number) {
+    this.service.listByPlanAndService(idPlan, idService).subscribe(data => {
+      this.ThePlanServices = data;
     })
   }
 

@@ -19,8 +19,7 @@
                             Id:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)] = "theService.id" [attr.disabled]="true">
-                            <!-- {{theService.id}} -->
+                            {{theService.id}}
                         </div>
                     </div>
                     <div class="row">
@@ -39,6 +38,56 @@
                             <div *ngIf="getTheFormGroup?.service_state?.errors && (getTheFormGroup?.service_state?.dirty || getTheFormGroup?.service_state?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.service_state?.errors?.required" class="msnError">Required</small>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Description:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theService.service_description" [attr.disabled]="mode == 1 ? true : null" formControlName="service_description">
+                            <div *ngIf="getTheFormGroup?.service_description?.errors && (getTheFormGroup?.service_description?.dirty || getTheFormGroup?.service_description?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_description?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.service_description?.errors?.minlength" class="msnError">Min 10 characters</small>
+                                <small *ngIf="getTheFormGroup?.service_description?.errors?.maxlength" class="msnError">Max 300 characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Observation:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theService.service_observation" [attr.disabled]="mode == 1 ? true : null" formControlName="service_observation">
+                            <div *ngIf="getTheFormGroup?.service_observation?.errors && (getTheFormGroup?.service_observation?.dirty || getTheFormGroup?.service_observation?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_observation?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.service_observation?.errors?.minlength" class="msnError">Min 10 characters</small>
+                                <small *ngIf="getTheFormGroup?.service_observation?.errors?.maxlength" class="msnError">Max 300 characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Plan Services:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theService.id, 'planServices/list/service/')" >Plan Services</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Service Executions:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'serviceExecutions/service/')" >Service Executions</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Plans:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'plans/service/')" >Plans</button>
                         </div>
                     </div>
                     <div class="row">

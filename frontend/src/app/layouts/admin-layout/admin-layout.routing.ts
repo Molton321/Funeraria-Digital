@@ -19,5 +19,17 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'administrators',
         loadChildren: () => import('src/app/pages/administrators/administrators.module').then(m => m.AdministratorsModule)
+    },
+    {
+        path: 'services',
+        loadChildren: () => import('src/app/pages/services/services.module').then(m => m.ServicesModule)
+    },
+    {
+        path: 'planServices',
+        loadChildren: () => import('src/app/pages/plan-services/plan-services.module').then(m => m.PlanServicesModule)
+    },
+    {
+        path: 'serviceExecutions',
+        loadChildren: () => import('src/app/pages/service-executions/service-executions.module').then(m => m.ServiceExecutionsModule)
     }
 ];

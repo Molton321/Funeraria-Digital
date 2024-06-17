@@ -80,19 +80,20 @@ export default class ClientsController {
             "client_address": client.client_address,
             "client_phone": client.client_phone,
             "client_state": client.client_state,
-            "serviceExecutions": client.serviceExecutions,
             "subscriptions": client.subscriptions,
+            "serviceExecutions": client.serviceExecutions,
+            "owner": client.owner,
+            "beneficiary": client.beneficiary,
+            "deceased": client.deceased,
             "user_id": client.user_id,
             "user": api_response.data.name,
             "email": api_response.data.email,
             "is_owner": client.owner? true: false,
             "is_beneficiary": client.beneficiary? true: false,
             "is_deceased": client.deceased? true: false
-
         };
         auxClients.push(data);
     }
-
     return auxClients;
   }
 
@@ -108,8 +109,11 @@ export default class ClientsController {
       "client_address": originalClient.client_address,
       "client_phone": originalClient.client_phone,
       "client_state": originalClient.client_state,
-      "serviceExecutions": originalClient.serviceExecutions,
       "subscriptions": originalClient.subscriptions,
+      "serviceExecutions": originalClient.serviceExecutions,
+      "owner": originalClient.owner,
+      "beneficiary": originalClient.beneficiary,
+      "deceased": originalClient.deceased,
       "user_id": originalClient.user_id,
       "user": api_response.data.name,
       "email": api_response.data.email,

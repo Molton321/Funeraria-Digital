@@ -38,6 +38,10 @@ export class ListComponent implements OnInit {
     this.router.navigate(["services/view/"+id])
   }
 
+  viewTo(id: number, route: string) {
+    this.router.navigate([route+id])
+  }
+
   update(id: number) {
     // console.log("update", id);
     this.router.navigate(["services/update/"+id])

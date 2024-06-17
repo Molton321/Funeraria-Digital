@@ -14,21 +14,26 @@ export class ServiceExecutionService {
   list(): Observable<ServiceExecution[]> {
     return this.http.get<ServiceExecution[]>(`${environment.url_ms_negocio}/serviceExecutions`);
   }
-
+  listByService(id:number): Observable<ServiceExecution[]> {
+    return this.http.get<ServiceExecution[]>(`${environment.url_ms_negocio}/serviceExecutions/service/${id}`);
+  }
+  listByClient(id:number): Observable<ServiceExecution[]> {
+    return this.http.get<ServiceExecution[]>(`${environment.url_ms_negocio}/serviceExecutions/client/${id}`);
+  }
+  listByDeceased(id:number): Observable<ServiceExecution[]> {
+    return this.http.get<ServiceExecution[]>(`${environment.url_ms_negocio}/serviceExecutions/deceased/${id}`);
+  }
   view(id: number): Observable<ServiceExecution> {
     return this.http.get<ServiceExecution>(`${environment.url_ms_negocio}/serviceExecutions/${id}`);
   }
-
   create(newServiceExecution: ServiceExecution): Observable<ServiceExecution> {
     return this.http.post<ServiceExecution>(`${environment.url_ms_negocio}/serviceExecutions`, newServiceExecution);
   }
-
   update(theServiceExecution: ServiceExecution): Observable<ServiceExecution> {
     const id = theServiceExecution.id;
     theServiceExecution.id = undefined;
     return this.http.put<ServiceExecution>(`${environment.url_ms_negocio}/serviceExecutions/${id}`, theServiceExecution);
   }
-
   delete(id: number) {
     return this.http.delete<ServiceExecution>(`${environment.url_ms_negocio}/serviceExecutions/${id}`);
   }

@@ -16,6 +16,11 @@
                   <tr>
                     <th scope="col-1">ID</th>
                     <th scope="col-1">State</th>
+                    <th scope="col-1">Description</th>
+                    <th scope="col-1">Observation</th>
+                    <th scope="col-1">Plan Services</th>
+                    <th scope="col-1">Service Executions</th>
+                    <th scope="col-1">Plans</th>
                     <th scope="col-1">Actions</th>
                   </tr>
                 </thead>
@@ -23,6 +28,17 @@
                   <tr *ngFor="let actual of TheServices">
                     <td>{{ actual.id }}</td>
                     <td>{{ actual.service_state ? 'Active' : 'No active' }}</td>
+                    <td>{{ actual.service_description }}</td>
+                    <td>{{ actual.service_observation }}</td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'planServices/list/service/')" >Plan Services</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'serviceExecutions/service/')" >Service Executions</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'plans/service/')" >Plans</button>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
                         <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>

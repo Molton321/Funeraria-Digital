@@ -74,8 +74,6 @@ export class ManageComponent implements OnInit {
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({
-      // primer elemento del vector, valor por defecto
-      // lista, serán las reglas
       service_id:[null,[Validators.required]],
       plan_id:[null,[Validators.required]]
     })
@@ -108,7 +106,7 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.uptate(this.thePlanService).subscribe(data=>{
+      this.service.update(this.thePlanService).subscribe(data=>{
         Swal.fire("Completado","The registry has been updated correctly","success")
         this.router.navigate(["planServices/list"])
       })

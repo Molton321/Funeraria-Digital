@@ -19,8 +19,7 @@
                             Id:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)] = "thePlanService.id" [attr.disabled]="true">
-                            <!-- {{theater.id}} -->
+                            {{thePlanService.id}}
                         </div>
                     </div>
                     <div class="row">
@@ -28,8 +27,6 @@
                             Service ID:
                         </div>
                         <div class="col-8">
-                            <!-- <input type="number" class="form-control" [(ngModel)] = "thePlanService.service_id" [attr.disabled]="mode == 1 ? true : null" formControlName="service_id"> -->
-                            <!-- {{thePlanService.service_id}} -->
                             <select class="form-control" [(ngModel)] = "thePlanService.service_id" [attr.disabled]="mode == 1 ? true : null" formControlName="service_id">
                                 <option *ngFor="let option of theServices" [value]="option.id">ID: {{ option.id }} - State: {{ option.service_state == 1? "Active" : "No active" }}</option>
                             </select>

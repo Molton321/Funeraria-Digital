@@ -1,0 +1,85 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            {{theServiceExecution.id}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Date:
+                        </div>
+                        <div class="col-8">
+                            <input type="date" class="form-control" [(ngModel)] = "theServiceExecution.service_execution_date" [attr.disabled]="mode == 1 ? true : null" formControlName="service_execution_date">
+                            <div *ngIf="getTheFormGroup?.service_execution_date?.errors && (getTheFormGroup?.service_execution_date?.dirty || getTheFormGroup?.service_execution_date?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_execution_date?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Service ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" [(ngModel)] = "theServiceExecution.service_id" [attr.disabled]="mode == 1 ? true : null" formControlName="service_id">
+                                <option *ngFor="let option of theServices" [value]="option.id">ID: {{ option.id }} - State: {{ option.service_state == 1? "Active" : "No active" }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.service_id?.errors && (getTheFormGroup?.service_id?.dirty || getTheFormGroup?.service_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.service_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Client ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" class="form-control" [(ngModel)] = "theServiceExecution.client_id" [attr.disabled]="mode == 1 ? true : null" formControlName="client_id">
+                                <option *ngFor="let option of theClients" [value]="option.id">ID: {{ option.id }} - ID User: {{ option.user_id }} - name: {{ option.user }} - email: {{ option.email }} - is: {{ option.is_owner? 'owner': option.is_beneficiary? 'benefiary': option.is_deceased? 'deceased' : none }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.client_id?.errors && (getTheFormGroup?.client_id?.dirty || getTheFormGroup?.client_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Deceased ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" class="form-control" [(ngModel)] = "theServiceExecution.deceased_id" [attr.disabled]="mode == 1 ? true : null" formControlName="deceased_id">
+                                <option *ngFor="let option of theDeceaseds" [value]="option.id">ID: {{ option.id }} - ID User: {{ option.client.user_id }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.deceased_id?.errors && (getTheFormGroup?.deceased_id?.dirty || getTheFormGroup?.deceased_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.deceased_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,7 +19,7 @@ export class ServiceService {
   create(newService: Service): Observable<Service>{
     return this.http.post<Service>(`${environment.url_ms_negocio}/services`, newService);
   }
-  uptate(theService: Service): Observable<Service>{    
+  update(theService: Service): Observable<Service>{    
     const id = theService.id;
     theService.id = undefined;
     return this.http.put<Service>(`${environment.url_ms_negocio}/services/${id}`, theService);

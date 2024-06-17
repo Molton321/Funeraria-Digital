@@ -8,6 +8,7 @@ export default class ServiceExecutionExecutionsController {
             let serviceExecution = await ServiceExecution.findOrFail(params.id);
             await serviceExecution.load("service");
             await serviceExecution.load("client");
+            await serviceExecution.load("deceased");
             await serviceExecution.load("comments");
             await serviceExecution.load("chat");
             return serviceExecution;
@@ -16,9 +17,9 @@ export default class ServiceExecutionExecutionsController {
             if ('page' in data && 'per_page' in data) {
                 const page = request.input('page', 1)
                 const perPage = request.input('per_page', 20)
-                return await ServiceExecution.query().preload('service').preload('client').preload('comments').paginate(page, perPage)
+                return await ServiceExecution.query().preload('service').preload('client').preload('deceased').preload('comments').paginate(page, perPage)
             } else {
-                return await ServiceExecution.query().preload('service').preload('client').preload('comments')
+                return await ServiceExecution.query().preload('service').preload('client').preload('deceased').preload('comments')
             }
         }
     }
@@ -49,6 +50,7 @@ export default class ServiceExecutionExecutionsController {
         theServiceExecution.service_execution_date = body.service_execution_date;
         theServiceExecution.service_id = body.service_id;
         theServiceExecution.client_id = body.client_id;
+        theServiceExecution.deceased_id = body.deceased_id;
         return theServiceExecution.save()
     }
 

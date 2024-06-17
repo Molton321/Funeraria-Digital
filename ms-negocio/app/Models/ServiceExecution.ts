@@ -4,6 +4,7 @@ import Client from './Client'
 import Service from './Service'
 import Comment from './Comment'
 import Chat from './Chat'
+import Deceased from './Deceased'
 
 export default class ServiceExecution extends BaseModel {
   @column({ isPrimary: true })
@@ -17,6 +18,9 @@ export default class ServiceExecution extends BaseModel {
 
   @column()
   public client_id: number
+
+  @column()
+  public deceased_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -33,6 +37,11 @@ export default class ServiceExecution extends BaseModel {
     foreignKey: 'service_id'
   })
   public service: BelongsTo<typeof Service>
+
+  @belongsTo(() => Deceased, {
+    foreignKey: 'deceased_id'
+  })
+  public deceased: BelongsTo<typeof Deceased>
 
   @hasMany(() => Comment, {
     foreignKey: 'service_execution_id'

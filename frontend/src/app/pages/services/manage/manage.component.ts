@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend=false
     this.mode = 1;
-    this.theService = { id: null, service_state: null };
+    this.theService = { id: null, service_state: null, service_description: '', service_observation: '' };
   }
 
   ngOnInit(): void {
@@ -50,7 +50,9 @@ export class ManageComponent implements OnInit {
     this.theFormGroup=this.theFormBuilder.group({
       // primer elemento del vector, valor por defecto
       // lista, serán las reglas
-      service_state:[null,[Validators.required]]
+      service_state:[null,[Validators.required]],
+      service_description:['',[Validators.required,Validators.minLength(10),Validators.maxLength(300)]],
+      service_observation:['',[Validators.required,Validators.minLength(10),Validators.maxLength(300)]]
     })
   }
 
@@ -76,12 +78,16 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  viewTo(id: number, route: string) {
+    this.router.navigate([route+id])
+  }
+
   update(){
     this.trySend=true
     if (this.theFormGroup.invalid) {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.uptate(this.theService).subscribe(data=>{
+      this.service.update(this.theService).subscribe(data=>{
         Swal.fire("Completado","The registry has been updated correctly","success")
         this.router.navigate(["services/list"])
       })

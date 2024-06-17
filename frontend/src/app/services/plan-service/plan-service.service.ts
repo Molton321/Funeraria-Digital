@@ -13,13 +13,22 @@ export class PlanServiceService {
   list(): Observable<PlanService[]> {
     return this.http.get<PlanService[]>(`${environment.url_ms_negocio}/planServices`);
   }
+  listByService(id:number): Observable<PlanService[]> {
+    return this.http.get<PlanService[]>(`${environment.url_ms_negocio}/planServices/service/${id}`);
+  }
+  listByPlan(id:number): Observable<PlanService[]> {
+    return this.http.get<PlanService[]>(`${environment.url_ms_negocio}/planServices/plan/${id}`);
+  }
+  listByPlanAndService(idPlan:number, idService:number): Observable<PlanService[]> {
+    return this.http.get<PlanService[]>(`${environment.url_ms_negocio}/planServices/plan/${idPlan}/service/${idService}`);
+  }
   view(id:number): Observable<PlanService>{
     return this.http.get<PlanService>(`${environment.url_ms_negocio}/planServices/${id}`);
   }
   create(newPlanService: PlanService): Observable<PlanService>{
     return this.http.post<PlanService>(`${environment.url_ms_negocio}/planServices`, newPlanService);
   }
-  uptate(thePlanService: PlanService): Observable<PlanService>{    
+  update(thePlanService: PlanService): Observable<PlanService>{    
     const id = thePlanService.id;
     thePlanService.id = undefined;
     return this.http.put<PlanService>(`${environment.url_ms_negocio}/planServices/${id}`, thePlanService);

@@ -10,6 +10,7 @@ export default class ServiceExecutionValidator {
     service_execution_date: schema.date({format:"yyyy-MM-dd\'T\'HH:mm"},[rules.afterOrEqual('today')]),
     service_id: schema.number([rules.exists({ table: 'services', column: 'id'})]),
     client_id: schema.number([rules.exists({ table: 'clients', column: 'id'}), rules.exists({ table: 'owners', column: 'client_id' , where: {client_id: this.ctx.request.input('client_id')} })]),
+    deceased_id: schema.number([rules.exists({ table: 'deceaseds', column: 'id'})])
   })
 
  
