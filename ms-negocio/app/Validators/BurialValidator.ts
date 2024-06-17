@@ -11,6 +11,5 @@ export default class BurialValidator {
       service_id: schema.number([rules.exists({ table: 'services', column: 'id' }), rules.unique({ table: 'cremations', column: 'service_id' , where: {service_id: this.ctx.request.input('service_id')}}), rules.unique({ table: 'burials', column: 'service_id' , where: {service_id: this.ctx.request.input('service_id')}})]),
   })
 
-
   public messages: CustomMessages = {}
 }
