@@ -100,6 +100,14 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'plans',
         loadChildren: () => import('src/app/pages/plans/plans.module').then(m => m.PlansModule)
+    },
+    {
+        path: 'departments',
+        loadChildren: () => import('src/app/pages/departments/departments.module').then(m => m.DepartmentsModule)
+    },
+    {
+        path: 'cities',
+        loadChildren: () => import('src/app/pages/cities/cities.module').then(m => m.CitiesModule)
     }
 
 ];

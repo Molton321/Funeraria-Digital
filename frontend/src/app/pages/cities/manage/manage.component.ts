@@ -30,7 +30,7 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.mode = 1;
     this.theDepartments = [];
-    this.theCity = { id: null, city_name: '', department_id: null };
+    this.theCity = { id: null, name: '', departmentId: null, postalCode:"",description:'' };
   }
 
   ngOnInit(): void {

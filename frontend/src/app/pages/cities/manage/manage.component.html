@@ -19,10 +19,10 @@
                             Name:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="theCity.city_name" [attr.disabled]="mode == 1 ? true : null" formControlName="city_name">
-                            <div *ngIf="getTheFormGroup?.city_name?.errors && (getTheFormGroup?.city_name?.dirty || getTheFormGroup?.city_name?.touched || trySend)">
-                                <small *ngIf="getTheFormGroup?.city_name?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.city_name?.errors?.minlength" class="msnError">Minimum length is 4</small>
+                            <input type="text" class="form-control" [(ngModel)]="theCity.name" [attr.disabled]="mode == 1 ? true : null" formControlName="name">
+                            <div *ngIf="getTheFormGroup?.name?.errors && (getTheFormGroup?.name?.dirty || getTheFormGroup?.name?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.name?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.name?.errors?.minlength" class="msnError">Minimum length is 4</small>
                             </div>
                         </div>
                     </div>
@@ -31,12 +31,12 @@
                             Department ID:
                         </div>
                         <div class="col-8">
-                            <select class="form-control" [(ngModel)] = "theCity.department_id" [attr.disabled]="mode == 1 ? true : null" formControlName="department_id">
-                                <option *ngFor="let option of theDepartments" [value]="option.id">ID: {{ option.id }} - Name: {{ option.campus_name }} - Department: {{ option.department_id }}</option>
+                            <select class="form-control" [(ngModel)] = "theCity.departmentId" [attr.disabled]="mode == 1 ? true : null" formControlName="departmentId">
+                                <option *ngFor="let option of theDepartments" [value]="option.id">ID: {{ option.id }} - Name: {{ option.campus_name }} - Department: {{ option.departmentId }}</option>
                             </select>
-                            <div *ngIf="getTheFormGroup?.department_id?.errors && (getTheFormGroup?.department_id?.dirty || getTheFormGroup?.department_id?.touched || trySend)">
-                                <small *ngIf="getTheFormGroup?.department_id?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.department_id?.errors?.min" class="msnError">Invalid</small>
+                            <div *ngIf="getTheFormGroup?.departmentId?.errors && (getTheFormGroup?.departmentId?.dirty || getTheFormGroup?.departmentId?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.departmentId?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.departmentId?.errors?.min" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>

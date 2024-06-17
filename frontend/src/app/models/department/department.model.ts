@@ -1,5 +1,6 @@
 export class Department {
     id?:number;
-    department_name:string;
+    name:string;
+    description:string;
     // cities?:City[];
 }
