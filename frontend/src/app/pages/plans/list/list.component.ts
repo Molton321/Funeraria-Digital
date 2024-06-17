@@ -29,17 +29,18 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    // console.log("create");
     this.router.navigate(["plans/create"])
   }
 
   view(id: number) {
-    // console.log("view", id);
     this.router.navigate(["plans/view/"+id])
   }
 
+  viewTo(id: number, route: string) {
+    this.router.navigate([route+id])
+  }
+
   update(id: number) {
-    // console.log("update", id);
     this.router.navigate(["plans/update/"+id])
   }
 

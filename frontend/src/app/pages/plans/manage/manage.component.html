@@ -19,8 +19,7 @@
                             Id:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)] = "thePlan.id" [attr.disabled]="true">
-                            <!-- {{theater.id}} -->
+                            {{thePlan.id}}
                         </div>
                     </div>
                     <div class="row">
@@ -29,10 +28,9 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)] = "thePlan.plan_type" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_type">
-                            <!-- {{theater.plan_type}} -->
                             <div *ngIf="getTheFormGroup?.plan_type?.errors && (getTheFormGroup?.plan_type?.dirty || getTheFormGroup?.plan_type?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.plan_type?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.plan_type?.errors?.minlength" class="msnError">Invalid</small>
+                                <small *ngIf="getTheFormGroup?.plan_type?.errors?.minlength" class="msnError">Min 4 characters</small>
                             </div>
                         </div>
                     </div>
@@ -42,10 +40,9 @@
                         </div>
                         <div class="col-8">
                             <input type="text" class="form-control" [(ngModel)] = "thePlan.plan_description" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_description">
-                            <!-- {{theater.plan_description}} -->
                             <div *ngIf="getTheFormGroup?.plan_description?.errors && (getTheFormGroup?.plan_description?.dirty || getTheFormGroup?.plan_description?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.plan_description?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.plan_description?.errors?.minlength" class="msnError">Invalid</small>
+                                <small *ngIf="getTheFormGroup?.plan_description?.errors?.minlength" class="msnError">Min 15 characters</small>
                             </div>
                         </div>
                     </div>
@@ -55,29 +52,66 @@
                         </div>
                         <div class="col-8">
                             <input type="number" class="form-control" [(ngModel)] = "thePlan.plan_price" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_price">
-                            <!-- {{theater.plan_price}} -->
                             <div *ngIf="getTheFormGroup?.plan_price?.errors && (getTheFormGroup?.plan_price?.dirty || getTheFormGroup?.plan_price?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.plan_price?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.plan_price?.errors?.minlength || getTheFormGroup?.plan_price?.errors?.maxlength" class="msnError">Invalid</small>
+                                <small *ngIf="getTheFormGroup?.plan_price?.errors?.min" class="msnError">Min 0</small>
+                                <small *ngIf="getTheFormGroup?.plan_price?.errors?.max" class="msnError">Max 100000000</small>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-4">
-                            Is active:
+                            Beneficiaries Number:
+                        </div>
+                        <div class="col-8">
+                            <input type="number" class="form-control" [(ngModel)] = "thePlan.plan_beneficiaries_number" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_beneficiaries_number">
+                            <div *ngIf="getTheFormGroup?.plan_beneficiaries_number?.errors && (getTheFormGroup?.plan_beneficiaries_number?.dirty || getTheFormGroup?.plan_beneficiaries_number?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_beneficiaries_number?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.plan_beneficiaries_number?.errors?.min" class="msnError">Min 1</small>
+                                <small *ngIf="getTheFormGroup?.plan_beneficiaries_number?.errors?.max" class="msnError">Max 100</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            State:
                         </div>
                         <div class="col-8">
                             <div class="form-check">
-                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="thePlan.plan_is_active" [value]="1" name="planIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_is_active">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="thePlan.plan_state" [value]="1" name="planIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_state">
                                 <label class="form-check-label" for="isActive">is active</label>
                             </div>
                             <div class="form-check">
-                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="thePlan.plan_is_active" [value]="0" name="planIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_is_active">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="thePlan.plan_state" [value]="0" name="planIsActive" [attr.disabled]="mode == 1 ? true : null" formControlName="plan_state">
                                 <label class="form-check-label" for="isNotActive">is not active</label>
                             </div>
-                            <div *ngIf="getTheFormGroup?.plan_is_active?.errors && (getTheFormGroup?.plan_is_active?.dirty || getTheFormGroup?.plan_is_active?.touched || trySend)">
-                                <small *ngIf="getTheFormGroup?.plan_is_active?.errors?.required" class="msnError">Required</small>
+                            <div *ngIf="getTheFormGroup?.plan_state?.errors && (getTheFormGroup?.plan_state?.dirty || getTheFormGroup?.plan_state?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.plan_state?.errors?.required" class="msnError">Required</small>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Services:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'services/list/plan/')" >Services</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Plan Services:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theService.id, 'planServices/list/service/')" >Plan Services</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==2">
+                        <div class="col-4">
+                            Subscriptions:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'subscriptions/list/plan/')" >Subscriptions</button>
                         </div>
                     </div>
                     <div class="row">

@@ -10,8 +10,15 @@ import { environment } from 'src/environments/environment';
 export class PlanService {
 
   constructor(private http: HttpClient) { }
+
   list(): Observable<Plan[]> {
     return this.http.get<Plan[]>(`${environment.url_ms_negocio}/plans`);
+  }
+  listByService(id:number): Observable<Plan[]> {
+    return this.http.get<Plan[]>(`${environment.url_ms_negocio}/plans/service/${id}`);
+  }
+  listByClient(id:number): Observable<Plan[]> {
+    return this.http.get<Plan[]>(`${environment.url_ms_negocio}/plans/client/${id}`);
   }
   view(id:number): Observable<Plan>{
     return this.http.get<Plan>(`${environment.url_ms_negocio}/plans/${id}`);
