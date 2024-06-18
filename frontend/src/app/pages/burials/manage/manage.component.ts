@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.theBurial = { id: null, burial_date: null, service_id: null };
+    this.theBurial = { id: null, burial_date: null, burial_location: '', service_id: null };
   }
 
   ngOnInit(): void {

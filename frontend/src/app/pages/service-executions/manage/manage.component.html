@@ -63,14 +63,14 @@
                         <div class="col-4">
                             Deceased ID:
                         </div>
-                        <div class="col-8">
+                        <!-- <div class="col-8">
                             <select class="form-control" class="form-control" [(ngModel)] = "theServiceExecution.deceased_id" [attr.disabled]="mode == 1 ? true : null" formControlName="deceased_id">
                                 <option *ngFor="let option of theDeceaseds" [value]="option.id">ID: {{ option.id }} - ID User: {{ option.client.user_id }}</option>
                             </select>
                             <div *ngIf="getTheFormGroup?.deceased_id?.errors && (getTheFormGroup?.deceased_id?.dirty || getTheFormGroup?.deceased_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.deceased_id?.errors?.required" class="msnError">Required</small>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="row">
                         <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>

@@ -53,7 +53,7 @@
                             Hall ID:
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)]="theViewing.hall_id" [attr.disabled]="mode == 1 ? true : null" formControlName="hall_id">
+                            <!-- <input type="number" class="form-control" [(ngModel)]="theViewing.hall_id" [attr.disabled]="mode == 1 ? true : null" formControlName="hall_id"> -->
                             <div *ngIf="getTheFormGroup?.hall_id?.errors && (getTheFormGroup?.hall_id?.dirty || getTheFormGroup?.hall_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.hall_id?.errors?.required" class="msnError">Required</small>
                                 <small *ngIf="getTheFormGroup?.hall_id?.errors?.min" class="msnError">Invalid</small>

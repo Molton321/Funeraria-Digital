@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client as ClientModel } from 'src/app/models/client/client.model';
-import { Deceased as DeceasedModel } from 'src/app/models/deceased/deceased.model';
+// import { Deceased as DeceasedModel } from 'src/app/models/deceased/deceased.model';
 import { ServiceExecution as ServiceExecutionModel } from 'src/app/models/service-execution/service-execution.model';
 import { Service as ServiceModel } from 'src/app/models/service/service.model';
 import { ClientService } from 'src/app/services/client/client.service';
-import { DeceasedService } from 'src/app/services/deceased/deceased.service';
+// import { DeceasedService } from 'src/app/services/deceased/deceased.service';
 import { ServiceExecutionService } from 'src/app/services/service-execution/service-execution.service';
 import { ServiceService } from 'src/app/services/service/service.service';
 import Swal from 'sweetalert2';
@@ -24,14 +24,14 @@ export class ManageComponent implements OnInit {
   trySend: boolean;
   theServices: ServiceModel[];
   theClients: ClientModel[];
-  theDeceaseds: DeceasedModel[];
+  // theDeceaseds: DeceasedModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
     private service: ServiceExecutionService, 
     private serviceService: ServiceService, 
     private clientService: ClientService, 
-    private deceasedService: DeceasedService, 
+    // private deceasedService: DeceasedService, 
     private router: Router, 
     private theFormBuilder:FormBuilder
   ) { 
@@ -39,18 +39,18 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.theServices = [];
     this.theClients = [];
-    this.theDeceaseds = [];
+    // this.theDeceaseds = [];
     this.theServiceExecution = { id: null, service_execution_date: null, service_id: null, client_id: null, deceased_id: null };
   }
 
   ngOnInit(): void {
     this.theServices = [];
     this.theClients = [];
-    this.theDeceaseds = [];
+    // this.theDeceaseds = [];
     this.configFormGroup()
     this.servicesList()
     this.clientsList()
-    this.deceasedsList()
+    // this.deceasedsList()
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
@@ -79,11 +79,11 @@ export class ManageComponent implements OnInit {
     })
   }
 
-  deceasedsList(){
-    this.deceasedService.list().subscribe(data => {
-      this.theDeceaseds = data;
-    })
-  }
+  // deceasedsList(){
+  //   this.deceasedService.list().subscribe(data => {
+  //     this.theDeceaseds = data;
+  //   })
+  // }
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({

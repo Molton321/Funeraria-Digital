@@ -5,6 +5,6 @@ export class FuneralHome {
     id?: number;
     funeral_home_name: string;
     funeral_home_state: boolean;
-    city_id: number;
+    city_id: string;
     rooms?: Room[];
 }

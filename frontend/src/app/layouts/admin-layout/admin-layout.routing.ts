@@ -45,14 +45,14 @@ export const AdminLayoutRoutes: Routes = [
         path: 'burials',
         loadChildren: () => import('src/app/pages/burials/burials.module').then(m => m.BurialsModule)
     },
-    {
-        path: 'campuses',
-        loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
-    },
-    {
-        path: 'rooms',
-        loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
-    },
+    // {
+    //     path: 'campuses',
+    //     loadChildren: () => import('src/app/pages/campuses/campuses.module').then(m => m.CampusesModule)
+    // },
+    // {
+    //     path: 'rooms',
+    //     loadChildren: () => import('src/app/pages/halls/halls.module').then(m => m.HallsModule)
+    // },
     {
         path: 'comments',
         

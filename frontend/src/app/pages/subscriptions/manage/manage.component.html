@@ -52,7 +52,7 @@
                             Number of Beneficiaries:
                         </div>
                         <div class="col-8">
-                            <input type="number" class="form-control" [(ngModel)] = "theSubscription.subscription_number_of_beneficiaries" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_number_of_beneficiaries">
+                            <!-- <input type="number" class="form-control" [(ngModel)] = "theSubscription.subscription_number_of_beneficiaries" [attr.disabled]="mode == 1 ? true : null" formControlName="subscription_number_of_beneficiaries"> -->
                             <!-- {{theSubscription.subscription_number_of_beneficiaries}} -->
                             <div *ngIf="getTheFormGroup?.subscription_number_of_beneficiaries?.errors && (getTheFormGroup?.subscription_number_of_beneficiaries?.dirty || getTheFormGroup?.subscription_number_of_beneficiaries?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.subscription_number_of_beneficiaries?.errors?.required" class="msnError">Required</small>

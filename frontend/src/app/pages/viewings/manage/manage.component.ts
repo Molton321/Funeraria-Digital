@@ -26,7 +26,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.theViewing = { id: null, viewing_entry_date: null, viewing_exit_date: null, service_id: null, hall_id: null };
+    this.theViewing = { id: null, viewing_entry_date: null, viewing_exit_date: null, service_id: null, room_id: null };
   }
 
   ngOnInit(): void {

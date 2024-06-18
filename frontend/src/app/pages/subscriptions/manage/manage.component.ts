@@ -35,7 +35,7 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.theClients = [];
     this.thePlans = [];
-    this.theSubscription = { id: null, subscription_start_date: null, subscription_end_date: null, subscription_number_of_beneficiaries: null, plan_id: null, client_id: null };
+    this.theSubscription = { id: null, subscription_start_date: null, subscription_end_date: null, subscription_payments_number: null, plan_id: null, client_id: null };
   }
 
   ngOnInit(): void {
