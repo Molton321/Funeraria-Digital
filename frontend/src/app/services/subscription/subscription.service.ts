@@ -13,6 +13,15 @@ export class SubscriptionService {
   list(): Observable<Subscription[]> {
     return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions`);
   }
+  listByClient(id:number): Observable<Subscription[]> {
+    return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions/client/${id}`);
+  }
+  listByPlan(id:number): Observable<Subscription[]> {
+    return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions/plan/${id}`);
+  }
+  listByClientAndPlan(idClient:number, idPlan:number): Observable<Subscription[]> {
+    return this.http.get<Subscription[]>(`${environment.url_ms_negocio}/subscriptions/client/${idClient}/plan/${idPlan}`);
+  }
   view(id:number): Observable<Subscription>{
     return this.http.get<Subscription>(`${environment.url_ms_negocio}/subscriptions/${id}`);
   }

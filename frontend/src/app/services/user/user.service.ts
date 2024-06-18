@@ -14,21 +14,23 @@ export class UserService {
   list(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.url_ms_security}/api/users`);
   }
-  
   view(id: number): Observable<User> {
     return this.http.get<User>(`${environment.url_ms_security}/api/users/${id}`);
   }
-
   create(newUser: User): Observable<User> {
     return this.http.post<User>(`${environment.url_ms_security}/api/users`, newUser);
   }
-
   update(theUser: User): Observable<User> {
     const id = theUser.id;
     theUser.id = undefined;
     return this.http.put<User>(`${environment.url_ms_security}/api/users/${id}`, theUser);
   }
-
+  matchRole(idUser: number, idRole: number): Observable<User> {
+    return this.http.put<User>(`${environment.url_ms_security}/api/users/${idUser}/match-role/${idRole}`, null);
+  }
+  unMatchRole(idUser: number, idRole: number): Observable<User> {
+    return this.http.put<User>(`${environment.url_ms_security}/api/users/${idUser}/unmatch-role/${idRole}`, null);
+  }
   delete(id: number) {
     return this.http.delete<User>(`${environment.url_ms_security}/api/users/${id}`);
   }

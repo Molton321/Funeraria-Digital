@@ -10,7 +10,6 @@ export default class ServiceExecutionExecutionsController {
             await serviceExecution.load("client");
             await serviceExecution.load("deceased");
             await serviceExecution.load("comments");
-            await serviceExecution.load("chat");
             return serviceExecution;
         } else {
             const data = request.all()
@@ -57,13 +56,9 @@ export default class ServiceExecutionExecutionsController {
     public async delete({ params, response }: HttpContextContract) {
         const theServiceExecution: ServiceExecution = await ServiceExecution.findOrFail(params.id)
         await theServiceExecution.load("comments")
-        await theServiceExecution.load("chat")
         if (theServiceExecution.comments) {
             response.status(400);
             return { "message": "Cannot be deleted because it has associated comments"}
-        } else if (theServiceExecution.chat) {
-            response.status(400);
-            return { "message": "Cannot be deleted because it has associated chat"}
         } else {
             response.status(204)
             return theServiceExecution.delete()

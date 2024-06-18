@@ -3,7 +3,6 @@ import { BaseModel, HasMany, HasOne, column, hasMany, hasOne } from '@ioc:Adonis
 import Beneficiary from './Beneficiary'
 import Subscription from './Subscription'
 import ServiceExecution from './ServiceExecution'
-import Deceased from './Deceased'
 import Owner from './Owner'
 
 export default class Client extends BaseModel {
@@ -18,6 +17,9 @@ export default class Client extends BaseModel {
 
   @column()
   public client_state: boolean
+
+  @column()
+  public client_alive: boolean
 
   @column()
   public user_id: string
@@ -48,8 +50,8 @@ export default class Client extends BaseModel {
   })
   public beneficiary: HasOne<typeof Beneficiary>
 
-  @hasOne(() => Deceased, {
-    foreignKey: 'client_id'
+  @hasOne(() => ServiceExecution, {
+    foreignKey: 'deceased_id'
   })
-  public deceased: HasOne<typeof Deceased>
+  public deceased: HasOne<typeof ServiceExecution>
 }

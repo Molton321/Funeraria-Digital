@@ -27,6 +27,17 @@ export default class ClientsController {
     return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('owner').preload('beneficiary').where("user_id", params.user_id)
   }
 
+  public async findDeceaseds({ request }: HttpContextContract) {
+    const data = request.all()
+    if ('page' in data && 'per_page' in data) {
+      const page = request.input('page', 1)
+      const perPage = request.input('per_page', 20)
+      return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('owner').preload('subscriptions').where("client_alive", false).paginate(page, perPage))
+    } else {
+      return await this.fetchClientDataUsers(Client.query().preload('serviceExecutions').preload('owner').preload('beneficiary').preload('subscriptions').where("client_alive", false))
+    }
+  }
+
   public async create({ request }: HttpContextContract) {
     // const body = request.body()
     const body = await request.validate(ClientValidator)
@@ -41,6 +52,7 @@ export default class ClientsController {
     theClient.client_address = body.client_address
     theClient.client_phone = body.client_phone
     theClient.client_state = body.client_state
+    theClient.client_alive = body.client_alive
     theClient.user_id = body.user_id
     return theClient.save()
   }
@@ -80,6 +92,7 @@ export default class ClientsController {
             "client_address": client.client_address,
             "client_phone": client.client_phone,
             "client_state": client.client_state,
+            "client_alive": client.client_alive,
             "subscriptions": client.subscriptions,
             "serviceExecutions": client.serviceExecutions,
             "owner": client.owner,
@@ -89,8 +102,7 @@ export default class ClientsController {
             "user": api_response.data.name,
             "email": api_response.data.email,
             "is_owner": client.owner? true: false,
-            "is_beneficiary": client.beneficiary? true: false,
-            "is_deceased": client.deceased? true: false
+            "is_beneficiary": client.beneficiary? true: false
         };
         auxClients.push(data);
     }
@@ -109,6 +121,7 @@ export default class ClientsController {
       "client_address": originalClient.client_address,
       "client_phone": originalClient.client_phone,
       "client_state": originalClient.client_state,
+      "client_alive": originalClient.client_alive,
       "subscriptions": originalClient.subscriptions,
       "serviceExecutions": originalClient.serviceExecutions,
       "owner": originalClient.owner,
@@ -119,7 +132,6 @@ export default class ClientsController {
       "email": api_response.data.email,
       "is_owner": originalClient.owner? true: false,
       "is_beneficiary": originalClient.beneficiary? true: false,
-      "is_deceased": originalClient.deceased? true: false
     }
     return data
   }

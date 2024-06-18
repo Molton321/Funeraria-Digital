@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Move as MoveModel } from 'src/app/models/move/move';
+import { Move as MoveModel } from 'src/app/models/transfer/move';
 import { MoveService } from 'src/app/services/move/move.service';
 import Swal from 'sweetalert2';
 

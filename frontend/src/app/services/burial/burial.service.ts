@@ -14,6 +14,9 @@ export class BurialService {
   list(): Observable<Burial[]> {
     return this.http.get<Burial[]>(`${environment.url_ms_negocio}/burials`);
   }
+  listByService(id:number): Observable<Burial[]> {
+    return this.http.get<Burial[]>(`${environment.url_ms_negocio}/burials/service/${id}`);
+  }
   view(id: number): Observable<Burial> {
     return this.http.get<Burial>(`${environment.url_ms_negocio}/burials/${id}`);
   }

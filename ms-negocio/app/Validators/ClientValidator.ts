@@ -10,7 +10,12 @@ export default class ClientValidator {
     client_address:  schema.string([rules.minLength(10), rules.required()]),
     client_phone:  schema.string([rules.minLength(10), rules.required()]),
     client_state: schema.boolean([rules.required()]),
-    user_id : schema.string([rules.unique({ table: 'administrators', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')} }), rules.unique({ table: 'clients', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')} }), rules.unique({ table: 'drivers', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')}})])
+    client_alive: schema.boolean([rules.required()]),
+    user_id : schema.string([
+      rules.unique({ table: 'administrators', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')} }), 
+      // rules.unique({ table: 'clients', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')} }), 
+      rules.unique({ table: 'drivers', column: 'user_id', where: {user_id: this.ctx.request.input('user_id')} })
+    ])
   })
 
  

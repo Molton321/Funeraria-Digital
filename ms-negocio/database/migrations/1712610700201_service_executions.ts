@@ -15,7 +15,7 @@ export default class extends BaseSchema {
         .references('clients.id')
       table.integer('deceased_id')
         .unsigned()
-        .references('deceaseds.id')
+        .references('clients.id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })
     })

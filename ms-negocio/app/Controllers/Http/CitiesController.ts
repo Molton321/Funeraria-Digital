@@ -42,8 +42,8 @@ export default class CitiesController {
 
     public async delete({ params, response }: HttpContextContract) {
         const theCity: City = await City.findOrFail(params.id);
-        await theCity.load("campuses")
-        if (theCity.campuses.length > 0) {
+        await theCity.load("funeralHomes")
+        if (theCity.funeralHomes.length > 0) {
             response.status(400);
             return { "message": "La ciudad tiene sedes asociadas. No se puede eliminar."}
         } else {

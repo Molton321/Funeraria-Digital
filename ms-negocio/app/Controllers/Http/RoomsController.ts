@@ -6,17 +6,17 @@ export default class RoomsController {
 
     public async find({ request, params }: HttpContextContract) {
         if (params.id) {
-            let theRoom:Room = await Room.findOrFail(params.id);
-            await theRoom.load("campus")
+            let theRoom: Room = await Room.findOrFail(params.id);
+            await theRoom.load("funeralHome")
             return theRoom;
         } else {
             const data = request.all()
             if ("page" in data && "per_page" in data) {
                 const page = request.input('page', 1);
                 const perPage = request.input("per_page", 20);
-                return await Room.query().preload('campus').paginate(page, perPage)
+                return await Room.query().preload('funeralHome').paginate(page, perPage)
             } else {
-                return await Room.query().preload('campus')
+                return await Room.query().preload('funeralHome')
             }
         }
     }

@@ -14,6 +14,12 @@ export class ViewingService {
   list(): Observable<Viewing[]> {
     return this.http.get<Viewing[]>(`${environment.url_ms_negocio}/viewings`);
   }
+  listByService(id:number): Observable<Viewing[]> {
+    return this.http.get<Viewing[]>(`${environment.url_ms_negocio}/viewings/service/${id}`);
+  }
+  listByRoom(id:number): Observable<Viewing[]> {
+    return this.http.get<Viewing[]>(`${environment.url_ms_negocio}/viewings/room/${id}`);
+  }
   view(id: number): Observable<Viewing> {
     return this.http.get<Viewing>(`${environment.url_ms_negocio}/viewings/${id}`);
   }

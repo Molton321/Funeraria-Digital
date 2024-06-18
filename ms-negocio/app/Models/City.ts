@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Campus from './FuneralHome'
+import FuneralHome from './FuneralHome'
 import Department from './Department'
 
 export default class City extends BaseModel {
@@ -24,8 +24,8 @@ export default class City extends BaseModel {
   })
   public department: BelongsTo<typeof Department>
 
-  @hasMany(() => Campus, {
-    foreignKey: 'city_id'
+  @hasMany(() => FuneralHome, {
+    foreignKey: 'funeral_home_id'
   })
-  public campuses: HasMany<typeof Campus>
+  public funeralHomes: HasMany<typeof FuneralHome>
 }

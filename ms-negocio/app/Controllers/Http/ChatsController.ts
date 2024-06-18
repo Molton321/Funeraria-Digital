@@ -23,8 +23,8 @@ export default class ChatsController {
         }
     }
 
-    public async findByServiceExecution({ params }: HttpContextContract) {
-        return await Chat.query().where("service_execution_id", params.service_execution_id)
+    public async findByViewing({ params }: HttpContextContract) {
+        return await Chat.query().where("viewing_id", params.viewing_id)
     }
 
     public async create({ request }: HttpContextContract) {
@@ -40,7 +40,7 @@ export default class ChatsController {
         const body = await request.validate(ChatValidator)
         theChat.chat_date = body.chat_date;
         theChat.chat_state = body.chat_state;
-        theChat.service_execution_id = body.service_execution_id;
+        theChat.viewing_id = body.viewing_id;
         return theChat.save();
     }
 

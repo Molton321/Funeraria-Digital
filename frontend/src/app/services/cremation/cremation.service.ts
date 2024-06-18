@@ -14,6 +14,9 @@ export class CremationService {
   list(): Observable<Cremation[]> {
     return this.http.get<Cremation[]>(`${environment.url_ms_negocio}/cremations`);
   }
+  listByService(id:number): Observable<Cremation[]> {
+    return this.http.get<Cremation[]>(`${environment.url_ms_negocio}/cremations/service/${id}`);
+  }
   view(id: number): Observable<Cremation> {
     return this.http.get<Cremation>(`${environment.url_ms_negocio}/cremations/${id}`);
   }

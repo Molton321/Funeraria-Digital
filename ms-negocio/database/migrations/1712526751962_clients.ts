@@ -9,6 +9,7 @@ export default class extends BaseSchema {
       table.string('client_address')
       table.string('client_phone')
       table.boolean('client_state')
+      table.boolean('client_alive')
       table.string('user_id')
       table.timestamp('created_at', { useTz: true })
       table.timestamp('updated_at', { useTz: true })

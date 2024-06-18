@@ -1,7 +1,7 @@
 import { DateTime } from 'luxon'
 import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import ServiceExecution from './ServiceExecution'
 import UserChat from './UserChat'
+import Viewing from './Viewing'
 
 export default class Chat extends BaseModel {
   @column({ isPrimary: true })
@@ -14,7 +14,7 @@ export default class Chat extends BaseModel {
   public chat_state: boolean
 
   @column()
-  public service_execution_id: number
+  public viewing_id: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -22,10 +22,10 @@ export default class Chat extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
 
-  @belongsTo(() => ServiceExecution, {
-    foreignKey: 'service_execution_id'
+  @belongsTo(() => Viewing, {
+    foreignKey: 'viewing_id'
   })
-  public serviceExecution: BelongsTo<typeof ServiceExecution>
+  public viewing: BelongsTo<typeof Viewing>
 
   @hasMany(() => UserChat, {
     foreignKey: 'chat_id'

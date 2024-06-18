@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasOne, belongsTo, column, hasOne } from '@ioc:Adonis/Lucid/Orm'
 import Service from './Service'
 import Room from './Room'
+import Chat from './Chat'
 
 export default class  Viewing extends BaseModel {
   @column({ isPrimary: true })
@@ -34,4 +35,9 @@ export default class  Viewing extends BaseModel {
     foreignKey: 'room_id'
   })
   public room: BelongsTo<typeof Room>
+
+  @hasOne(() => Chat, {
+    foreignKey: 'service_execution_id'
+  })
+  public chat: HasOne<typeof Chat>
 }
