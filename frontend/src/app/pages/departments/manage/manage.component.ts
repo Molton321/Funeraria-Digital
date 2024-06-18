@@ -25,7 +25,7 @@ export class ManageComponent implements OnInit {
   ) { 
     this.trySend = false;
     this.mode = 1;
-    this.theDepartment = { id: null, department_name: '' };
+    this.theDepartment = { id: null, name: '', description: ''};
   }
 
   ngOnInit(): void {
@@ -42,7 +42,7 @@ export class ManageComponent implements OnInit {
     }
     if (this.activateRoute.snapshot.params.id){
       this.theDepartment.id = this.activateRoute.snapshot.params.id;
-      this.getDepartment(this.theDepartment.id);
+      //this.getDepartment(this.theDepartment.id);
     }
   }
 
@@ -56,34 +56,34 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
-  getDepartment(id: number){
-    this.service.view(id).subscribe(data => {
-      this.theDepartment = data;
-    });
-  }
+  // getDepartment(id: number){
+  //   this.service.view(id).subscribe(data => {
+  //     this.theDepartment = data;
+  //   });
+  // }
 
-  create(){
-    this.trySend = true;
-    if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Please fill in the fields correctly", "error");
-    } else {
-      this.service.create(this.theDepartment).subscribe(data => {
-        Swal.fire("Completed", "The record has been created correctly", "success");
-        this.router.navigate(["halls/list"]);
-      });
-    }
-  }
+  // create(){
+  //   this.trySend = true;
+  //   if (this.theFormGroup.invalid) {
+  //     Swal.fire("Error", "Please fill in the fields correctly", "error");
+  //   } else {
+  //     this.service.create(this.theDepartment).subscribe(data => {
+  //       Swal.fire("Completed", "The record has been created correctly", "success");
+  //       this.router.navigate(["halls/list"]);
+  //     });
+  //   }
+  // }
 
-  update(){
-    this.trySend = true;
-    if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Please fill in the fields correctly", "error");
-    } else {
-      this.service.update(this.theDepartment).subscribe(data => {
-        Swal.fire("Completed", "The record has been updated correctly", "success");
-        this.router.navigate(["halls/list"]);
-      });
-    }
-  }
+  // update(){
+  //   this.trySend = true;
+  //   if (this.theFormGroup.invalid) {
+  //     Swal.fire("Error", "Please fill in the fields correctly", "error");
+  //   } else {
+  //     this.service.update(this.theDepartment).subscribe(data => {
+  //       Swal.fire("Completed", "The record has been updated correctly", "success");
+  //       this.router.navigate(["halls/list"]);
+  //     });
+  //   }
+  // }
 
 }

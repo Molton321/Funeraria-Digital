@@ -19,10 +19,10 @@
                             Name:
                         </div>
                         <div class="col-8">
-                            <input type="text" class="form-control" [(ngModel)]="theDepartment.department_name" [attr.disabled]="mode == 1 ? true : null" formControlName="department_name">
-                            <div *ngIf="getTheFormGroup?.department_name?.errors && (getTheFormGroup?.department_name?.dirty || getTheFormGroup?.department_name?.touched || trySend)">
-                                <small *ngIf="getTheFormGroup?.department_name?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.department_name?.errors?.minlength" class="msnError">Minimum length is 4</small>
+                            <input type="text" class="form-control" [(ngModel)]="theDepartment.name" [attr.disabled]="mode == 1 ? true : null" formControlName="name">
+                            <div *ngIf="getTheFormGroup?.name?.errors && (getTheFormGroup?.name?.dirty || getTheFormGroup?.name?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.name?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.name?.errors?.minlength" class="msnError">Minimum length is 4</small>
                             </div>
                         </div>
                     </div>

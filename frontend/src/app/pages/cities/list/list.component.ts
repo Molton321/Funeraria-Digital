@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { City as CityModel } from 'src/app/models/city/city.model';
 import { CityService } from 'src/app/services/city/city.service';
 import Swal from 'sweetalert2';
@@ -13,12 +13,23 @@ export class ListComponent implements OnInit {
   
   TheCities: CityModel[];
 
-  constructor(private service: CityService, private router: Router) {
+  constructor(private service: CityService, private router: Router, private activateRoute: ActivatedRoute) {
     this.TheCities = [];
   }
 
   ngOnInit(): void {
-    this.list();
+    const currentUrl = this.activateRoute.snapshot.url.join('/');
+    const currentUrlArray = currentUrl.split("/");
+    
+    if (currentUrlArray.length == 1){
+      this.list()
+    }
+    if (currentUrlArray.length > 1){
+      if (currentUrlArray[1] == 'department'){
+        const id = parseInt(currentUrlArray[2]);
+        this.listByDepartment(id);
+      }
+    }
   }
 
   list() {
@@ -39,28 +50,10 @@ export class ListComponent implements OnInit {
     this.router.navigate(["cities/update/" + id]);
   }
 
-  delete(id: number) {
-    Swal.fire({
-      title: 'Delete Hall',
-      text: "Are you sure you want to delete the record?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete',
-      cancelButtonText: 'No, cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(id).subscribe(data => {
-          Swal.fire(
-            'Deleted!',
-            'The record has been deleted.',
-            'success'
-          );
-          this.ngOnInit();
-        });
-      }
-    });
+  listByDepartment(id: number) {
+    this.service.listByDepartment(id).subscribe(data => {
+      this.TheCities = data;
+    })
   }
 
 }

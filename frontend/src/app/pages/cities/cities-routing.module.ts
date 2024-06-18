@@ -23,6 +23,10 @@ const routes: Routes = [
   {
     path: "delete/:id",
     component: ManageComponent
+  },
+  {
+    path: "list/department/:id",
+    component: ListComponent
   }
 ];
 

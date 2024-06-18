@@ -1,7 +1,10 @@
 export class City {
     id?:number;
-    city_name:string;
-    department_id:number;
+    name:string;
+    description:string;
+    postalCode:string;
+    departmentId:number;
+
     // department?:Department;
     // campuses?:Campus[];
 }

@@ -27,12 +27,13 @@ export class SecurityService {
   Guardar la información de usuario en el local storage
   */
   saveSession(dataSesion: any) {
+    let actualSesion = localStorage.getItem('sesion');
     let data: User = {
-      id: dataSesion["user"]["id"],
-      name: dataSesion["user"]["name"],
-      email: dataSesion["user"]["email"],
+      id: dataSesion["_id"],
+      name: dataSesion["name"],
+      email: dataSesion["email"],
       password: "",
-      role: dataSesion["user"]["role"],
+      role: dataSesion["role"],
       token: dataSesion["token"]
     };
     localStorage.setItem('sesion', JSON.stringify(data));

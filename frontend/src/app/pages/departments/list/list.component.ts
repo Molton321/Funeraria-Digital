@@ -27,40 +27,13 @@ export class ListComponent implements OnInit {
     });
   }
 
-  create() {
-    this.router.navigate(["departments/create"]);
-  }
-
   view(id: number) {
     this.router.navigate(["departments/view/" + id]);
   }
 
-  update(id: number) {
-    this.router.navigate(["departments/update/" + id]);
-  }
-
-  delete(id: number) {
-    Swal.fire({
-      title: 'Delete Hall',
-      text: "Are you sure you want to delete the record?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete',
-      cancelButtonText: 'No, cancel'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.service.delete(id).subscribe(data => {
-          Swal.fire(
-            'Deleted!',
-            'The record has been deleted.',
-            'success'
-          );
-          this.ngOnInit();
-        });
-      }
-    });
+  viewTo(id: number, route:string) {
+    console.log(route+id);
+    this.router.navigate([route+id]);
   }
 
 }

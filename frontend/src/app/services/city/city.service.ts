@@ -12,7 +12,7 @@ export class CityService {
   constructor(private http: HttpClient) { }
 
   list(): Observable<City[]> {
-    return this.http.get<City[]>(`${environment.url_ms_negocio}/cities`);
+    return this.http.get<City[]>(`${environment.url_api_colombia}/city`);
   }
   view(id: number): Observable<City> {
     return this.http.get<City>(`${environment.url_ms_negocio}/cities/${id}`);
@@ -27,6 +27,10 @@ export class CityService {
   }
   delete(id: number) {
     return this.http.delete<City>(`${environment.url_ms_negocio}/cities/${id}`);
+  }
+
+  listByDepartment(id: number): Observable<City[]> {
+    return this.http.get<City[]>(`${environment.url_api_colombia}/Department/${id}/cities`);
   }
 
 }

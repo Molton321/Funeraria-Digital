@@ -15,6 +15,5 @@ export default class BurialValidator {
         rules.unique({ table: 'viewings', column: 'service_id' , where: {service_id: this.ctx.request.input('service_id')}})])
   })
 
-
   public messages: CustomMessages = {}
 }
