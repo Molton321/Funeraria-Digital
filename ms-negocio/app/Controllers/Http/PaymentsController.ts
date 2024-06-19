@@ -25,6 +25,12 @@ export default class PaymentsController {
         return await Payment.query().where("subscription_id", params.subscription_id)
     }
 
+    public async findByClient({ params }: HttpContextContract) {
+        return await Payment.query().whereHas("subscription", (query) => {
+            query.where("client_id", params.client_id)
+        })
+    }
+
     public async create({ request }: HttpContextContract) {
         // const body = request.body();
         const body = await request.validate(PaymentValidator)

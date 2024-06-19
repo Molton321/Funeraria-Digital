@@ -16,6 +16,9 @@ export class PaymentService {
   listBySubscription(id:number): Observable<Payment[]> {
     return this.http.get<Payment[]>(`${environment.url_ms_negocio}/payments/subscription/${id}`);
   }
+  listByClient(id:number): Observable<Payment[]> {
+    return this.http.get<Payment[]>(`${environment.url_ms_negocio}/payments/client/${id}`);
+  }
   view(id:number): Observable<Payment>{
     return this.http.get<Payment>(`${environment.url_ms_negocio}/payments/${id}`);
   }

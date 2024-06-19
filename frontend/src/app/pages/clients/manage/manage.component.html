@@ -1,1 +1,165 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h1 *ngIf="mode==1">View</h1>
+          <h1 *ngIf="mode==2">Create</h1>
+          <h1 *ngIf="mode==3">Update</h1>
+        </div>
+        <div class="card-body">
+            <div class="container">
+                <form [formGroup]="theFormGroup">
+                    <div class="row">
+                        <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            {{theClient.id}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Address:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theClient.client_address" [attr.disabled]="mode == 1 ? true : null" formControlName="client_address">
+                            <div *ngIf="getTheFormGroup?.client_address?.errors && (getTheFormGroup?.client_address?.dirty || getTheFormGroup?.client_address?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_address?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.client_address?.errors?.minlength" class="msnError">Min 10 characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Phone:
+                        </div>
+                        <div class="col-8">
+                            <input type="text" class="form-control" [(ngModel)] = "theClient.client_phone" [attr.disabled]="mode == 1 ? true : null" formControlName="client_phone">
+                            <div *ngIf="getTheFormGroup?.client_phone?.errors && (getTheFormGroup?.client_phone?.dirty || getTheFormGroup?.client_phone?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_phone?.errors?.required" class="msnError">Required</small>
+                                <small *ngIf="getTheFormGroup?.client_phone?.errors?.minlength" class="msnError">Min 10 characters</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            State:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theClient.client_state" [value]="1" name="clientState" [attr.disabled]="mode == 1 ? true : null" formControlName="client_state">
+                                <label class="form-check-label" for="isActive">is active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theClient.client_state" [value]="0" name="clientState" [attr.disabled]="mode == 1 ? true : null" formControlName="client_state">
+                                <label class="form-check-label" for="isNotActive">is not active</label>
+                            </div>
+                            <div *ngIf="getTheFormGroup?.client_state?.errors && (getTheFormGroup?.client_state?.dirty || getTheFormGroup?.client_state?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_state?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            Alive:
+                        </div>
+                        <div class="col-8">
+                            <div class="form-check">
+                                <input type="radio" id="isActive" class="form-check-input" [(ngModel)]="theClient.client_state" [value]="1" name="clientAlive" [attr.disabled]="mode == 1 ? true : null" formControlName="client_alive">
+                                <label class="form-check-label" for="isActive">is alive</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theClient.client_state" [value]="0" name="clientAlive" [attr.disabled]="mode == 1 ? true : null" formControlName="client_alive">
+                                <label class="form-check-label" for="isNotActive">is dead</label>
+                            </div>
+                            <div *ngIf="getTheFormGroup?.client_alive?.errors && (getTheFormGroup?.client_alive?.dirty || getTheFormGroup?.client_alive?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.client_alive?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            User ID:
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" [(ngModel)] = "theClient.user_id" [attr.disabled]="mode == 1 ? true : null" formControlName="user_id">
+                                <option *ngFor="let option of theUsers" [value]="option.id">ID: {{ option.id }} - Name: {{ option.name }} - Email: {{ option.email }}</option>
+                            </select>
+                            <div *ngIf="getTheFormGroup?.user_id?.errors && (getTheFormGroup?.user_id?.dirty || getTheFormGroup?.user_id?.touched || trySend)">
+                                <small *ngIf="getTheFormGroup?.user_id?.errors?.required" class="msnError">Required</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Services:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'services/list/client/')" >Services</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Plans:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'plans/list/client/')" >Plans</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Comments:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'comments/list/client/')" >Comments</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Service Executions:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'serviceExecutions/list/client/')" >Service Executions</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Subscriptions:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'subscriptions/list/client/')" >Subscriptions</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Payments:
+                        </div>
+                        <div class="col-8">
+                            <button type="button" class="btn btn-info" (click) = "viewTo(theClient.id, 'payments/list/client/')" >Payments</button>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="mode==1 || mode==3">
+                        <div class="col-4">
+                            Type view:
+                        </div>
+                        <div class="col-8">
+                            <button *ngIf="theClient.is_beneficiary" type="button" class="btn btn-info" (click) = "viewTo(theClient.beneficiary.id, 'beneficiaries/view/')" >Beneficiary</button>
+                            <button *ngIf="theClient.is_owner" type="button" class="btn btn-info" (click) = "viewTo(theClient.owner.id, 'owners/view/')" >Owners</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button *ngIf="mode==2" (click)="create()" type="button" class="btn btn-primary btn-block">Create</button>
+                        <button *ngIf="mode==3" (click)="update()" type="button" class="btn btn-primary btn-block">Update</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,11 +14,11 @@ export class ClientService {
   list(): Observable<Client[]> {
     return this.http.get<Client[]>(`${environment.url_ms_negocio}/clients`);
   }
-  listByService(id:number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${environment.url_ms_negocio}/clients/service/${id}`);
+  listByService(id:number): Observable<Client[]> {
+    return this.http.get<Client[]>(`${environment.url_ms_negocio}/clients/service/${id}`);
   }
-  listDeceaseds(id:number): Observable<Comment[]> {
-    return this.http.get<Comment[]>(`${environment.url_ms_negocio}/clients/deceaseds`);
+  listDeceaseds(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${environment.url_ms_negocio}/clients/deceaseds`);
   }
   view(id:number): Observable<Client>{
     return this.http.get<Client>(`${environment.url_ms_negocio}/clients/${id}`);
@@ -26,7 +26,7 @@ export class ClientService {
   create(newClient: Client): Observable<Client>{
     return this.http.post<Client>(`${environment.url_ms_negocio}/clients`, newClient);
   }
-  uptate(theClient: Client): Observable<Client>{    
+  update(theClient: Client): Observable<Client>{    
     const id = theClient.id;
     theClient.id = undefined;
     return this.http.put<Client>(`${environment.url_ms_negocio}/clients/${id}`, theClient);

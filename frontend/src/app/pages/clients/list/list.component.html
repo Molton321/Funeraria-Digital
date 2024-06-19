@@ -1,1 +1,82 @@
-<p>list works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Plans</h3>
+          <button type="button" class="btn btn-success" (click)="create()">Create</button>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col-1">ID</th>
+                    <th scope="col-1">Address</th>
+                    <th scope="col-1">Phone</th>
+                    <th scope="col-1">State</th>
+                    <th scope="col-1">Alive</th>
+                    <th scope="col-1">State</th>
+                    <th scope="col-1">User ID</th>
+                    <th scope="col-1">Name</th>
+                    <th scope="col-1">Email</th>
+                    <th scope="col-1">Type</th>
+                    <th scope="col-1">Services</th>
+                    <th scope="col-1">Plans</th>
+                    <th scope="col-1">Comments</th>
+                    <th scope="col-1">Service Executions</th>
+                    <th scope="col-1">Subscriptions</th>
+                    <th scope="col-1">Payments</th>
+                    <th scope="col-1">Type view</th>
+                    <th scope="col-1">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let actual of TheClients">
+                    <td>{{ actual.id }}</td>
+                    <td>{{ actual.client_address }}</td>
+                    <td>{{ actual.client_phone }}</td>
+                    <td>{{ actual.client_state }}</td>
+                    <td>{{ actual.client_alive }}</td>
+                    <td>{{ actual.user_id }}</td>
+                    <td>{{ actual.user }}</td>
+                    <td>{{ actual.email }}</td>
+                    <td>{{ actual.is_owner? 'Owner' : actual.is_beneficiary? 'Beneficiary' : null }}</td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'services/list/client/')" >Services</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'plans/list/client/')" >Plans</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'comments/list/client/')" >Comments</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'serviceExecutions/list/client/')" >Service Executions</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'subscriptions/list/client/')" >Subscriptions</button>
+                    </td>
+                    <td>
+                      <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'payments/list/client/')" >Payments</button>
+                    </td>
+                    <td>
+                      <button *ngIf="actual.is_beneficiary" type="button" class="btn btn-info" (click) = "viewTo(actual.beneficiary.id, 'beneficiaries/view/')" >Beneficiary</button>
+                      <button *ngIf="actual.is_owner" type="button" class="btn btn-info" (click) = "viewTo(actual.owner.id, 'owners/view/')" >Owners</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
+                        <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>
+                        <button type="button" class="btn btn-danger" (click) = "delete(actual.id)" >Delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
