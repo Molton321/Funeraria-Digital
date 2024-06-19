@@ -9,6 +9,10 @@ const routes: Routes = [
     component: ListComponent
   },
   {
+    path: "view/user/:id",
+    component: ManageComponent
+  },
+  {
     path: "list/service/:id",
     component: ListComponent
   },

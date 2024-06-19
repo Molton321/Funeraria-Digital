@@ -20,6 +20,9 @@ export class ClientService {
   listDeceaseds(): Observable<Client[]> {
     return this.http.get<Client[]>(`${environment.url_ms_negocio}/clients/deceaseds`);
   }
+  viewByUser(id:string): Observable<Client> {
+    return this.http.get<Client>(`${environment.url_ms_negocio}/clients/user/${id}`);
+  }
   view(id:number): Observable<Client>{
     return this.http.get<Client>(`${environment.url_ms_negocio}/clients/${id}`);
   }

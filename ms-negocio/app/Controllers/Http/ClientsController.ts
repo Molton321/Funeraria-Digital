@@ -23,6 +23,12 @@ export default class ClientsController {
     }
   }
 
+  public async findByService({ params }: HttpContextContract) {
+    return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('owner').preload('beneficiary').whereHas('serviceExecutions', (query) => {
+      query.where("service_id", params.service_id)
+    })
+  }
+
   public async findByUser({ params }: HttpContextContract) {
     return await Client.query().preload('serviceExecutions').preload('subscriptions').preload('owner').preload('beneficiary').where("user_id", params.user_id)
   }

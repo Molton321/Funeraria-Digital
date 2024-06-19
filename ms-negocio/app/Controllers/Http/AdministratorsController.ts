@@ -59,7 +59,7 @@ export default class AdministratorsController {
             "id": Administrator.id,
             "administrator_state": Administrator.administrator_state,
             "user_id": Administrator.user_id,
-            "name": api_response.data.name,
+            "user": api_response.data.name,
             "email": api_response.data.email
         };
         auxAdministrators.push(data);
@@ -75,7 +75,7 @@ export default class AdministratorsController {
       "id": originalAdministrator.id,
       "administrator_state": originalAdministrator.administrator_state,
       "user_id": originalAdministrator.user_id,
-      "name": api_response.data.name,
+      "user": api_response.data.name,
       "email": api_response.data.email,
     }
     return data

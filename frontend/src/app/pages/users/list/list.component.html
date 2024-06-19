@@ -33,9 +33,9 @@
                     <td>{{ actual.token }}</td>
                     <td>{{ actual.role.name }}</td> 
                     <td>
-                        <button *ngIf="actual.role.name == 'Cliente'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'clients/manage/User/')" >Client</button>
-                        <button *ngIf="actual.role.name == 'Conductor'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'drivers/manage/User/')" >Driver</button>
-                        <button *ngIf="actual.role.name == 'Administrador'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'administrators/manage/User/')" >Admin</button>
+                        <button *ngIf="actual.role.name == 'Cliente'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'clients/view/User/')" >Client</button>
+                        <button *ngIf="actual.role.name == 'Conductor'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'drivers/view/User/')" >Driver</button>
+                        <button *ngIf="actual.role.name == 'Administrador'" type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'administrators/view/User/')" >Admin</button>
                         <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
                         <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>
                         <button type="button" class="btn btn-danger" (click) = "delete(actual.id)" >Delete</button>

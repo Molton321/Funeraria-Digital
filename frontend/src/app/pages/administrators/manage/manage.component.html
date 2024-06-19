@@ -16,6 +16,14 @@
                 <form [formGroup]="theFormGroup">
                     <div class="row">
                         <div class="col-4">
+                            Id:
+                        </div>
+                        <div class="col-8">
+                            {{theAdministrator.id}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
                             State:
                         </div>
                         <div class="col-8">
@@ -27,7 +35,7 @@
                                 <input type="radio" id="isNotActive" class="form-check-input" [(ngModel)]="theAdministrator.administrator_state" [value]="0" name="administratorState" [attr.disabled]="mode == 1 ? true : null" formControlName="administrator_state">
                                 <label class="form-check-label" for="isNotActive">is not active</label>
                             </div>
-                            <div *ngIf="getTheFormGroup?.hall_is_active?.errors && (getTheFormGroup?.hall_is_active?.dirty || getTheFormGroup?.hall_is_active?.touched || trySend)">
+                            <div *ngIf="getTheFormGroup?.administrator_state?.errors && (getTheFormGroup?.administrator_state?.dirty || getTheFormGroup?.administrator_state?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.administrator_state?.errors?.required" class="msnError">Required</small>
                             </div>
                         </div>
@@ -38,11 +46,10 @@
                         </div>
                         <div class="col-8">
                             <select class="form-control" [(ngModel)] = "theAdministrator.user_id" [attr.disabled]="mode == 1 ? true : null" formControlName="user_id">
-                                <option *ngFor="let option of theUsers" [value]="option.id">ID: {{ option.id }} - name: {{ option.name }} - email: {{ option.email }}</option>
+                                <option *ngFor="let option of theUsers" [value]="option.id">ID: {{ option.id }} - Name: {{ option.name }} - Email: {{ option.email }}</option>
                             </select>
                             <div *ngIf="getTheFormGroup?.user_id?.errors && (getTheFormGroup?.user_id?.dirty || getTheFormGroup?.user_id?.touched || trySend)">
                                 <small *ngIf="getTheFormGroup?.user_id?.errors?.required" class="msnError">Required</small>
-                                <small *ngIf="getTheFormGroup?.user_id?.errors?.minLength" class="msnError">Invalid</small>
                             </div>
                         </div>
                     </div>

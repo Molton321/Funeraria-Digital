@@ -1,7 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: "list",
+    component: ListComponent
+  },
+  {
+    path: "list/driver/:id",
+    component: ListComponent
+  },
+  {
+    path: "list/coffin/:id",
+    component: ListComponent
+  },
+  {
+    path: "create",
+    component: ManageComponent
+  },
+  {
+    path: "view/:id",
+    component: ManageComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

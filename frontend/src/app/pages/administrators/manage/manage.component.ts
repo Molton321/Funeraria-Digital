@@ -23,11 +23,11 @@ export class ManageComponent implements OnInit {
   constructor(
     private activateRoute: ActivatedRoute, 
     private service: AdministratorService, 
-    private usersService: UserService,
+    private userService: UserService, 
     private router: Router, 
     private theFormBuilder: FormBuilder
   ) { 
-    this.trySend = false;
+    this.trySend=false
     this.mode = 1;
     this.theUsers = [];
     this.theAdministrator = { id: null, administrator_state: null, user_id: '' };
@@ -35,8 +35,8 @@ export class ManageComponent implements OnInit {
 
   ngOnInit(): void {
     this.theUsers = [];
-    this.configFormGroup();
-    this.usersList();
+    this.configFormGroup()
+    this.usersList()
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
@@ -48,55 +48,73 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id){
-      this.theAdministrator.id = this.activateRoute.snapshot.params.id;
-      this.getAdministrator(this.theAdministrator.id);
+      const currentUrlArray = currentUrl.split("/");
+      if (currentUrlArray.length == 1){
+        this.theAdministrator.id = this.activateRoute.snapshot.params.id;
+        this.getAdministrator(this.theAdministrator.id);
+      }
+      if (currentUrlArray.length > 1){
+        if (currentUrlArray[1] == 'user'){
+          this.getAdministratorByUser(currentUrlArray[2]);
+        }
+      }
     }
   }
 
   usersList(){
-    this.usersService.list().subscribe(data => {
+    this.userService.list().subscribe(data => {
       this.theUsers = data;
-    });
+    })
   }
 
   configFormGroup(){
-    this.theFormGroup = this.theFormBuilder.group({
-      Administrator_date: [null, [Validators.required]],
-      service_id: [null, [Validators.required, Validators.minLength(1)]]
-    });
+    this.theFormGroup=this.theFormBuilder.group({
+      administrator_state:['',[Validators.required]],
+      user_id:[null,[Validators.required]]
+    })
   }
 
   get getTheFormGroup(){
-    return this.theFormGroup.controls;
+    return this.theFormGroup.controls
   }
 
   getAdministrator(id: number){
-    this.service.view(id).subscribe(data => {
+    this.service.view(id).subscribe(data=>{
       this.theAdministrator = data;
-    });
+    })
+  }
+
+  getAdministratorByUser(id: string){
+    this.service.viewByUser(id).subscribe(data=>{
+      this.theAdministrator = data;
+    })
   }
 
   create(){
-    this.trySend = true;
+    this.trySend=true
     if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Please fill in the fields correctly", "error");
+      Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.create(this.theAdministrator).subscribe(data => {
-        Swal.fire("Completed", "The record has been created correctly", "success");
-        this.router.navigate(["administrators/list"]);
-      });
+      this.service.create(this.theAdministrator).subscribe(data=>{
+        Swal.fire("Success","The registry has been created correctly","success")
+        this.router.navigate(["administrators/list"])
+      })
     }
   }
 
+  viewTo(id: number, route: string) {
+    this.router.navigate([route+id])
+  }
+
   update(){
-    this.trySend = true;
+    this.trySend=true
     if (this.theFormGroup.invalid) {
-      Swal.fire("Error", "Please fill in the fields correctly", "error");
+      Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.update(this.theAdministrator).subscribe(data => {
-        Swal.fire("Completed", "The record has been updated correctly", "success");
-        this.router.navigate(["administrators/list"]);
-      });
+      this.service.update(this.theAdministrator).subscribe(data=>{
+        Swal.fire("Success","The registry has been updated correctly","success")
+        this.router.navigate(["administrators/list"])
+      })
     }
   }
 

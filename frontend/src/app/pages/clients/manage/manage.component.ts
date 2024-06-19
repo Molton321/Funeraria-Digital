@@ -48,8 +48,16 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id){
-      this.theClient.id = this.activateRoute.snapshot.params.id;
-      this.getClient(this.theClient.id);
+      const currentUrlArray = currentUrl.split("/");
+      if (currentUrlArray.length == 1){
+        this.theClient.id = this.activateRoute.snapshot.params.id;
+        this.getClient(this.theClient.id);
+      }
+      if (currentUrlArray.length > 1){
+        if (currentUrlArray[1] == 'user'){
+          this.getClientByUser(currentUrlArray[2]);
+        }
+      }
     }
   }
 
@@ -75,6 +83,12 @@ export class ManageComponent implements OnInit {
 
   getClient(id: number){
     this.service.view(id).subscribe(data=>{
+      this.theClient = data;
+    })
+  }
+
+  getClientByUser(id: string){
+    this.service.viewByUser(id).subscribe(data=>{
       this.theClient = data;
     })
   }

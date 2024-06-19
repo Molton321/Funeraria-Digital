@@ -29,13 +29,5 @@ export class DisplacementService {
   create(newDisplacement: Displacement): Observable<Displacement>{
     return this.http.post<Displacement>(`${environment.url_ms_negocio}/displacements`, newDisplacement);
   }
-  update(theDisplacement: Displacement): Observable<Displacement>{    
-    const id = theDisplacement.id;
-    theDisplacement.id = undefined;
-    return this.http.put<Displacement>(`${environment.url_ms_negocio}/displacements/${id}`, theDisplacement);
-  }
-  delete(id:number){
-    return this.http.delete<Displacement>(`${environment.url_ms_negocio}/displacements/${id}`);
-  }
 
 }

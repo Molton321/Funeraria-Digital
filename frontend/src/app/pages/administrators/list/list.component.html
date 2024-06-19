@@ -15,20 +15,24 @@
                 <thead>
                   <tr>
                     <th scope="col-1">ID</th>
-                    <th scope="col-2">State</th>
-                    <th scope="col-2">User ID</th>
-                    <th scope="col-3">Actions</th>
+                    <th scope="col-1">State</th>
+                    <th scope="col-1">User ID</th>
+                    <th scope="col-1">Name</th>
+                    <th scope="col-1">Email</th>
+                    <th scope="col-1">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr *ngFor="let actual of TheAdministrators">
                     <td>{{ actual.id }}</td>
-                    <td>{{ actual.administrator_state ? 'Yes' : 'No' }}</td>
+                    <td>{{ actual.administrator_state }}</td>
                     <td>{{ actual.user_id }}</td>
+                    <td>{{ actual.user }}</td>
+                    <td>{{ actual.email }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" (click)="view(actual.id)">View</button>
-                        <button type="button" class="btn btn-success" (click)="update(actual.id)">Update</button>
-                        <button type="button" class="btn btn-danger" (click)="delete(actual.id)">Delete</button>
+                        <button type="button" class="btn btn-primary" (click) = "view(actual.id)" >View</button>
+                        <button type="button" class="btn btn-success" (click) = "update(actual.id)" >Update</button>
+                        <button type="button" class="btn btn-danger" (click) = "delete(actual.id)" >Delete</button>
                     </td>
                   </tr>
                 </tbody>

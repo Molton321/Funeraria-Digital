@@ -14,8 +14,8 @@ export class AdministratorService {
   list(): Observable<Administrator[]> {
     return this.http.get<Administrator[]>(`${environment.url_ms_negocio}/administrators`);
   }
-  listByUser(id:number): Observable<Administrator[]> {
-    return this.http.get<Administrator[]>(`${environment.url_ms_negocio}/administrators/user/${id}`);
+  viewByUser(id:string): Observable<Administrator> {
+    return this.http.get<Administrator>(`${environment.url_ms_negocio}/administrators/user/${id}`);
   }
   view(id: number): Observable<Administrator> {
     return this.http.get<Administrator>(`${environment.url_ms_negocio}/administrators/${id}`);
