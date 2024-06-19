@@ -88,6 +88,7 @@ export const AdminLayoutRoutes: Routes = [
     },
     {
         path: 'drivers',
+        loadChildren: () => import('src/app/pages/drivers/drivers.module').then(m => m.DriversModule)
 
     },
     {

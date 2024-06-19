@@ -85,7 +85,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
       this.service.create(this.theClient).subscribe(data=>{
-        Swal.fire("Completado","The registry has been created correctly","success")
+        Swal.fire("Success","The registry has been created correctly","success")
         this.router.navigate(["clients/list"])
       })
     }
@@ -101,7 +101,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
       this.service.update(this.theClient).subscribe(data=>{
-        Swal.fire("Completado","The registry has been updated correctly","success")
+        Swal.fire("Success","The registry has been updated correctly","success")
         this.router.navigate(["clients/list"])
       })
     }

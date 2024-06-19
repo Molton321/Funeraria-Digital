@@ -71,7 +71,7 @@ export class RegisterComponent implements OnInit {
     } else {
       this.service.create(this.theUser).subscribe(data=>{
         this.service.matchRole(data.id, '667217f155d1f267b8e9b4ca').subscribe(data=>{
-          Swal.fire("Completado","The registry has been created correctly","success")
+          Swal.fire("Success","The registry has been created correctly","success")
           this.router.navigate(["login"])
         })
       })

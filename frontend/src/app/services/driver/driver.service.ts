@@ -14,7 +14,7 @@ export class DriverService {
   list(): Observable<Driver[]> {
     return this.http.get<Driver[]>(`${environment.url_ms_negocio}/drivers`);
   }
-  listByUser(id:number): Observable<Driver[]> {
+  listByUser(id:string): Observable<Driver[]> {
     return this.http.get<Driver[]>(`${environment.url_ms_negocio}/drivers/user/${id}`);
   }
   view(id: number): Observable<Driver> {

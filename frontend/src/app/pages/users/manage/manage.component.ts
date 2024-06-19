@@ -86,9 +86,9 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
       this.service.update(this.theUser).subscribe(data=>{
-        Swal.fire("Completado","The registry has been updated correctly","success")
+        Swal.fire("Success","The registry has been updated correctly","success")
         this.service.matchRole(data.id, this.theUser.role.id).subscribe(data=>{
-          Swal.fire("Completado","The registry has been created correctly","success")
+          Swal.fire("Success","The registry has been created correctly","success")
           this.router.navigate(["users/list"])
         })
       })
