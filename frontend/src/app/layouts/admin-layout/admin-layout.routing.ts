@@ -108,6 +108,10 @@ export const AdminLayoutRoutes: Routes = [
     {
         path: 'cities',
         loadChildren: () => import('src/app/pages/cities/cities.module').then(m => m.CitiesModule)
+    },
+    {
+        path:'epayco',
+        loadChildren: () => import('src/app/pages/epayco/epayco.module').then(m => m.EpaycoModule)
     }
 
 ];

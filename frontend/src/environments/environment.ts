@@ -7,7 +7,8 @@ export const environment = {
   url_ms_negocio: 'http://127.0.0.1:3333',
   url_ms_security: 'http://127.0.0.1:8181',
   url_ms_sustentacion: 'https://f438ddc5-acac-42a2-8b86-967466f491a1.mock.pstmn.io',
-  url_api_colombia:'https://api-colombia.com/api/v1'
+  url_api_colombia:'https://api-colombia.com/api/v1',
+  stripe_public_key: 'pk_test_51PTFUfP3WEfzmo3QWXPLmvgDBhhwM1TAog59mhlxIIQQHuiDZEfU0cx0uSDlLf6XJKOWW6EkYKDHJl1qTJM4QRHY00cynpmTOD',
 };
 
 /*

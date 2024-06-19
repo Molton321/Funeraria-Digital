@@ -33,7 +33,7 @@ import './routes/payments'
 import './routes/planServices'
 import './routes/cremations'
 import './routes/viewings'
-import './routes/deceaseds'
+//import './routes/deceaseds'
 import './routes/userChats'
 
 //Milton Routes

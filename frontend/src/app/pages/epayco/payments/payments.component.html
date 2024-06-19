@@ -1,1 +1,43 @@
-<p>payments works!</p>
+
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8">
+</div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+          <h3 class="mb-0">Pagos</h3>
+        </div>
+        <div class="card-body">
+            <div>
+              <form id="pay">
+                <p>Realiza tu pago</p>
+                <button (click)="pay()">Pagar</button>
+                <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"
+                  data-epayco-key=" 20639c3c67deb4626f616b553aa57e2d"
+                  data-epayco-invoice="1234324"
+                  data-epayco-amount="20000"
+                  data-epayco-name="Pago de Prueba"
+                  data-epayco-description="Pago de Prueba"
+                  data-epayco-currency="cop"
+                  data-epayco-country="CO"
+                  data-epayco-test="true"
+                  data-epayco-external="false "
+                  data-epayco-response="http://localhost:4200/epayco"
+                  data-epayco-accept="https://www.google.com"
+                  data-epayco-confirmation="https://www.google.com"
+                  data-epayco-confirmation_method="GET"
+                  data-epayco-button="https://multimedia.epayco.co/dashboard/btns/btn3.png"
+                ></script>  
+              </form>
+              
+            </div>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
