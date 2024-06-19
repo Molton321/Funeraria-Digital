@@ -90,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row" *ngIf="mode==1 || mode==2">
+                    <div class="row" *ngIf="mode==1 || mode==3">
                         <div class="col-4">
                             Services:
                         </div>
@@ -98,7 +98,7 @@
                             <button type="button" class="btn btn-info" (click) = "viewTo(actual.id, 'services/list/plan/')" >Services</button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="mode==1 || mode==2">
+                    <div class="row" *ngIf="mode==1 || mode==3">
                         <div class="col-4">
                             Plan Services:
                         </div>
@@ -106,7 +106,7 @@
                             <button type="button" class="btn btn-info" (click) = "viewTo(theService.id, 'planServices/list/service/')" >Plan Services</button>
                         </div>
                     </div>
-                    <div class="row" *ngIf="mode==1 || mode==2">
+                    <div class="row" *ngIf="mode==1 || mode==3">
                         <div class="col-4">
                             Subscriptions:
                         </div>

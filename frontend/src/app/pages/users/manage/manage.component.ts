@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Plan as PlanModel } from 'src/app/models/plan/plan.model';
-import { PlanService } from 'src/app/services/plan/plan.service';
+import { Role as RoleModel } from 'src/app/models/role/role.model';
+import { User as UserModel } from 'src/app/models/user/user.model';
+import { RoleService } from 'src/app/services/role/role.service';
+import { UserService } from 'src/app/services/user/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,46 +15,54 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
 
   mode: number; // 1->view, 2 ->create, 3->update
-  thePlan: PlanModel;
+  theUser: UserModel;
   theFormGroup: FormGroup;
   trySend: boolean
+  theRoles: RoleModel[];
 
   constructor(
     private activateRoute: ActivatedRoute, 
-    private service: PlanService, 
+    private service: UserService, 
+    private roleService: RoleService, 
     private router: Router, 
-    private theFormBuilder:FormBuilder
+    private theFormBuilder: FormBuilder
   ) { 
     this.trySend=false
     this.mode = 1;
-    this.thePlan = { id: null, plan_type: '', plan_description: '', plan_price: null, plan_beneficiaries_number: null, plan_state: null };
+    this.theRoles = [];
+    this.theUser = { id: null, name: '', email: '', password: '', role: null };
   }
 
   ngOnInit(): void {
+    this.theRoles = [];
+    this.rolesList()
     this.configFormGroup()
     const currentUrl = this.activateRoute.snapshot.url.join('/');
     if (currentUrl.includes('view')){
       this.mode = 1;
     }
-    if (currentUrl.includes('create')){
-      this.mode = 2;
-    }
     if (currentUrl.includes('update')){
       this.mode = 3;
     }
     if (this.activateRoute.snapshot.params.id){
-      this.thePlan.id = this.activateRoute.snapshot.params.id;
-      this.getPlan(this.thePlan.id);
+      this.theUser.id = this.activateRoute.snapshot.params.id;
+      this.getUser(this.theUser.id);
     }
+  }
+
+  rolesList(){
+    this.roleService.list().subscribe(data => {
+      this.theRoles = data;
+    })
   }
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({
-      plan_type:['',[Validators.required,Validators.minLength(4)]],
-      plan_description:['',[Validators.required,Validators.minLength(15)]],
-      plan_price:[null,[Validators.required,Validators.min(0),Validators.max(100000000)]],
-      plan_beneficiaries_number:[null,[Validators.required,Validators.min(1),Validators.max(100)]],
-      plan_state:[null,[Validators.required]]
+      name:['',[Validators.required,Validators.minLength(2)]],
+      email:['',[Validators.required,Validators.email]],
+      password:['',[Validators.required,Validators.minLength(5)]],
+      role:['',[Validators.required]]
+      
     })
   }
 
@@ -60,22 +70,10 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls
   }
 
-  getPlan(id: number){
+  getUser(id: string){
     this.service.view(id).subscribe(data=>{
-      this.thePlan = data;
+      this.theUser = data;
     })
-  }
-
-  create(){
-    this.trySend=true
-    if (this.theFormGroup.invalid) {
-      Swal.fire("Error","Please fill in the fields correctly", "error")
-    } else {
-      this.service.create(this.thePlan).subscribe(data=>{
-        Swal.fire("Completado","The registry has been created correctly","success")
-        this.router.navigate(["plans/list"])
-      })
-    }
   }
 
   viewTo(id: number, route: string) {
@@ -87,9 +85,12 @@ export class ManageComponent implements OnInit {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
-      this.service.update(this.thePlan).subscribe(data=>{
+      this.service.update(this.theUser).subscribe(data=>{
         Swal.fire("Completado","The registry has been updated correctly","success")
-        this.router.navigate(["plans/list"])
+        this.service.matchRole(data.id, this.theUser.role.id).subscribe(data=>{
+          Swal.fire("Completado","The registry has been created correctly","success")
+          this.router.navigate(["users/list"])
+        })
       })
     }
   }

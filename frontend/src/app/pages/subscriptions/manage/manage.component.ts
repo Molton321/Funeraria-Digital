@@ -61,8 +61,7 @@ export class ManageComponent implements OnInit {
   clientsList(){
     this.clientService.list().subscribe(data => {
       this.theClients = data;
-      console.log(this.theClients);
-      
+      // console.log(this.theClients);
     })
   }
 

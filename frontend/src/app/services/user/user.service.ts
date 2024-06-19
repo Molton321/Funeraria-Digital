@@ -23,10 +23,10 @@ export class UserService {
   update(theUser: User): Observable<User> {
     return this.http.put<User>(`${environment.url_ms_security}/api/users/${theUser.id}`, theUser);
   }
-  matchRole(idUser: string, idRole: number): Observable<User> {
+  matchRole(idUser: string, idRole: string): Observable<User> {
     return this.http.put<User>(`${environment.url_ms_security}/api/users/${idUser}/match-role/${idRole}`, null);
   }
-  unMatchRole(idUser: string, idRole: number): Observable<User> {
+  unMatchRole(idUser: string, idRole: string): Observable<User> {
     return this.http.put<User>(`${environment.url_ms_security}/api/users/${idUser}/unmatch-role/${idRole}`, null);
   }
   delete(id: string) {

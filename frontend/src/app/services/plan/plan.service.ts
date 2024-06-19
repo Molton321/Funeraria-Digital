@@ -26,7 +26,7 @@ export class PlanService {
   create(newPlan: Plan): Observable<Plan>{
     return this.http.post<Plan>(`${environment.url_ms_negocio}/plans`, newPlan);
   }
-  uptate(thePlan: Plan): Observable<Plan>{    
+  update(thePlan: Plan): Observable<Plan>{    
     const id = thePlan.id;
     thePlan.id = undefined;
     return this.http.put<Plan>(`${environment.url_ms_negocio}/plans/${id}`, thePlan);

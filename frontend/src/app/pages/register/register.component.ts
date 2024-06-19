@@ -48,11 +48,9 @@ export class RegisterComponent implements OnInit {
 
   configFormGroup(){
     this.theFormGroup=this.theFormBuilder.group({
-      User_type:['',[Validators.required,Validators.minLength(4)]],
-      User_description:['',[Validators.required,Validators.minLength(15)]],
-      User_price:[null,[Validators.required,Validators.min(0),Validators.max(100000000)]],
-      User_beneficiaries_number:[null,[Validators.required,Validators.min(1),Validators.max(100)]],
-      User_state:[null,[Validators.required]]
+      name:['',[Validators.required,Validators.minLength(2)]],
+      email:['',[Validators.required,Validators.minLength(5)]],
+      password:['',[Validators.required,Validators.minLength(5)]]
     })
   }
 
@@ -72,8 +70,10 @@ export class RegisterComponent implements OnInit {
       Swal.fire("Error","Please fill in the fields correctly", "error")
     } else {
       this.service.create(this.theUser).subscribe(data=>{
-        Swal.fire("Completado","The registry has been created correctly","success")
-        this.router.navigate(["Users/list"])
+        this.service.matchRole(data.id, '667217f155d1f267b8e9b4ca').subscribe(data=>{
+          Swal.fire("Completado","The registry has been created correctly","success")
+          this.router.navigate(["login"])
+        })
       })
     }
   }
